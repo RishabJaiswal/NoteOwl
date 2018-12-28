@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
@@ -9,33 +8,34 @@
     <!--note image-->
     <ImageView
         android:id="@+id/imv_note_banner"
-        android:layout_width="160dp"
-        android:layout_height="90dp"
+        android:layout_width="210dp"
+        android:layout_height="160dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <!--note date-->
-    <TextView
-        android:id="@+id/tv_note_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!--note title-->
+    <ImageView
+        android:id="@+id/imv_liked"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
-        tools:text="@tools:sample/date/mmddyy" />
+        tools:srcCompat="@tools:sample/avatars" />
 
-    <!--note title-->
     <TextView
         android:id="@+id/tv_note_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textSize="20sp"
+        android:maxLines="1"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/txt_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_note_date"
+        app:layout_constraintTop_toBottomOf="@+id/imv_liked"
         tools:text="@tools:sample/lorem" />
 
     <!--note details-->
@@ -46,9 +46,23 @@
         android:layout_marginTop="8dp"
         android:maxLines="4"
         android:ellipsize="end"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/txt_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_note_title"
         tools:text="@tools:sample/lorem/random" />
+
+    <!--note date-->
+    <TextView
+        android:id="@+id/tv_note_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/txt_caption"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_note_details"
+        tools:text="12 May" />
 
 </android.support.constraint.ConstraintLayout>
