@@ -30,6 +30,7 @@
 
     <!--notes-->
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -37,5 +38,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_note" />
+
+    <!--labels to filter or add note-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_label_filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/item_label_home_filters" />
 
 </android.support.constraint.ConstraintLayout>
