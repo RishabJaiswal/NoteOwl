@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginEnd="18dp"
+    android:layout_marginStart="18dp">
 
     <!--note image-->
     <ImageView
@@ -15,16 +17,39 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <!--note title-->
+    <!--liked icon-->
     <ImageView
         android:id="@+id/imv_liked"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginTop="8dp"
+        android:padding="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/ic_liked"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
+    <!--labels-->
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imv_liked"
+        app:layout_constraintTop_toBottomOf="@+id/imv_note_banner">
+
+        <LinearLayout
+            android:id="@+id/ll_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/item_label_note_home" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!--note title-->
     <TextView
         android:id="@+id/tv_note_title"
         android:layout_width="0dp"

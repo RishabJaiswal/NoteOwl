@@ -15,4 +15,14 @@
         android:translationX="-20dp"
         android:translationY="-20dp"/>
 
+    <!--notes-->
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_note" />
+
 </android.support.constraint.ConstraintLayout>
