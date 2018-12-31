@@ -1,21 +1,33 @@
 package com.owl.noteowl.features.home
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.owl.noteowl.data.features.notes.models.Note
+import com.owl.noteowl.databinding.ItemNoteBinding
 
-class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): NoteViewHolder {
-        return NoteViewHolder(p0)
+class NotesAdapter(val context: Context) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
+        return NoteViewHolder(
+            ItemNoteBinding.inflate(
+                LayoutInflater.from(context), parent, false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
         return 5
     }
 
-    override fun onBindViewHolder(p0: NoteViewHolder, p1: Int) {
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+        holder.bind(Note())
     }
 
-    inner class NoteViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    inner class NoteViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(note: Note) {
+            binding.note = note
+        }
     }
 }

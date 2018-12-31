@@ -1,97 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_marginEnd="18dp"
-    android:layout_marginStart="18dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!--note image-->
-    <ImageView
-        android:id="@+id/imv_note_banner"
-        android:layout_width="210dp"
-        android:layout_height="160dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <data>
 
-    <!--liked icon-->
-    <ImageView
-        android:id="@+id/imv_liked"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="8dp"
-        android:padding="1dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
-        app:srcCompat="@drawable/ic_liked"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        <import type="android.view.View" />
 
-    <!--labels-->
-    <HorizontalScrollView
+        <variable
+            name="note"
+            type="com.owl.noteowl.data.features.notes.models.Note" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/imv_liked"
-        app:layout_constraintTop_toBottomOf="@+id/imv_note_banner">
+        android:layout_height="match_parent"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp">
 
-        <LinearLayout
-            android:id="@+id/ll_labels"
+        <!--note image-->
+        <ImageView
+            android:id="@+id/imv_note_banner"
+            android:layout_width="210dp"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <!--liked icon-->
+        <ImageView
+            android:id="@+id/imv_liked"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="8dp"
+            android:padding="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
+            app:srcCompat="@drawable/ic_liked"
+            android:visibility="@{note.liked ? View.VISIBLE : View.GONE}"
+            tools:visibility="visible" />
+
+        <!--labels-->
+        <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="@{note.labels.size() > 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toEndOf="@+id/imv_liked"
+            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner">
 
-            <include layout="@layout/item_label_note_home" />
+            <LinearLayout
+                android:id="@+id/ll_labels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        </LinearLayout>
-    </HorizontalScrollView>
+                <include layout="@layout/item_label_note_home" />
 
-    <!--note title-->
-    <TextView
-        android:id="@+id/tv_note_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:maxLines="1"
-        android:fontFamily="@font/regular"
-        android:textColor="@color/textPrimary"
-        android:textSize="@dimen/txt_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imv_liked"
-        tools:text="Cook for heart" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
-    <!--note details-->
-    <TextView
-        android:id="@+id/tv_note_details"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:maxLines="4"
-        android:ellipsize="end"
-        android:textColor="@color/textSecondary"
-        android:textSize="@dimen/txt_body"
-        android:lineSpacingExtra="2dp"
-        android:fontFamily="@font/medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_note_title"
-        tools:text="@tools:sample/lorem/random" />
+        <!--note title-->
+        <TextView
+            android:id="@+id/tv_note_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:maxLines="1"
+            android:fontFamily="@font/regular"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/txt_24"
+            android:text="@{note.title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imv_liked"
+            tools:text="Cook for heart" />
 
-    <!--note date-->
-    <TextView
-        android:id="@+id/tv_note_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/textPrimary"
-        android:textSize="@dimen/txt_caption"
-        android:fontFamily="@font/regular"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_note_details"
-        tools:text="12 May" />
+        <!--note details-->
+        <TextView
+            android:id="@+id/tv_note_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/txt_body"
+            android:text="@{note.text}"
+            android:lineSpacingExtra="2dp"
+            android:fontFamily="@font/medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_title"
+            tools:text="@tools:sample/lorem/random" />
 
-</android.support.constraint.ConstraintLayout>
+        <!--note date-->
+        <TextView
+            android:id="@+id/tv_note_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/txt_caption"
+            android:fontFamily="@font/regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_details"
+            tools:text="12 May" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
