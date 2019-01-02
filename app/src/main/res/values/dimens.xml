@@ -5,4 +5,5 @@
     <dimen name="txt_18">18sp</dimen>
     <dimen name="txt_20">20sp</dimen>
     <dimen name="txt_24">24sp</dimen>
+    <dimen name="txt_40">40sp</dimen>
 </resources>
