@@ -8,4 +8,5 @@ class Label : RealmObject() {
     @PrimaryKey
     var title: String = ""
     var createdAt: Date = Date()
+    var colorHex: String = "#000000"
 }

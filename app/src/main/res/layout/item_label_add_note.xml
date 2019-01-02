@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <import type="android.graphics.Color" />
         <variable
             name="label"
             type="com.owl.noteowl.data.features.notes.models.Label" />
@@ -17,7 +19,9 @@
         android:paddingStart="12dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
-        android:background="@drawable/bg_label">
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_label"
+        bind:bgTint="@{label.colorHex}">
 
         <!--label name-->
         <TextView
@@ -26,19 +30,19 @@
             android:layout_height="wrap_content"
             tools:text="Notes"
             android:text="@{label.title}"
+            android:gravity="center"
             android:textSize="@dimen/txt_caption"
             android:textColor="@color/textSecondary"
             android:fontFamily="@font/semi_bold" />
 
         <!--close label-->
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imv_close_label"
             android:layout_width="18dp"
             android:layout_height="18dp"
             app:srcCompat="@drawable/ic_cross"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="12dp"
-            android:layout_gravity="center_vertical" />
+            android:layout_marginEnd="12dp" />
 
     </LinearLayout>
 
