@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
-    android:paddingTop="20dp">
+    android:paddingTop="20dp"
+    android:background="@android:color/white">
 
     <!--note title-->
     <EditText
@@ -22,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="?android:attr/selectableItemBackground" />
+        android:background="@android:color/white" />
 
     <!--labels-->
     <androidx.recyclerview.widget.RecyclerView
@@ -65,7 +66,7 @@
         android:id="@+id/edt_note_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="@android:color/white"
         android:lineSpacingExtra="4dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
@@ -90,7 +91,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_next" />
 
     <!--next button-->
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -99,7 +100,7 @@
         android:textSize="@dimen/txt_body"
         android:textColor="@color/textPrimary"
         android:fontFamily="@font/semi_bold"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 

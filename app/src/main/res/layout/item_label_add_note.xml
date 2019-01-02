@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingStart="12dp"
-    android:paddingTop="6dp"
-    android:paddingBottom="6dp"
-    android:background="@drawable/bg_label">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--label name-->
-    <TextView
-        android:id="@+id/tv_label_name"
+    <data>
+
+        <variable
+            name="label"
+            type="com.owl.noteowl.data.features.notes.models.Label" />
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Notes"
-        android:textSize="@dimen/txt_caption"
-        android:textColor="@color/textSecondary"
-        android:fontFamily="@font/semi_bold" />
+        android:paddingStart="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:background="@drawable/bg_label">
 
-    <!--close label-->
-    <ImageView
-        android:id="@+id/imv_close_label"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        app:srcCompat="@drawable/ic_cross"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="12dp"
-        android:layout_gravity="center_vertical" />
+        <!--label name-->
+        <TextView
+            android:id="@+id/tv_label_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Notes"
+            android:text="@{label.title}"
+            android:textSize="@dimen/txt_caption"
+            android:textColor="@color/textSecondary"
+            android:fontFamily="@font/semi_bold" />
 
-</LinearLayout>
+        <!--close label-->
+        <ImageView
+            android:id="@+id/imv_close_label"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            app:srcCompat="@drawable/ic_cross"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="12dp"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+</layout>
