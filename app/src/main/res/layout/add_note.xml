@@ -56,6 +56,9 @@
             android:fontFamily="@font/medium"
             android:textColor="@color/textSecondary"
             android:textSize="@dimen/txt_body"
+            android:drawableStart="@drawable/ic_date"
+            android:drawablePadding="8dp"
+            android:gravity="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_labels_add_note"
             tools:text="12 June 2018" />
@@ -70,13 +73,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_note_date" />
 
+        <!--favourite icon-->
+        <ImageView
+            android:id="@+id/imv_fav_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_favorite"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_note_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_note_date" />
+
         <!--note text-->
         <EditText
             android:id="@+id/edt_note_text"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@android:color/white"
-            android:lineSpacingExtra="4dp"
+            android:lineSpacingExtra="6dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:textColor="@color/textPrimary"
