@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="24dp"
-        android:paddingEnd="24dp"
         android:paddingTop="20dp"
         android:background="@android:color/white"
         android:animateLayoutChanges="true"
@@ -23,16 +24,17 @@
             android:id="@+id/edt_note_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:hint="@string/add_title"
-            android:gravity="start"
-            android:textSize="@dimen/txt_40"
-            android:textColor="@color/textPrimary"
+            android:layout_marginEnd="24dp"
+            android:background="@android:color/white"
             android:fontFamily="@font/light"
+            android:gravity="start"
+            android:hint="@string/add_title"
+            android:maxLines="3"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/txt_40"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@android:color/white" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--labels-->
         <androidx.recyclerview.widget.RecyclerView
@@ -73,11 +75,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_note_date" />
 
+        <!--confetti-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/confetti_fav"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            app:layout_constraintTop_toTopOf="@+id/cb_fav_note"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/cb_fav_note"
+            app:lottie_fileName="confetti.json" />
+
         <!--favourite icon-->
-        <ImageView
-            android:id="@+id/imv_fav_note"
+        <CheckBox
+            android:id="@+id/cb_fav_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:layout_marginEnd="24dp"
+            android:button="@drawable/favorite_selector"
             android:src="@drawable/ic_favorite"
             app:layout_constraintBottom_toBottomOf="@+id/tv_note_date"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,14 +104,15 @@
             android:id="@+id/edt_note_text"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginEnd="24dp"
             android:background="@android:color/white"
+            android:fontFamily="@font/semi_bold"
+            android:gravity="start"
             android:lineSpacingExtra="6dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_body"
-            android:fontFamily="@font/semi_bold"
-            android:gravity="start"
             app:layout_constraintBottom_toTopOf="@+id/divider_text_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

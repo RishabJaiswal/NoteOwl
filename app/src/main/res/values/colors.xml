@@ -9,5 +9,5 @@
     <color name="textSecondary">#8A000000</color>
     <color name="textDisabled">#757575</color>
 
-    <color name="favourite">#F99292</color>
+    <color name="favorite">#F99292</color>
 </resources>
