@@ -11,7 +11,7 @@ fun setBgTint(view: LinearLayout, color: String) {
     view.background?.let {
         DrawableCompat.wrap(it).apply {
             setTint(Color.parseColor(color))
-            DrawableCompat.setTintMode(this, PorterDuff.Mode.MULTIPLY)
+            DrawableCompat.setTintMode(this, PorterDuff.Mode.SRC_IN)
         }
     }
 }

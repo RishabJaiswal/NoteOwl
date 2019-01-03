@@ -4,7 +4,7 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.util.*
 
-class Label : RealmObject() {
+open class Label : RealmObject() {
     @PrimaryKey
     var title: String = ""
     var createdAt: Date = Date()

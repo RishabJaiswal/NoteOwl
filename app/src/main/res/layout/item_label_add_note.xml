@@ -6,7 +6,6 @@
 
     <data>
 
-        <import type="android.graphics.Color" />
         <variable
             name="label"
             type="com.owl.noteowl.data.features.notes.models.Label" />

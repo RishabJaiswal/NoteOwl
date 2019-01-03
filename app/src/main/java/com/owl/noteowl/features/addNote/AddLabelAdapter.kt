@@ -1,11 +1,9 @@
 package com.owl.noteowl.features.addNote
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
@@ -41,19 +39,27 @@ class AddLabelAdapter(val context: Context, val labels: List<Label>) :
         fun bind(label: Label) {
             binding.label = label
             binding.imvCloseLabel.setOnClickListener(this)
+            binding.root.setOnClickListener(this)
 
             //rotating cross to plus
-            if (adapterPosition == 0) {
-                binding.imvCloseLabel.rotation = 45f
-            } else {
-                binding.imvCloseLabel.rotation = 0f
-                Color.BLACK
-            }
+            binding.imvCloseLabel.rotation = if (adapterPosition == 0) 45f else 0f
         }
 
         override fun onClick(view: View?) {
-            if (adapterPosition == 0) {
-                Toast.makeText(context, "Label added", Toast.LENGTH_LONG).show()
+            when (view?.id) {
+                //remove label
+                R.id.imv_close_label -> {
+                    if (adapterPosition > 0) {
+                        //todo:: remove label from list
+                    }
+                }
+
+                //add label
+                else -> {
+                    if (adapterPosition == 0) {
+                        //todo:: add label to list
+                    }
+                }
             }
         }
     }
