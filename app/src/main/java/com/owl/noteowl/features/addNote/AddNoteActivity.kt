@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
+import androidx.appcompat.app.AlertDialog
 import com.owl.noteowl.R
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.text
@@ -25,7 +26,8 @@ class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickList
 
     //labels
     fun setLabels() {
-        rv_labels_add_note.adapter = AddLabelAdapter(this, emptyList())
+        rv_labels_add_note.adapter =
+                com.owl.noteowl.features.addNote.AddLabelAdapter(this, emptyList(), this::showSelectLabelDialog)
     }
 
     //focus listener
@@ -50,5 +52,12 @@ class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickList
             confetti_fav.speed = 1.3f
             confetti_fav.playAnimation()
         }
+    }
+
+    fun showSelectLabelDialog() {
+        val dialog = AlertDialog.Builder(this, R.style.AppTheme)
+            .setView(R.layout.dialog_select_label)
+            .create()
+        dialog.show()
     }
 }

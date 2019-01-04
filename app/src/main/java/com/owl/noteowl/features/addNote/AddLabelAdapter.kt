@@ -9,7 +9,10 @@ import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelAddNoteBinding
 
-class AddLabelAdapter(val context: Context, val labels: List<Label>) :
+class AddLabelAdapter(
+    val context: Context, val labels: List<Label>,
+    val selectLabel: () -> Unit
+) :
     RecyclerView.Adapter<AddLabelAdapter.AddLabelHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddLabelHolder {
         return AddLabelHolder(
@@ -57,7 +60,7 @@ class AddLabelAdapter(val context: Context, val labels: List<Label>) :
                 //add label
                 else -> {
                     if (adapterPosition == 0) {
-                        //todo:: add label to list
+                        selectLabel()
                     }
                 }
             }
