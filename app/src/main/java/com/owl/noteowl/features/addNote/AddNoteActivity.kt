@@ -55,7 +55,7 @@ class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickList
     }
 
     fun showSelectLabelDialog() {
-        val dialog = AlertDialog.Builder(this, R.style.AppTheme)
+        val dialog = AlertDialog.Builder(this)
             .setView(R.layout.dialog_select_label)
             .create()
         dialog.show()

@@ -47,8 +47,9 @@
         android:gravity="center"
         android:hint="@string/enter_label"
         android:padding="16dp"
-        android:textColor="@color/textSecondary"
+        android:textColor="@color/textPrimary"
         android:textSize="@dimen/txt_body"
+        android:fontFamily="@font/semi_bold"
         app:layout_constraintEnd_toStartOf="@+id/HSLColorPicker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_select_label" />
@@ -60,6 +61,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
         android:text="@string/cta_cancel"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/txt_body"
         android:background="@drawable/right_radial_rectangle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_label_title" />
@@ -70,6 +73,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cta_save"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/txt_body"
         android:background="@drawable/left_radial_rectangle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel_select_label" />
@@ -85,6 +90,7 @@
         android:textColor="@color/textSecondary"
         android:fontFamily="@font/medium"
         android:textSize="@dimen/txt_body"
+        android:padding="5dp"
         android:background="#F2F2F2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
