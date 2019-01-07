@@ -54,6 +54,8 @@ class AddLabelAdapter(
                 R.id.imv_close_label -> {
                     if (adapterPosition > 0) {
                         //todo:: remove label from list
+                    } else {
+                        selectLabel()
                     }
                 }
 

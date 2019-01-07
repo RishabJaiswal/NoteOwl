@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.CompoundButton
 import androidx.appcompat.app.AlertDialog
 import com.owl.noteowl.R
+import com.owl.noteowl.databinding.DialogSelectLabelBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.extensions.visible
@@ -14,6 +15,8 @@ import java.util.*
 
 class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickListener,
     CompoundButton.OnCheckedChangeListener {
+
+    private var selectLabelDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,13 @@ class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickList
     //click listener
     override fun onClick(view: View?) {
         when (view?.id) {
+            R.id.btn_cancel_select_label -> {
+                selectLabelDialog?.dismiss()
+            }
+
+            R.id.btn_save_select_label -> {
+                //todo:: save label
+            }
         }
     }
 
@@ -55,9 +65,19 @@ class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickList
     }
 
     fun showSelectLabelDialog() {
-        val dialog = AlertDialog.Builder(this)
-            .setView(R.layout.dialog_select_label)
-            .create()
-        dialog.show()
+        if (selectLabelDialog == null) {
+            val labelSelectBinding = DialogSelectLabelBinding.inflate(layoutInflater)
+            labelSelectBinding.HSLColorPicker.setOnColorChangeListener { colorBarPosition, alphaBarPosition, color ->
+                labelSelectBinding.colorSelected = color
+            }
+            labelSelectBinding.btnCancelSelectLabel.setOnClickListener(this)
+            labelSelectBinding.btnSaveSelectLabel.setOnClickListener(this)
+
+            //creating dialog
+            selectLabelDialog = AlertDialog.Builder(this)
+                .setView(labelSelectBinding.root)
+                .create()
+        }
+        selectLabelDialog?.show()
     }
 }
