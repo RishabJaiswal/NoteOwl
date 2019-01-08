@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="note"
+            type="com.owl.noteowl.data.features.notes.models.Note" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +35,7 @@
             android:maxLines="3"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_40"
+            android:text="@={note.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -95,6 +99,7 @@
             android:paddingEnd="24dp"
             android:button="@drawable/favorite_selector"
             android:src="@drawable/ic_favorite"
+            android:checked="@={note.liked}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_note_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_note_date" />
@@ -113,6 +118,7 @@
             android:paddingBottom="16dp"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_body"
+            android:text="@={note.text}"
             app:layout_constraintBottom_toTopOf="@+id/divider_text_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

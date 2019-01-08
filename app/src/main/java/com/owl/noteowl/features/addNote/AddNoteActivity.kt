@@ -6,8 +6,10 @@ import android.view.View
 import android.widget.CompoundButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
+import com.owl.noteowl.databinding.AddNoteBinding
 import com.owl.noteowl.databinding.DialogSelectLabelBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.text
@@ -21,13 +23,15 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
 
     private var selectLabelDialog: AlertDialog? = null
     private lateinit var selectLabelBinding: DialogSelectLabelBinding
+    private lateinit var mainBinding: AddNoteBinding
     private val viewModel by lazy {
         ViewModelProviders.of(this)[AddNoteViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.add_note)
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.add_note)
+        mainBinding.note = viewModel.newNote
         setLabels()
         tv_note_date.text = Date().text("dd MMM yyy")
         edt_note_text.setOnFocusChangeListener(this)
