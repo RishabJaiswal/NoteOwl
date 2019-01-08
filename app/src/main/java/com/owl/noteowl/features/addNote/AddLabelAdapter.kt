@@ -76,6 +76,7 @@ class AddLabelAdapter(
             binding.imvCloseLabel.rotation = if (adapterPosition == 0) 45f else 0f
         }
 
+        //click callback
         override fun onClick(view: View?) {
             when (view?.id) {
                 //remove label

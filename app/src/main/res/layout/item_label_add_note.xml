@@ -26,6 +26,7 @@
         android:paddingStart="12dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="@{utility.getMargin(viewType, 24, 8, 8)}"
         android:layout_marginEnd="@{utility.getMargin(viewType, 8, 8, 24)}"
