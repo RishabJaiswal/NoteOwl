@@ -5,10 +5,13 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="label"
             type="com.owl.noteowl.data.features.notes.models.Label" />
+
+        <variable
+            name="utility"
+            type="com.owl.noteowl.utils.ContextUtility" />
     </data>
 
     <LinearLayout
@@ -31,7 +34,7 @@
             android:text="@{label.title}"
             android:gravity="center"
             android:textSize="@dimen/txt_caption"
-            android:textColor="@color/textSecondary"
+            android:textColor="@{utility.getTextColor(label.colorHex)}"
             android:fontFamily="@font/semi_bold" />
 
         <!--close label-->
@@ -40,6 +43,7 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             app:srcCompat="@drawable/ic_cross"
+            android:tint="@{utility.getTextColor(label.colorHex)}"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="12dp" />
 

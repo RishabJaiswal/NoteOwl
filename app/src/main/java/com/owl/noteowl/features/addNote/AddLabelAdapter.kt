@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelAddNoteBinding
+import com.owl.noteowl.utils.ContextUtility
 import io.realm.OrderedRealmCollection
 import io.realm.RealmList
 
@@ -18,6 +19,10 @@ class AddLabelAdapter(
     val viewModel: AddNoteViewModel,
     val selectLabel: () -> Unit
 ) : RecyclerView.Adapter<AddLabelAdapter.AddLabelHolder>() {
+
+    private val contextUtility by lazy {
+        ContextUtility(context)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddLabelHolder {
         return AddLabelHolder(
@@ -50,6 +55,7 @@ class AddLabelAdapter(
         View.OnClickListener {
         fun bind(label: Label) {
             binding.label = label
+            binding.utility = contextUtility
             binding.imvCloseLabel.setOnClickListener(this)
             binding.root.setOnClickListener(this)
 
