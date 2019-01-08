@@ -7,6 +7,10 @@
     <data>
 
         <variable
+            name="labelName"
+            type="String" />
+
+        <variable
             name="colorSelected"
             type="Integer" />
     </data>
@@ -71,6 +75,7 @@
             android:padding="16dp"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_body"
+            android:text="@={labelName}"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@+id/view"
             app:layout_constraintHorizontal_bias="0.0"
