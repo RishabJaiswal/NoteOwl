@@ -5,6 +5,11 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <variable
+            name="viewType"
+            type="Integer" />
+
         <variable
             name="label"
             type="com.owl.noteowl.data.features.notes.models.Label" />
@@ -21,9 +26,13 @@
         android:paddingStart="12dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="@{utility.getMargin(viewType, 24, 8, 8)}"
+        android:layout_marginEnd="@{utility.getMargin(viewType, 8, 8, 24)}"
         android:gravity="center_vertical"
         android:background="@drawable/bg_label"
-        bind:bgTint="@{label.colorHex}">
+        bind:bgTint="@{label.colorHex}"
+        android:elevation="2dp">
 
         <!--label name-->
         <TextView

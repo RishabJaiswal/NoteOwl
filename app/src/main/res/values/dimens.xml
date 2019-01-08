@@ -6,4 +6,5 @@
     <dimen name="txt_20">20sp</dimen>
     <dimen name="txt_24">24sp</dimen>
     <dimen name="txt_40">40sp</dimen>
+    <dimen name="add_note_start_margin">24dp</dimen>
 </resources>
