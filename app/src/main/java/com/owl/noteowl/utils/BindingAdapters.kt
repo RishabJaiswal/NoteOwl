@@ -3,6 +3,7 @@ package com.owl.noteowl.utils
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.BindingAdapter
 
@@ -24,4 +25,24 @@ fun setBgTint(view: View, color: Int) {
             DrawableCompat.setTintMode(this, PorterDuff.Mode.SRC_IN)
         }
     }
+}
+
+@BindingAdapter("android:layout_marginStart")
+fun setStartMargin(view: View, startMargin: Float) {
+    val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+    layoutParams.setMargins(
+        Math.round(startMargin), layoutParams.topMargin,
+        layoutParams.rightMargin, layoutParams.bottomMargin
+    );
+    view.setLayoutParams(layoutParams)
+}
+
+@BindingAdapter("android:layout_marginEnd")
+fun setEndMargin(view: View, endMargin: Float) {
+    val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+    layoutParams.setMargins(
+        layoutParams.leftMargin, layoutParams.topMargin,
+        Math.round(endMargin), layoutParams.bottomMargin
+    );
+    view.setLayoutParams(layoutParams)
 }
