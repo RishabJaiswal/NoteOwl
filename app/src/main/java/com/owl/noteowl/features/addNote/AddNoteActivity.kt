@@ -1,22 +1,29 @@
 package com.owl.noteowl.features.addNote
 
-import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
 import com.owl.noteowl.databinding.DialogSelectLabelBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.extensions.visible
+import io.realm.RealmList
 import kotlinx.android.synthetic.main.add_note.*
 import java.util.*
 
-class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickListener,
+class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnClickListener,
     CompoundButton.OnCheckedChangeListener {
 
     private var selectLabelDialog: AlertDialog? = null
+    private lateinit var selectLabelBinding: DialogSelectLabelBinding
+    private val viewModel by lazy {
+        ViewModelProviders.of(this)[AddNoteViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +36,19 @@ class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickList
 
     //labels
     fun setLabels() {
-        rv_labels_add_note.adapter =
-                com.owl.noteowl.features.addNote.AddLabelAdapter(this, emptyList(), this::showSelectLabelDialog)
+        viewModel.saveLabel(getString(R.string.add_label), Color.parseColor("#c6c6c6"))
+        val addLabelAdapter = AddLabelAdapter(this, RealmList(), viewModel, this::showSelectLabelDialog)
+        rv_labels_add_note.adapter = addLabelAdapter
+
+        //observing added labels
+        viewModel.labelsLiveData.observe(this, androidx.lifecycle.Observer {
+            it?.let { labels ->
+                //adding last added label
+                if (labels.size > 0) {
+                    addLabelAdapter.update(labels)
+                }
+            }
+        })
     }
 
     //focus listener
@@ -51,7 +69,8 @@ class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickList
             }
 
             R.id.btn_save_select_label -> {
-                //todo:: save label
+                viewModel.saveLabel(selectLabelBinding.labelName, selectLabelBinding.colorSelected)
+                selectLabelDialog?.dismiss()
             }
         }
     }
@@ -66,16 +85,17 @@ class AddNoteActivity : Activity(), View.OnFocusChangeListener, View.OnClickList
 
     fun showSelectLabelDialog() {
         if (selectLabelDialog == null) {
-            val labelSelectBinding = DialogSelectLabelBinding.inflate(layoutInflater)
-            labelSelectBinding.HSLColorPicker.setOnColorChangeListener { colorBarPosition, alphaBarPosition, color ->
-                labelSelectBinding.colorSelected = color
+            selectLabelBinding = DialogSelectLabelBinding.inflate(layoutInflater)
+            selectLabelBinding.HSLColorPicker.setOnColorChangeListener { colorBarPosition, alphaBarPosition, color ->
+                selectLabelBinding.colorSelected = color
             }
-            labelSelectBinding.btnCancelSelectLabel.setOnClickListener(this)
-            labelSelectBinding.btnSaveSelectLabel.setOnClickListener(this)
+            //click listeners
+            selectLabelBinding.btnCancelSelectLabel.setOnClickListener(this)
+            selectLabelBinding.btnSaveSelectLabel.setOnClickListener(this)
 
             //creating dialog
             selectLabelDialog = AlertDialog.Builder(this)
-                .setView(labelSelectBinding.root)
+                .setView(selectLabelBinding.root)
                 .create()
         }
         selectLabelDialog?.show()

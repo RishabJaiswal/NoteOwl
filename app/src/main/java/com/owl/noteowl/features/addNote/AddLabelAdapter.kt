@@ -4,16 +4,21 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelAddNoteBinding
+import io.realm.OrderedRealmCollection
+import io.realm.RealmList
 
 class AddLabelAdapter(
-    val context: Context, val labels: List<Label>,
+    val context: Context,
+    val labels: RealmList<Label>,
+    val viewModel: AddNoteViewModel,
     val selectLabel: () -> Unit
-) :
-    RecyclerView.Adapter<AddLabelAdapter.AddLabelHolder>() {
+) : RecyclerView.Adapter<AddLabelAdapter.AddLabelHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddLabelHolder {
         return AddLabelHolder(
             ItemLabelAddNoteBinding.inflate(
@@ -23,18 +28,22 @@ class AddLabelAdapter(
     }
 
     override fun getItemCount(): Int {
-        return labels.size + 1
+        return labels.size
     }
 
     override fun onBindViewHolder(holder: AddLabelHolder, position: Int) {
-        if (position == 0) {
-            holder.bind(Label().apply {
-                title = context.getString(R.string.add_label)
-                colorHex = "#c6c6c6"
-            })
-        } else {
-            holder.bind(labels[position])
+        labels[position]?.let {
+            holder.bind(it)
         }
+    }
+
+    fun update(labels: OrderedRealmCollection<Label>) {
+        val diffUtil = DiffUtil.calculateDiff(LabelListDiff(labels))
+        this.labels.apply {
+            clear()
+            addAll(labels)
+        }
+        diffUtil.dispatchUpdatesTo(this)
     }
 
     inner class AddLabelHolder(val binding: ItemLabelAddNoteBinding) : RecyclerView.ViewHolder(binding.root),
@@ -53,7 +62,7 @@ class AddLabelAdapter(
                 //remove label
                 R.id.imv_close_label -> {
                     if (adapterPosition > 0) {
-                        //todo:: remove label from list
+                        viewModel.removeLabel(adapterPosition)
                     } else {
                         selectLabel()
                     }
@@ -66,6 +75,25 @@ class AddLabelAdapter(
                     }
                 }
             }
+        }
+    }
+
+    //Labels list Difference callback
+    inner class LabelListDiff(val newList: List<Label>) : DiffUtil.Callback() {
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return newList[newItemPosition].createdAt == labels[oldItemPosition]?.createdAt
+        }
+
+        override fun getNewListSize(): Int {
+            return newList.size
+        }
+
+        override fun getOldListSize(): Int {
+            return labels.size
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return newList[newItemPosition] == labels[oldItemPosition]
         }
     }
 }
