@@ -87,6 +87,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         }
     }
 
+    //dialog helps in selecting or creating a label
     fun showSelectLabelDialog() {
         if (selectLabelDialog == null) {
             selectLabelBinding = DialogSelectLabelBinding.inflate(layoutInflater)
@@ -102,6 +103,9 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
                 .setView(selectLabelBinding.root)
                 .create()
         }
+
+        //selecting random color and emptying label title
+        selectLabelBinding.edtLabelTitle.setText("")
         selectLabelDialog?.show()
     }
 }
