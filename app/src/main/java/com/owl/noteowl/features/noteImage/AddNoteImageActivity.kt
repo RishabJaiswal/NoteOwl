@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
 import com.owl.noteowl.databinding.ActivityAddNoteImageBinding
+import com.owl.noteowl.extensions.text
 import com.owl.noteowl.utils.Constants.Note
 
 class AddNoteImageActivity : AppCompatActivity() {
@@ -26,6 +27,7 @@ class AddNoteImageActivity : AppCompatActivity() {
         )[AddNoteImageViewModel::class.java]
 
         binding.note = viewModel.note
+        binding.tvNoteDate.text = viewModel.note?.createdAt?.text("dd MMM yyyy")
     }
 
     companion object {
