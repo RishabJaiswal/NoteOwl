@@ -13,4 +13,6 @@ open class Note : RealmObject() {
     var text: String = ""
     var labels: RealmList<Label>? = null
     var isLiked: Boolean = false
+    var status: String = ""
+    var imageUrl: String = ""
 }
