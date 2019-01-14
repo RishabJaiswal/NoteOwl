@@ -1,6 +1,5 @@
 package com.owl.noteowl.features.addNote
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -16,6 +15,7 @@ import com.owl.noteowl.databinding.DialogSelectLabelBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.extensions.visible
+import com.owl.noteowl.features.noteImage.AddNoteImageActivity
 import io.realm.RealmList
 import kotlinx.android.synthetic.main.add_note.*
 import java.util.*
@@ -88,7 +88,8 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
 
             //next
             R.id.btn_next -> {
-                startActivity(Intent(this, AddNoteImageActivity::class.java))
+                viewModel.saveNote()
+                startActivity(AddNoteImageActivity.getIntent(this, viewModel.newNote.id))
             }
         }
     }

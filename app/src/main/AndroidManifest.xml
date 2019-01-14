@@ -4,6 +4,7 @@
     package="com.owl.noteowl">
 
     <application
+        android:name=".NoteOwlApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +27,7 @@
         <activity android:name=".features.addNote.AddNoteActivity" />
 
         <!--add image screen-->
-        <activity android:name=".features.addNote.AddNoteImageActivity" />
+        <activity android:name=".features.noteImage.AddNoteImageActivity" />
     </application>
 
 </manifest>
