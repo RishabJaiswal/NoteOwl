@@ -18,4 +18,30 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!--note Title-->
+    <style name="noteTitle">
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textSize">@dimen/txt_24</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <!--note text-->
+    <style name="noteText">
+        <item name="android:textColor">@color/textSecondary</item>
+        <item name="android:textSize">@dimen/txt_body</item>
+        <item name="android:fontFamily">@font/medium</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!--note date-->
+    <style name="noteDate">
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textSize">@dimen/txt_caption</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
 </resources>
