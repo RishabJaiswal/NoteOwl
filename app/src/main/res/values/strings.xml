@@ -14,4 +14,6 @@
     <string name="lbl_select_one">OR select one</string>
     <string name="error_empty_label">Label name can\'t be empty</string>
     <string name="add_image">Add image</string>
+    <string name="search_image">Search image</string>
+    <string name="cta_select">Select</string>
 </resources>

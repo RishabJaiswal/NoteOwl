@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="24dp"
+    android:paddingStart="21dp"
+    android:paddingEnd="21dp">
+
+    <!--image search-->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:queryHint="@string/search_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rect_stroked_grey" />
+
+    <!--images grid list-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintBottom_toTopOf="@+id/divider_text_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_image" />
+
+    <!--divider-->
+    <View
+        android:id="@+id/divider_text_save"
+        android:layout_width="91dp"
+        android:layout_height="2dp"
+        android:background="@color/textDisabled"
+        app:layout_constraintBottom_toTopOf="@+id/btn_select"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--next button-->
+    <Button
+        android:id="@+id/btn_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:elevation="0dp"
+        android:fontFamily="@font/semi_bold"
+        android:text="@string/cta_select"
+        android:textAllCaps="false"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/txt_body"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

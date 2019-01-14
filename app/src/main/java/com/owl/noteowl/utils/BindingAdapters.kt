@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.BindingAdapter
 import com.owl.noteowl.extensions.gone
@@ -49,10 +50,16 @@ fun setEndMargin(view: View, endMargin: Float) {
     view.setLayoutParams(layoutParams)
 }
 
+//setting visibility gone or visible
 @BindingAdapter("bind:visibleOrGone")
 fun visibleOrGone(view: View, isConditionTrue: Boolean) {
     if (isConditionTrue)
         view.visible()
     else
         view.gone()
+}
+
+@BindingAdapter("bind:imageUrl")
+fun setImageFromUrl(view: ImageView, url: String) {
+
 }
