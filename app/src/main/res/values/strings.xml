@@ -12,4 +12,5 @@
     <string name="cta_cancel">Cancel</string>
     <string name="cta_save">Save</string>
     <string name="lbl_select_one">OR select one</string>
+    <string name="error_empty_label">Label name can\'t be empty</string>
 </resources>
