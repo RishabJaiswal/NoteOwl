@@ -1,5 +1,6 @@
 package com.owl.noteowl.features.addNote
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -37,6 +38,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         tv_note_date.text = Date().text("dd MMM yyy")
         edt_note_text.setOnFocusChangeListener(this)
         cb_fav_note.setOnCheckedChangeListener(this)
+        btn_next.setOnClickListener(this)
     }
 
     //labels
@@ -69,10 +71,12 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     //click listener
     override fun onClick(view: View?) {
         when (view?.id) {
+            //cancel label select
             R.id.btn_cancel_select_label -> {
                 selectLabelDialog?.dismiss()
             }
 
+            //select label
             R.id.btn_save_select_label -> {
                 if (selectLabelBinding.labelName.isNullOrEmpty()) {
                     Toast.makeText(this, getString(R.string.error_empty_label), Toast.LENGTH_SHORT).show()
@@ -80,6 +84,11 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
                     viewModel.saveLabel(selectLabelBinding.labelName, selectLabelBinding.colorSelected)
                 }
                 selectLabelDialog?.dismiss()
+            }
+
+            //next
+            R.id.btn_next -> {
+                startActivity(Intent(this, AddNoteImageActivity::class.java))
             }
         }
     }

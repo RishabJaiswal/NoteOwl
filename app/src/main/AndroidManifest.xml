@@ -12,20 +12,21 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <!--home screen-->
+        <!-- home screen -->
         <activity
             android:name=".features.home.HomeActivity"
             android:label="@string/title_activity_notes">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
-        <!--Add note screen-->
+        <!-- Add note screen -->
         <activity android:name=".features.addNote.AddNoteActivity" />
 
+        <!--add image screen-->
+        <activity android:name=".features.addNote.AddNoteImageActivity" />
     </application>
+
 </manifest>
