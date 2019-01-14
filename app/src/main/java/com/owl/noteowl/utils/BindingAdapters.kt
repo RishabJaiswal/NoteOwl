@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.BindingAdapter
+import com.owl.noteowl.extensions.gone
+import com.owl.noteowl.extensions.visible
 
 @BindingAdapter("bind:bgTint")
 fun setBgTint(view: View, color: String) {
@@ -45,4 +47,12 @@ fun setEndMargin(view: View, endMargin: Float) {
         Math.round(endMargin), layoutParams.bottomMargin
     );
     view.setLayoutParams(layoutParams)
+}
+
+@BindingAdapter("bind:visibleOrGone")
+fun visibleOrGone(view: View, isConditionTrue: Boolean) {
+    if (isConditionTrue)
+        view.visible()
+    else
+        view.gone()
 }
