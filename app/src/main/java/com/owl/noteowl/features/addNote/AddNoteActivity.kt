@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -73,7 +74,11 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
             }
 
             R.id.btn_save_select_label -> {
-                viewModel.saveLabel(selectLabelBinding.labelName, selectLabelBinding.colorSelected)
+                if (selectLabelBinding.labelName.isNullOrEmpty()) {
+                    Toast.makeText(this, getString(R.string.error_empty_label), Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.saveLabel(selectLabelBinding.labelName, selectLabelBinding.colorSelected)
+                }
                 selectLabelDialog?.dismiss()
             }
         }

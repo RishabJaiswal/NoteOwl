@@ -14,10 +14,10 @@ class AddNoteViewModel : ViewModel() {
 
     //saving label
     fun saveLabel(name: String?, color: Int?) {
-        if (name != null && color != null) {
+        if (!name.isNullOrEmpty() && color != null) {
             labelsLiveData.apply {
                 value?.add(Label().apply {
-                    title = name
+                    title = name!!
                     colorHex = color
                 })
                 value = value
