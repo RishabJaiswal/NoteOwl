@@ -30,7 +30,9 @@ class SelectImageAdapter(val context: Context) : RecyclerView.Adapter<SelectImag
 
     inner class ImageHolder(val binding: ItemSelectImageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-
+            //todo:: change later
+            binding.imageUrl = "https://images.pexels.com/photos/1769307/pexels-photo-1769307.jpeg"
+            binding.executePendingBindings()
         }
     }
 }

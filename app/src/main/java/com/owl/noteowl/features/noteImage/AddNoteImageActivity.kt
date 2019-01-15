@@ -2,17 +2,21 @@ package com.owl.noteowl.features.noteImage
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
 import com.owl.noteowl.databinding.ActivityAddNoteImageBinding
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.utils.Constants.Note
-import kotlinx.android.synthetic.main.dialog_select_image.*
+import com.owl.noteowl.utils.ContextUtility
+import kotlinx.android.synthetic.main.dialog_select_image.view.*
 
 class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -54,10 +58,15 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
     //showing dialog
     fun showSelectImageDialog() {
         if (selectImageDialog == null) {
+            val view = LayoutInflater.from(this).inflate(R.layout.dialog_select_image, null)
             selectImageDialog = AlertDialog.Builder(this)
-                .setView(R.layout.dialog_select_image)
+                .setView(view)
                 .create()
-            rv_images.adapter = SelectImageAdapter(this)
+
+            //images recycler listing
+            val margin = ContextUtility(this).convertDpToPx(10f).toInt()
+            view.rv_images.adapter = SelectImageAdapter(this)
+            view.rv_images.addItemDecoration(ImagesDecoration(margin, margin))
         }
         selectImageDialog?.show()
     }
@@ -67,6 +76,17 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             return Intent(context, AddNoteImageActivity::class.java).apply {
                 putExtra(Note().KEY_ID, noteId)
             }
+        }
+    }
+
+    //for images grid list
+    class ImagesDecoration(val rightMargin: Int, val bottomMargin: Int) : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+            val position = parent.getChildLayoutPosition(view)
+            if (position == 0 || position % 2 == 0) {
+                outRect.right = rightMargin
+            }
+            outRect.bottom = bottomMargin
         }
     }
 }
