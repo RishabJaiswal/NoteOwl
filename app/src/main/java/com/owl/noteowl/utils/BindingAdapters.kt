@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.BindingAdapter
 import com.owl.noteowl.extensions.gone
@@ -57,9 +56,4 @@ fun visibleOrGone(view: View, isConditionTrue: Boolean) {
         view.visible()
     else
         view.gone()
-}
-
-@BindingAdapter("bind:imageUrl")
-fun setImageFromUrl(view: ImageView, url: String) {
-
 }
