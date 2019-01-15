@@ -28,7 +28,7 @@
 
             <!--note image-->
             <View
-                android:id="@+id/imv_note_banner"
+                android:id="@+id/add_image"
                 android:layout_width="210dp"
                 android:layout_height="160dp"
                 android:background="#f4f4f4"
@@ -60,7 +60,7 @@
                 android:text="@string/add_image"
                 android:textColor="@color/textSecondary"
                 android:textSize="@dimen/txt_18"
-                app:layout_constraintBottom_toBottomOf="@+id/imv_note_banner"
+                app:layout_constraintBottom_toBottomOf="@+id/add_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,7 @@
                 android:layout_marginTop="8dp"
                 android:padding="1dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
+                app:layout_constraintTop_toBottomOf="@+id/add_image"
                 app:srcCompat="@drawable/ic_liked"
                 bind:visibleOrGone="@{note.liked}"
                 tools:visibility="visible" />
@@ -86,7 +86,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toEndOf="@+id/imv_liked"
-                app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
+                app:layout_constraintTop_toBottomOf="@+id/add_image"
                 bind:visibleOrGone="@{note.labels.size() > 0}">
 
                 <LinearLayout
