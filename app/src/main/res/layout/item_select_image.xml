@@ -9,23 +9,33 @@
             type="String" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="wrap_content">
 
-    <!--image-->
-    <ImageView
-        android:id="@+id/imv_note_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        bind:loadImage="@{imageUrl}" />
+        <!--image-->
+        <ImageView
+            android:id="@+id/imv_note_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            bind:loadImage="@{imageUrl}"
+            bind:layout_constraintDimensionRatio="h,34:21"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="parent" />
 
-    <!--selector-->
-    <View
-        android:id="@+id/selector"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/image_selector" />
+        <!--selector-->
+        <View
+            android:id="@+id/selector"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            android:background="@drawable/image_selector"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
