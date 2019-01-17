@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ImageApiService {
 
-    @GET("/")
+    @GET("photos/")
     fun getImages(
         @Query("client_id") clientId: String,
         @Query("per_page") pageSize: Int,
