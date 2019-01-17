@@ -9,9 +9,11 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
+import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.databinding.ActivityAddNoteImageBinding
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.utils.Constants.Note
@@ -24,6 +26,7 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
     val NOTE = Note()
     lateinit var binding: ActivityAddNoteImageBinding
     private var selectImageDialog: AlertDialog? = null
+    private lateinit var imagesAdapter: SelectImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,10 +68,20 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
 
             //images recycler listing
             val margin = ContextUtility(this).convertDpToPx(10f).toInt()
-            view.rv_images.adapter = SelectImageAdapter(this)
+            imagesAdapter = SelectImageAdapter(this)
+            view.rv_images.adapter = imagesAdapter
             view.rv_images.addItemDecoration(ImagesDecoration(margin, margin))
+            viewModel.getImages()
+            observeImages()
         }
         selectImageDialog?.show()
+    }
+
+    //observing images
+    private fun observeImages() {
+        viewModel.imagesLiveData.observe(this, Observer<List<Image>> { images ->
+            imagesAdapter.addImages(images)
+        })
     }
 
     companion object {
