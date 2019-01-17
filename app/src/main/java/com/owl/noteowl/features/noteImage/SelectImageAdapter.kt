@@ -6,11 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.databinding.ItemSelectImageBinding
-import com.owl.noteowl.utils.ContextUtility
 
 class SelectImageAdapter(val context: Context) : RecyclerView.Adapter<SelectImageAdapter.ImageHolder>() {
 
-    private val contextUtils by lazy { ContextUtility(context) }
     private val images = arrayListOf<Image>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {

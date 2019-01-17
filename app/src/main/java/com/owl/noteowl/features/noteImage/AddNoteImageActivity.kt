@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.databinding.ActivityAddNoteImageBinding
+import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.utils.Constants.Note
 import com.owl.noteowl.utils.ContextUtility
+import kotlinx.android.synthetic.main.dialog_select_image.*
 import kotlinx.android.synthetic.main.dialog_select_image.view.*
 
 class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
@@ -80,6 +82,7 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
     //observing images
     private fun observeImages() {
         viewModel.imagesLiveData.observe(this, Observer<List<Image>> { images ->
+            selectImageDialog?.pb_images?.gone()
             imagesAdapter.addImages(images)
         })
     }
