@@ -8,7 +8,7 @@ object NoteOwlRetrofit {
     val httpClientBuilder = OkHttpClient.Builder()
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.unsplash.com/photos")
+        .baseUrl("https://api.unsplash.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(httpClientBuilder.build())
         .build()
