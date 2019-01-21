@@ -40,7 +40,7 @@ class SelectImageAdapter(val context: Context) : RecyclerView.Adapter<SelectImag
     private fun updateSelection(newPosition: Int) {
         val previousSelected = selectedItemPosition
         selectedItemPosition = newPosition
-        if (previousSelected > 0) {
+        if (previousSelected >= 0) {
             notifyItemChanged(previousSelected)
         }
         notifyItemChanged(selectedItemPosition)
