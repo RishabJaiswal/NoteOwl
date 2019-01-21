@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.data.features.images.network.ImageApiManager
 import com.owl.noteowl.data.features.notes.local.NoteDao
+import com.owl.noteowl.extensions.asLiveData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddNoteImageViewModel(val noteId: Int) : ViewModel() {
+class AddNoteImageViewModel(private val noteId: Int) : ViewModel() {
     private val noteDao = NoteDao()
-    val note = noteDao.getNote(noteId)
+    val noteLiveData = noteDao.getNote(noteId)?.asLiveData()
     private val imageApiManager by lazy { ImageApiManager() }
     val imagesLiveData by lazy { MutableLiveData<List<Image>>() }
 
@@ -39,5 +40,9 @@ class AddNoteImageViewModel(val noteId: Int) : ViewModel() {
 
                 }
             })
+    }
+
+    fun saveImage(url: String) {
+        noteDao.saveImage(noteId, url)
     }
 }

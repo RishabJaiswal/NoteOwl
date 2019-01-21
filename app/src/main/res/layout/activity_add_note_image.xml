@@ -27,12 +27,14 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <!--note image-->
-            <View
+            <ImageView
                 android:id="@+id/add_image"
                 android:layout_width="210dp"
                 android:layout_height="160dp"
                 android:background="#f4f4f4"
                 android:elevation="2dp"
+                android:scaleType="centerCrop"
+                bind:loadImage="@{note.imageUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

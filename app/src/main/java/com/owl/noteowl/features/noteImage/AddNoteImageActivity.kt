@@ -39,10 +39,9 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
         viewModel = ViewModelProviders.of(
             this, AddNoteImageViewModel.Factory(noteId)
         )[AddNoteImageViewModel::class.java]
+        observeNote()
 
         binding.apply {
-            note = viewModel.note
-            tvNoteDate.text = viewModel.note?.createdAt?.text("dd MMM yyyy")
             icAddImage.setOnClickListener(this@AddNoteImageActivity)
             tvAddImage.setOnClickListener(this@AddNoteImageActivity)
             addImage.setOnClickListener(this@AddNoteImageActivity)
@@ -56,6 +55,14 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             R.id.tv_add_image,
             R.id.add_image -> {
                 showSelectImageDialog()
+            }
+
+            //select an image
+            R.id.btn_select -> {
+                imagesAdapter.getSelectedImage()?.getDisplayImageUrl()?.let { imageUrl ->
+                    viewModel.saveImage(imageUrl)
+                    selectImageDialog?.dismiss()
+                }
             }
         }
     }
@@ -73,10 +80,21 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             imagesAdapter = SelectImageAdapter(this)
             view.rv_images.adapter = imagesAdapter
             view.rv_images.addItemDecoration(ImagesDecoration(margin, margin))
+            view.btn_select.setOnClickListener(this)
             viewModel.getImages()
             observeImages()
         }
         selectImageDialog?.show()
+    }
+
+    //observing note changes
+    private fun observeNote() {
+        viewModel.noteLiveData?.observe(this, Observer {
+            it?.let { note ->
+                binding.note = note
+                binding.tvNoteDate.text = note.createdAt.text("dd MMM yyyy")
+            }
+        })
     }
 
     //observing images
