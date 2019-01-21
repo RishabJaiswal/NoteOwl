@@ -24,6 +24,17 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
         return defaultQuery(noteId)?.findFirst()
     }
 
+    //saving image
+    fun saveImage(noteId: Int, url: String) {
+        if (url.isNotEmpty()) {
+            defaultQuery(noteId)?.findFirst()?.let { note ->
+                realm.executeTransaction {
+                    note.imageUrl = url
+                }
+            }
+        }
+    }
+
     fun close() {
         realm.close()
     }
