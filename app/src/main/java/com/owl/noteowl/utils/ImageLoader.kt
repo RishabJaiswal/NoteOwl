@@ -9,9 +9,11 @@ class ImageLoader {
         @JvmStatic
         @BindingAdapter("bind:loadImage")
         fun loadImage(imv: ImageView, imageUrl: String) {
-            Picasso.get()
-                .load(imageUrl)
-                .into(imv)
+            if (!imageUrl.isEmpty()) {
+                Picasso.get()
+                    .load(imageUrl)
+                    .into(imv)
+            }
         }
     }
 }
