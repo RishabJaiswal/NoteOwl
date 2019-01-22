@@ -44,6 +44,8 @@ class AddNoteViewModel : ViewModel() {
 
     //saving note
     fun saveNote() {
-        noteDao.saveNote(newNote)
+        noteDao.saveNote(newNote.apply {
+            this.labels = labelsLiveData.value
+        })
     }
 }
