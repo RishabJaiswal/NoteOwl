@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelHomeFiltersBinding
 
-class LabelsAdapter(
+class LabelsForFilterAdapter(
     val context: Context,
     val labels: List<Label>,
     val onLabelClicked: (label: Label?) -> Unit
 ) :
-    RecyclerView.Adapter<LabelsAdapter.LabelViewHolder>() {
+    RecyclerView.Adapter<LabelsForFilterAdapter.LabelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LabelViewHolder {
         return LabelViewHolder(

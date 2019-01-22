@@ -68,7 +68,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     //setting labels
     fun setLabels(labels: List<Label>) {
-        rv_label_filter.adapter = LabelsAdapter(this, labels, this::onLabelClicked)
+        rv_label_filter.adapter = LabelsForFilterAdapter(this, labels, this::onLabelClicked)
     }
 
     //on click label
