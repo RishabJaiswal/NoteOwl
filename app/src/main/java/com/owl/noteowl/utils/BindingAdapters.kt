@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.BindingAdapter
 import com.owl.noteowl.extensions.gone
+import com.owl.noteowl.extensions.invisible
 import com.owl.noteowl.extensions.visible
 
 @BindingAdapter("bind:bgTint")
@@ -56,4 +57,13 @@ fun visibleOrGone(view: View, isConditionTrue: Boolean) {
         view.visible()
     else
         view.gone()
+}
+
+//setting visibility visible or visible
+@BindingAdapter("bind:visibleOrInVisible")
+fun visibleOrInvisible(view: View, isConditionTrue: Boolean) {
+    if (isConditionTrue)
+        view.visible()
+    else
+        view.invisible()
 }
