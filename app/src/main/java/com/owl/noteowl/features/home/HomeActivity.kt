@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
+import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.visible
@@ -23,8 +24,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        //showing blankslate
         observeNotes()
+        observeLabels()
         btn_add_note.setOnClickListener(this)
     }
 
@@ -37,6 +38,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    //observing notes list
     fun observeNotes() {
         viewModel.notesLiveData.observe(this, Observer {
             it?.let { notes ->
@@ -50,8 +52,29 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
+    //observing labels list
+    fun observeLabels() {
+        viewModel.labelsLiveData.observe(this, Observer {
+            it?.let { labels ->
+                setLabels(labels)
+            }
+        })
+    }
+
     //setting notes list
     fun setNotes(notes: List<Note>) {
         rv_notes.adapter = NotesAdapter(this, notes)
+    }
+
+    //setting labels
+    fun setLabels(labels: List<Label>) {
+        rv_label_filter.adapter = LabelsAdapter(this, labels, this::onLabelClicked)
+    }
+
+    //on click label
+    fun onLabelClicked(label: Label?) {
+        label?.let {
+            //todo:: filter notes via label
+        } ?: startActivity(Intent(this, AddNoteActivity::class.java))
     }
 }

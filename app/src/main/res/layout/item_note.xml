@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -16,7 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginEnd="18dp"
-        android:layout_marginStart="18dp">
+        android:layout_marginStart="18dp"
+        android:background="@android:color/white">
 
         <!--note image-->
         <ImageView
@@ -24,6 +26,8 @@
             android:layout_width="210dp"
             android:layout_height="160dp"
             android:scaleType="centerCrop"
+            bind:loadImage="@{note.imageUrl}"
+            android:background="#eee"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
@@ -67,7 +71,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:maxLines="1"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:fontFamily="@font/regular"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_24"
