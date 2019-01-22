@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import io.realm.RealmChangeListener
 import io.realm.RealmObject
 
-class RealmObjectLiveData<T : RealmObject>(val realmObject: T) : LiveData<T>() {
+class RealmObjectLiveData<T : RealmObject>(private val realmObject: T) : LiveData<T>() {
 
     val realmChangeListener = RealmChangeListener<T> { newValue ->
         value = newValue
