@@ -42,28 +42,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
             app:srcCompat="@drawable/ic_liked"
-            android:visibility="@{note.liked ? View.VISIBLE : View.GONE}"
+            bind:visibleOrGone="@{note.liked}"
             tools:visibility="visible" />
 
         <!--labels-->
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_labels_note"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:visibility="@{note.labels.size() > 0 ? View.VISIBLE : View.GONE}"
+            android:orientation="horizontal"
+            bind:visibleOrGone="@{note.labels.size() > 0}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/imv_note_banner"
             app:layout_constraintStart_toEndOf="@+id/imv_liked"
-            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner">
-
-            <LinearLayout
-                android:id="@+id/ll_labels"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <include layout="@layout/item_label_note_home" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
+            tools:listitem="@layout/item_label_note_home" />
 
         <!--note title-->
         <TextView
@@ -79,7 +74,7 @@
             android:text="@{note.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imv_liked"
+            app:layout_constraintTop_toBottomOf="@+id/rv_labels_note"
             tools:text="Cook for heart" />
 
         <!--note details-->
