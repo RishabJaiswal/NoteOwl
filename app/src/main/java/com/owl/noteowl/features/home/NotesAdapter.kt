@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.databinding.ItemNoteBinding
 
-class NotesAdapter(val context: Context) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
+class NotesAdapter(
+    val context: Context,
+    val notes: List<Note>
+) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
@@ -18,11 +21,11 @@ class NotesAdapter(val context: Context) : RecyclerView.Adapter<NotesAdapter.Not
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return notes.size
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.bind(Note())
+        holder.bind(notes[position])
     }
 
     inner class NoteViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {

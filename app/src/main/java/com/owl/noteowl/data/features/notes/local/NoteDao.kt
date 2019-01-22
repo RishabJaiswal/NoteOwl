@@ -1,8 +1,12 @@
 package com.owl.noteowl.data.features.notes.local
 
+import androidx.lifecycle.LiveData
 import com.owl.noteowl.data.features.notes.models.Note
+import com.owl.noteowl.extensions.asLiveData
+import com.owl.noteowl.utils.Constants
 import io.realm.Realm
 import io.realm.RealmQuery
+import io.realm.RealmResults
 
 class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
 
@@ -33,6 +37,16 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
                 }
             }
         }
+    }
+
+    fun getSavedNotes(): RealmResults<Note> {
+        return realm.where(Note::class.java)
+            .equalTo("status", Constants.NoteStatus().NEW_EDIT)
+            .findAll()
+    }
+
+    fun getSavedNotesLive(): LiveData<RealmResults<Note>> {
+        return getSavedNotes().asLiveData()
     }
 
     fun close() {
