@@ -27,10 +27,10 @@
             android:layout_height="160dp"
             android:scaleType="centerCrop"
             bind:loadImage="@{note.imageUrl}"
-            android:background="#eee"
+            android:background="@drawable/radial_rect_8dp"
+            android:elevation="2dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--liked icon-->
         <ImageView

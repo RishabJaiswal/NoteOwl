@@ -34,6 +34,7 @@ class NotesAdapter(
             binding.note = note
             binding.rvLabelsNote.adapter = LabelsInNoteAdapter(context, note.labels ?: emptyList())
             binding.tvNoteDate.text = note.createdAt.text("dd MMM")
+            binding.imvNoteBanner.clipToOutline = true
         }
     }
 }
