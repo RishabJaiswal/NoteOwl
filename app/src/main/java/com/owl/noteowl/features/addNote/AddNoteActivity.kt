@@ -2,6 +2,8 @@ package com.owl.noteowl.features.addNote
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
@@ -13,6 +15,7 @@ import com.owl.noteowl.R
 import com.owl.noteowl.databinding.AddNoteBinding
 import com.owl.noteowl.databinding.DialogSelectLabelBinding
 import com.owl.noteowl.extensions.gone
+import com.owl.noteowl.extensions.invisible
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.noteImage.AddNoteImageActivity
@@ -36,6 +39,24 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         mainBinding.note = viewModel.newNote
         setLabels()
         tv_note_date.text = Date().text("dd MMM yyy")
+
+        //setting text change listener
+        edt_note_text.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                if (editable?.trim()?.length == 0) {
+                    btn_next.invisible()
+                } else {
+                    btn_next.visible()
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+        })
+
         edt_note_text.setOnFocusChangeListener(this)
         cb_fav_note.setOnCheckedChangeListener(this)
         btn_next.setOnClickListener(this)
