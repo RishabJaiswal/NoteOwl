@@ -41,12 +41,20 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     fun getSavedNotes(): RealmResults<Note> {
         return realm.where(Note::class.java)
-            .equalTo("status", Constants.NoteStatus().NEW_EDIT)
+            .equalTo("status", Constants.NoteStatus().SAVED)
             .findAll()
     }
 
     fun getSavedNotesLive(): LiveData<RealmResults<Note>> {
         return getSavedNotes().asLiveData()
+    }
+
+    fun saveStatus(noteId: Int, status: String) {
+        realm.executeTransaction {
+            defaultQuery(noteId)?.findFirst()?.let { note ->
+                note.status = status
+            }
+        }
     }
 
     fun close() {

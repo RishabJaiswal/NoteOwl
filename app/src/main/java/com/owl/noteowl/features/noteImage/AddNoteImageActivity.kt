@@ -45,6 +45,7 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             icAddImage.setOnClickListener(this@AddNoteImageActivity)
             tvAddImage.setOnClickListener(this@AddNoteImageActivity)
             addImage.setOnClickListener(this@AddNoteImageActivity)
+            btnSave.setOnClickListener(this@AddNoteImageActivity)
         }
     }
 
@@ -63,6 +64,12 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
                     viewModel.saveImage(imageUrl)
                     selectImageDialog?.dismiss()
                 }
+            }
+
+            //saving image
+            R.id.btn_save -> {
+                viewModel.saveNote()
+                finish()
             }
         }
     }
