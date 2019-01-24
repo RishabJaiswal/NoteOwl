@@ -37,10 +37,10 @@
             android:id="@+id/imv_liked"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:padding="1dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_date"
             app:srcCompat="@drawable/ic_liked"
             bind:visibleOrGone="@{note.liked}"
             tools:visibility="visible" />
@@ -50,14 +50,14 @@
             android:id="@+id/rv_labels_note"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            bind:visibleOrGone="@{note.labels.size() > 0}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@+id/imv_liked"
             app:layout_constraintEnd_toEndOf="@+id/imv_note_banner"
             app:layout_constraintStart_toEndOf="@+id/imv_liked"
-            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
+            app:layout_constraintTop_toTopOf="@+id/imv_liked"
             tools:listitem="@layout/item_label_note_home" />
 
         <!--note title-->
@@ -66,15 +66,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:maxLines="2"
             android:ellipsize="end"
             android:fontFamily="@font/regular"
+            android:maxLines="2"
+            android:text="@{note.title}"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_24"
-            android:text="@{note.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_labels_note"
+            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
             tools:text="Cook for heart" />
 
         <!--note details-->
