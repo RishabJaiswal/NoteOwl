@@ -11,7 +11,6 @@ import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelAddNoteBinding
 import com.owl.noteowl.utils.Constants
 import com.owl.noteowl.utils.ContextUtility
-import io.realm.OrderedRealmCollection
 import io.realm.RealmList
 
 class AddLabelAdapter(
@@ -52,7 +51,7 @@ class AddLabelAdapter(
         return POSITION.MID
     }
 
-    fun update(labels: OrderedRealmCollection<Label>) {
+    fun update(labels: List<Label>) {
         val diffUtil = DiffUtil.calculateDiff(LabelListDiff(labels))
         this.labels.apply {
             clear()

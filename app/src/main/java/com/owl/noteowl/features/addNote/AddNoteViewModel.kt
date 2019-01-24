@@ -6,11 +6,10 @@ import com.owl.noteowl.data.features.notes.local.NoteDao
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.utils.Constants.NoteStatus
-import io.realm.RealmList
 
 class AddNoteViewModel : ViewModel() {
-    var labelsLiveData = MutableLiveData<RealmList<Label>>().apply {
-        value = RealmList()
+    var labelsLiveData = MutableLiveData<ArrayList<Label>>().apply {
+        value = arrayListOf()
     }
 
     val newNote by lazy {
@@ -19,16 +18,34 @@ class AddNoteViewModel : ViewModel() {
         }
     }
 
-    val noteDao by lazy { NoteDao() }
+    private val noteDao by lazy { NoteDao() }
+    private val addLabel by lazy {
+        labelsLiveData.value?.first()
+    }
+
+    //adding "add Label" to the labels list of note
+    fun setAddLabel(name: String?, color: Int?) {
+        saveLabel(0, name, color)
+    }
 
     //saving label
-    fun saveLabel(name: String?, color: Int?) {
+    fun saveLabel(position: Int? = null, name: String?, color: Int?) {
         if (!name.isNullOrEmpty() && color != null) {
             labelsLiveData.apply {
-                value?.add(Label().apply {
+                //creating label
+                val label = Label().apply {
                     title = name!!
                     colorHex = color
-                })
+                }
+
+                //saving label
+                if (position != null) {
+                    value?.add(position, label)
+                } else {
+                    value?.add(label)
+                }
+
+                //streaming changes
                 value = value
             }
         }
@@ -45,7 +62,11 @@ class AddNoteViewModel : ViewModel() {
     //saving note
     fun saveNote() {
         noteDao.saveNote(newNote.apply {
-            this.labels = labelsLiveData.value
+            labelsLiveData.value?.let { labels ->
+                this.labels.addAll(labels.filter {
+                    it.title != addLabel?.title
+                })
+            }
         })
     }
 }

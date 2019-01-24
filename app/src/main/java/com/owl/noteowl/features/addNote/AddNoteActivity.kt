@@ -43,7 +43,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
 
     //labels
     fun setLabels() {
-        viewModel.saveLabel(getString(R.string.add_label), Color.parseColor("#c6c6c6"))
+        viewModel.setAddLabel(getString(R.string.add_label), Color.parseColor("#c6c6c6"))
         val addLabelAdapter = AddLabelAdapter(this, RealmList(), viewModel, this::showSelectLabelDialog)
         rv_labels_add_note.adapter = addLabelAdapter
 
@@ -81,7 +81,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
                 if (selectLabelBinding.labelName.isNullOrEmpty()) {
                     Toast.makeText(this, getString(R.string.error_empty_label), Toast.LENGTH_SHORT).show()
                 } else {
-                    viewModel.saveLabel(selectLabelBinding.labelName, selectLabelBinding.colorSelected)
+                    viewModel.saveLabel(null, selectLabelBinding.labelName, selectLabelBinding.colorSelected)
                 }
                 selectLabelDialog?.dismiss()
             }
