@@ -17,4 +17,10 @@
     <string name="search_image">Search image</string>
     <string name="cta_select">Select</string>
     <string name="note_saved">Note saved!</string>
+
+    <!--exit confirmation dialog-->
+    <string name="exit">Exit?</string>
+    <string name="exit_confirmation">Your changes will be gone. Are you sure?</string>
+    <string name="confirm_exit_msg">No, keep writing</string>
+    <string name="yes">yes</string>
 </resources>
