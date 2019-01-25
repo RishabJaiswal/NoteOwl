@@ -16,4 +16,5 @@
     <string name="add_image">Add image</string>
     <string name="search_image">Search image</string>
     <string name="cta_select">Select</string>
+    <string name="note_saved">Note saved!</string>
 </resources>

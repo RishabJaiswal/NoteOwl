@@ -3,12 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:paddingBottom="24dp">
 
+    <!--done animation-->
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_note_saved"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:lottie_fileName="success.json" />
+
+    <!--note saved-->
+    <TextView
+        android:id="@+id/tv_note_added"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:lottie_fileName="confetti.json" />
+        android:text="@string/note_saved"
+        android:fontFamily="@font/semi_bold"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/txt_title" />
 
 </LinearLayout>

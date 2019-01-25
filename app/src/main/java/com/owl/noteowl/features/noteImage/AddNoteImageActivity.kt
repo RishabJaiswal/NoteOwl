@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +20,7 @@ import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.utils.Constants.Note
 import com.owl.noteowl.utils.ContextUtility
+import kotlinx.android.synthetic.main.dialog_note_saved.view.*
 import kotlinx.android.synthetic.main.dialog_select_image.*
 import kotlinx.android.synthetic.main.dialog_select_image.view.*
 
@@ -69,7 +71,10 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             //saving image
             R.id.btn_save -> {
                 viewModel.saveNote()
-                finish()
+                showNoteSavedDialog()
+                Handler().postDelayed({
+                    finish()
+                }, 1500)
             }
         }
     }
@@ -129,5 +134,16 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             }
             outRect.bottom = bottomMargin
         }
+    }
+
+    //showing note saved
+    fun showNoteSavedDialog() {
+        val view = layoutInflater.inflate(R.layout.dialog_note_saved, null)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(view)
+            .setCancelable(false)
+            .create()
+        view.lottie_note_saved.playAnimation()
+        alertDialog.show()
     }
 }
