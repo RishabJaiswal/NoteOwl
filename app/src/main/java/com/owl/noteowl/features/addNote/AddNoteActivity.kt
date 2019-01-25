@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
@@ -19,6 +20,7 @@ import com.owl.noteowl.extensions.invisible
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.noteImage.AddNoteImageActivity
+import com.owl.noteowl.utils.ContextUtility
 import io.realm.RealmList
 import kotlinx.android.synthetic.main.add_note.*
 import java.util.*
@@ -28,8 +30,10 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
 
     private var selectLabelDialog: AlertDialog? = null
     private var exitDialog: AlertDialog? = null
+    private val contextUtils by lazy { ContextUtility(this) }
     private lateinit var selectLabelBinding: DialogSelectLabelBinding
     private lateinit var mainBinding: AddNoteBinding
+
     private val viewModel by lazy {
         ViewModelProviders.of(this)[AddNoteViewModel::class.java]
     }
@@ -59,6 +63,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         })
 
         edt_note_text.setOnFocusChangeListener(this)
+        btn_edit_title.setOnClickListener(this)
         cb_fav_note.setOnCheckedChangeListener(this)
         btn_next.setOnClickListener(this)
     }
@@ -88,10 +93,24 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     override fun onFocusChange(view: View?, isFocused: Boolean) {
         //hiding all views above note text
         if (isFocused) {
-            group_above_text.gone()
+            hideTitle()
         } else {
-            group_above_text.visible()
+            editTitle()
         }
+    }
+
+    //showing hiding title
+    fun editTitle() {
+        btn_edit_title.gone()
+        edt_note_text.clearFocus()
+        edt_note_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40f)
+        rv_labels_add_note.visible()
+    }
+
+    fun hideTitle() {
+        btn_edit_title.visible()
+        edt_note_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+        rv_labels_add_note.gone()
     }
 
     //click listener
@@ -116,6 +135,12 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
             R.id.btn_next -> {
                 viewModel.saveNote()
                 startActivity(AddNoteImageActivity.getIntent(this, viewModel.newNote.id))
+            }
+
+            //showing title
+            R.id.btn_edit_title -> {
+                editTitle()
+                contextUtils.closeKeyboard(edt_note_text)
             }
         }
     }
