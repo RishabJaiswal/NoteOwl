@@ -27,6 +27,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     CompoundButton.OnCheckedChangeListener {
 
     private var selectLabelDialog: AlertDialog? = null
+    private var exitDialog: AlertDialog? = null
     private lateinit var selectLabelBinding: DialogSelectLabelBinding
     private lateinit var mainBinding: AddNoteBinding
     private val viewModel by lazy {
@@ -60,6 +61,10 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         edt_note_text.setOnFocusChangeListener(this)
         cb_fav_note.setOnCheckedChangeListener(this)
         btn_next.setOnClickListener(this)
+    }
+
+    override fun onBackPressed() {
+        showConfirmExitDialog()
     }
 
     //labels
@@ -143,5 +148,20 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         //selecting random color and emptying label title
         selectLabelBinding.edtLabelTitle.setText("")
         selectLabelDialog?.show()
+    }
+
+    //exit confirmation
+    fun showConfirmExitDialog() {
+        if (exitDialog == null) {
+            exitDialog = AlertDialog.Builder(this, R.style.baseDialog)
+                .setTitle(R.string.exit)
+                .setMessage(R.string.exit_confirmation)
+                .setPositiveButton(R.string.confirm_exit_msg, null)
+                .setNegativeButton(R.string.yes) { _, _ ->
+                    finish()
+                }
+                .create()
+        }
+        exitDialog?.show()
     }
 }

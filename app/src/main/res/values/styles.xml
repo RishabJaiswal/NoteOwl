@@ -41,7 +41,44 @@
         <item name="android:textColor">@color/textPrimary</item>
         <item name="android:textSize">@dimen/txt_caption</item>
         <item name="android:fontFamily">@font/regular</item>
-        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <!--styling base dialog-->
+    <style name="baseDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/positiveButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/negativeButton</item>
+        <item name="android:windowTitleStyle">@style/baseDialogTitle</item>
+        <item name="android:textColorPrimary">@color/textSecondary</item>
+        <item name="android:textAppearanceMedium">@style/baseDialogMsg</item>
+    </style>
+
+    <!--base button-->
+    <style name="baseDialogButton" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:fontFamily">@font/medium</item>
+    </style>
+
+    <!--positive button-->
+    <style name="positiveButton" parent="baseDialogButton">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <!--negative button-->
+    <style name="negativeButton" parent="baseDialogButton">
+        <item name="android:textColor">@color/textSecondary</item>
+    </style>
+
+    <!--title-->
+    <style name="baseDialogTitle" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/semi_bold</item>
+        <item name="android:textSize">@dimen/txt_18</item>
+        <item name="android:textColor">@color/textPrimary</item>
+    </style>
+
+    <!--message-->
+    <style name="baseDialogMsg" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/semi_bold</item>
+        <item name="android:textColor">@color/textSecondary</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>
