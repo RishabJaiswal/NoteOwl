@@ -12,9 +12,15 @@ class AddNoteViewModel : ViewModel() {
         value = arrayListOf()
     }
 
-    val newNote by lazy {
+    private val newNote by lazy {
         Note().apply {
             this.status = NoteStatus().NEW_EDIT
+        }
+    }
+
+    val noteLiveData by lazy {
+        MutableLiveData<Note>().apply {
+            this.value = newNote
         }
     }
 
@@ -69,4 +75,6 @@ class AddNoteViewModel : ViewModel() {
             }
         })
     }
+
+    fun getNoteId() = newNote.id
 }
