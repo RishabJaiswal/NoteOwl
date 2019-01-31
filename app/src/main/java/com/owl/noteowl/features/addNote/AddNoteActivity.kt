@@ -37,7 +37,9 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     private lateinit var mainBinding: AddNoteBinding
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this)[AddNoteViewModel::class.java]
+        ViewModelProviders.of(
+            this, AddNoteViewModel.Factory(null)
+        )[AddNoteViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,7 +104,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     }
 
     private fun observeNote() {
-        viewModel.noteLiveData.observe(this, Observer {
+        viewModel.noteLiveData?.observe(this, Observer {
             it?.let { note ->
                 if (note.status === Constants.NoteStatus().SAVED) {
                     finish()
@@ -148,7 +150,9 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
             //next
             R.id.btn_next -> {
                 viewModel.saveNote()
-                startActivity(AddNoteImageActivity.getIntent(this, viewModel.getNoteId()))
+                viewModel.noteId?.let { noteId ->
+                    startActivity(AddNoteImageActivity.getIntent(this, noteId))
+                }
             }
 
             //showing title

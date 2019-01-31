@@ -1,6 +1,7 @@
 package com.owl.noteowl.data.features.notes.local
 
 import androidx.lifecycle.LiveData
+import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.asLiveData
 import com.owl.noteowl.utils.Constants
@@ -24,7 +25,15 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
         }
     }
 
-    fun getNote(noteId: Int): Note? {
+    fun saveLabels(noteId: Int?, labels: List<Label>) {
+        defaultQuery(noteId)?.findFirst()?.let { note ->
+            realm.executeTransaction {
+                note.labels.addAll(labels)
+            }
+        }
+    }
+
+    fun getNote(noteId: Int?): Note? {
         return defaultQuery(noteId)?.findFirst()
     }
 

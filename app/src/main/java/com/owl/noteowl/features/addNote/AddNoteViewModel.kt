@@ -1,26 +1,34 @@
 package com.owl.noteowl.features.addNote
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.owl.noteowl.data.features.notes.local.NoteDao
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
-import com.owl.noteowl.utils.Constants.NoteStatus
+import com.owl.noteowl.extensions.asLiveData
+import com.owl.noteowl.extensions.asNonManagedRealmCopy
+import com.owl.noteowl.utils.Constants
 
-class AddNoteViewModel : ViewModel() {
+class AddNoteViewModel(var noteId: Int?) : ViewModel() {
+
     var labelsLiveData = MutableLiveData<ArrayList<Label>>().apply {
         value = arrayListOf()
     }
 
-    private val newNote by lazy {
-        Note().apply {
-            this.status = NoteStatus().NEW_EDIT
-        }
-    }
-
     val noteLiveData by lazy {
-        MutableLiveData<Note>().apply {
-            this.value = newNote
+        if (noteId == null) {
+            val note = Note().apply {
+                this.status = Constants.NoteStatus().NEW_EDIT
+                noteId = this.id
+            }
+            noteDao.saveNote(note)
+        }
+        noteDao.getNote(noteId)?.asLiveData()?.let { noteLive ->
+            Transformations.map(noteLive) { note ->
+                note.asNonManagedRealmCopy()
+            }
         }
     }
 
@@ -67,14 +75,23 @@ class AddNoteViewModel : ViewModel() {
 
     //saving note
     fun saveNote() {
-        noteDao.saveNote(newNote.apply {
+        noteLiveData?.value?.apply {
             labelsLiveData.value?.let { labels ->
                 this.labels.addAll(labels.filter {
                     it.title != addLabel?.title
                 })
             }
-        })
+            noteDao.saveNote(this)
+        }
     }
 
-    fun getNoteId() = newNote.id
+    class Factory(var noteId: Int?) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(AddNoteViewModel::class.java)) {
+                return AddNoteViewModel(noteId) as T
+            } else {
+                throw IllegalArgumentException("Not a valid view model")
+            }
+        }
+    }
 }
