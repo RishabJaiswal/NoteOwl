@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.owl.noteowl.data.features.notes.local.LabelDao
 import com.owl.noteowl.data.features.notes.local.NoteDao
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
@@ -17,8 +18,11 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
         value = arrayListOf()
     }
 
-    val NOTE_STATUS = Constants.NoteStatus()
+    val savedLabelsLiveData by lazy {
+        labelDao.getLabelsLive()
+    }
 
+    val NOTE_STATUS = Constants.NoteStatus()
     val noteLiveData by lazy {
         if (noteId == null) {
             val note = Note().apply {
@@ -35,9 +39,8 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
     }
 
     private val noteDao by lazy { NoteDao() }
-    private val addLabel by lazy {
-        labelsLiveData.value?.first()
-    }
+    private val labelDao by lazy { LabelDao() }
+    private val addLabel by lazy { labelsLiveData.value?.first() }
 
     //adding "add Label" to the labels list of note
     fun setAddLabel(name: String?, color: Int?) {
@@ -54,17 +57,27 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
                     colorHex = color
                 }
 
-                //saving label
-                if (position != null) {
-                    value?.add(position, label)
-                } else {
-                    value?.add(label)
-                }
+                //checking if label is already present
+                val isLabelPresent = isLabelPresent(label, value ?: emptyList())
+                if (isLabelPresent == false) {
+                    //saving label
+                    if (position != null) {
+                        value?.add(position, label)
+                    } else {
+                        value?.add(1, label)
+                    }
 
-                //streaming changes
-                value = value
+                    //streaming changes
+                    value = value
+                }
             }
         }
+    }
+
+    fun isLabelPresent(label: Label, labels: List<Label>): Boolean? {
+        return labels.find {
+            it.title == label.title
+        } != null
     }
 
     //removing label

@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
+import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.AddNoteBinding
 import com.owl.noteowl.databinding.DialogSelectLabelBinding
 import com.owl.noteowl.extensions.gone
@@ -176,21 +177,39 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         }
     }
 
+    //observing saved changes in database
+    private fun observeSavedLabels() {
+        viewModel.savedLabelsLiveData.observe(this, Observer {
+            it?.let { labels ->
+                selectLabelBinding.rvSelectLabel.adapter = LabelsSelectAdapter(this, labels, this::onLabelClicked)
+            }
+        })
+    }
+
+    private fun onLabelClicked(label: Label?) {
+        selectLabelBinding.labelName = label?.title
+        selectLabelBinding.colorSelected = label?.colorHex
+    }
+
     //dialog helps in selecting or creating a label
     fun showSelectLabelDialog() {
         if (selectLabelDialog == null) {
             selectLabelBinding = DialogSelectLabelBinding.inflate(layoutInflater)
-            selectLabelBinding.HSLColorPicker.setOnColorChangeListener { colorBarPosition, alphaBarPosition, color ->
-                selectLabelBinding.colorSelected = color
-            }
-            //click listeners
-            selectLabelBinding.btnCancelSelectLabel.setOnClickListener(this)
-            selectLabelBinding.btnSaveSelectLabel.setOnClickListener(this)
 
-            //creating dialog
-            selectLabelDialog = AlertDialog.Builder(this)
-                .setView(selectLabelBinding.root)
-                .create()
+            selectLabelBinding.apply {
+                HSLColorPicker.setOnColorChangeListener { colorBarPosition, alphaBarPosition, color ->
+                    colorSelected = color
+                }
+                //click listeners
+                btnCancelSelectLabel.setOnClickListener(this@AddNoteActivity)
+                btnSaveSelectLabel.setOnClickListener(this@AddNoteActivity)
+
+                //creating dialog
+                selectLabelDialog = AlertDialog.Builder(this@AddNoteActivity)
+                    .setView(root)
+                    .create()
+            }
+            observeSavedLabels()
         }
 
         //selecting random color and emptying label title
