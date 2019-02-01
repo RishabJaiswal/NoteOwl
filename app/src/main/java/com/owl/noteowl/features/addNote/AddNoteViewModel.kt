@@ -17,10 +17,12 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
         value = arrayListOf()
     }
 
+    val NOTE_STATUS = Constants.NoteStatus()
+
     val noteLiveData by lazy {
         if (noteId == null) {
             val note = Note().apply {
-                this.status = Constants.NoteStatus().NEW_EDIT
+                this.status = NOTE_STATUS.NEW_EDIT
                 noteId = this.id
             }
             noteDao.saveNote(note)
@@ -82,6 +84,15 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
                 })
             }
             noteDao.saveNote(this)
+        }
+    }
+
+    //deleting note
+    fun deleteNote() {
+        noteLiveData?.value?.let { note ->
+            if (note.status == NOTE_STATUS.NEW_EDIT) {
+                noteDao.deleteNote(noteId)
+            }
         }
     }
 

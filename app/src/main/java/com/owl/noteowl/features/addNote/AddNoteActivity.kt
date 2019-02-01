@@ -76,6 +76,11 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         showConfirmExitDialog()
     }
 
+    override fun onDestroy() {
+        viewModel.deleteNote()
+        super.onDestroy()
+    }
+
     //labels
     fun setLabels() {
         viewModel.setAddLabel(getString(R.string.add_label), Color.parseColor("#c6c6c6"))
@@ -106,7 +111,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     private fun observeNote() {
         viewModel.noteLiveData?.observe(this, Observer {
             it?.let { note ->
-                if (note.status === Constants.NoteStatus().SAVED) {
+                if (note.status == Constants.NoteStatus().SAVED) {
                     finish()
                 } else {
                     mainBinding.note = note
