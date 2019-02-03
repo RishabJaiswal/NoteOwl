@@ -48,6 +48,7 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             tvAddImage.setOnClickListener(this@AddNoteImageActivity)
             addImage.setOnClickListener(this@AddNoteImageActivity)
             btnSave.setOnClickListener(this@AddNoteImageActivity)
+            addImage.clipToOutline = true
         }
     }
 
