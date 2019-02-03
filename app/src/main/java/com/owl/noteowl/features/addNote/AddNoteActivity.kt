@@ -104,8 +104,13 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         //hiding all views above note text
         if (isFocused) {
             hideTitle()
+            group_blank_slate.gone()
         } else {
             editTitle()
+            //showing blank slate
+            if (edt_note_text.length() == 0) {
+                group_blank_slate.visible()
+            }
         }
     }
 
