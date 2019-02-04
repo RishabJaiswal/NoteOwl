@@ -18,14 +18,14 @@
             android:id="@+id/imv_note_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            bind:loadImage="@{imageUrl}"
+            android:background="@drawable/radial_rect_8dp"
             android:scaleType="centerCrop"
-            android:background="#eee"
-            bind:layout_constraintDimensionRatio="h,34:21"
             bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintDimensionRatio="h,34:21"
             bind:layout_constraintEnd_toEndOf="parent"
             bind:layout_constraintStart_toStartOf="parent"
-            bind:layout_constraintTop_toTopOf="parent" />
+            bind:layout_constraintTop_toTopOf="parent"
+            bind:loadImage="@{imageUrl}" />
 
         <!--selector-->
         <View

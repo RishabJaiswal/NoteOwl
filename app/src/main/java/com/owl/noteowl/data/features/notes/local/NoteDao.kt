@@ -76,7 +76,11 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     //deleting note
     fun deleteNote(noteId: Int?) {
-        defaultQuery(noteId)?.findFirst()?.deleteFromRealm()
+        defaultQuery(noteId)?.findFirst()?.let { note ->
+            realm.executeTransaction {
+                note.deleteFromRealm()
+            }
+        }
     }
 
     fun close() {
