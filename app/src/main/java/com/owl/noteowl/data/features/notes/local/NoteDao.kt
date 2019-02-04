@@ -13,7 +13,7 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     fun defaultQuery(noteId: Int?): RealmQuery<Note>? {
         if (noteId != null) {
             return realm.where(Note::class.java)
-                .equalTo("id", noteId)
+                .equalTo(NoteFields.ID, noteId)
         }
         return realm.where(Note::class.java)
     }
@@ -66,7 +66,7 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     }
 
     //saving status
-    fun saveStatus(noteId: Int, status: String) {
+    fun saveStatus(noteId: Int?, status: String) {
         realm.executeTransaction {
             defaultQuery(noteId)?.findFirst()?.let { note ->
                 note.status = status
