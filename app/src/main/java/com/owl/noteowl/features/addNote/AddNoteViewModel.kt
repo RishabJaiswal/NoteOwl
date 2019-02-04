@@ -11,14 +11,17 @@ import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.asLiveData
 import com.owl.noteowl.extensions.asNonManagedRealmCopy
 import com.owl.noteowl.utils.Constants
+import io.realm.RealmList
 
 class AddNoteViewModel(var noteId: Int?) : ViewModel() {
 
-    var labelsLiveData = MutableLiveData<ArrayList<Label>>().apply {
-        value = arrayListOf()
+    val noteLabelsLiveData by lazy {
+        MutableLiveData<RealmList<Label>>().apply {
+            value = noteLiveData?.value?.labels ?: RealmList()
+        }
     }
 
-    val savedLabelsLiveData by lazy {
+    val allLabelsLiveData by lazy {
         labelDao.getLabelsLive()
     }
 
@@ -30,6 +33,9 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
                 noteId = this.id
             }
             noteDao.saveNote(note)
+        } else {
+            //changing status of an already saved note
+            noteDao.saveStatus(noteId, NOTE_STATUS.SAVED_EDIT)
         }
         noteDao.getNote(noteId)?.asLiveData()?.let { noteLive ->
             Transformations.map(noteLive) { note ->
@@ -40,7 +46,7 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
 
     private val noteDao by lazy { NoteDao() }
     private val labelDao by lazy { LabelDao() }
-    private val addLabel by lazy { labelsLiveData.value?.first() }
+    private val addLabel by lazy { noteLabelsLiveData.value?.first() }
 
     //adding "add Label" to the labels list of note
     fun setAddLabel(name: String?, color: Int?) {
@@ -50,7 +56,7 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
     //saving label
     fun saveLabel(position: Int? = null, name: String?, color: Int?) {
         if (!name.isNullOrEmpty() && color != null) {
-            labelsLiveData.apply {
+            noteLabelsLiveData.apply {
                 //creating label
                 val label = Label().apply {
                     title = name!!
@@ -82,7 +88,7 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
 
     //removing label
     fun removeLabel(position: Int) {
-        labelsLiveData.apply {
+        noteLabelsLiveData.apply {
             value?.removeAt(position)
             value = value
         }
@@ -91,7 +97,8 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
     //saving note
     fun saveNote() {
         noteLiveData?.value?.apply {
-            labelsLiveData.value?.let { labels ->
+            noteLabelsLiveData.value?.let { labels ->
+                this.labels.clear()
                 this.labels.addAll(labels.filter {
                     it.title != addLabel?.title
                 })

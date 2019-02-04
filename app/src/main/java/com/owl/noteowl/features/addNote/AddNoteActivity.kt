@@ -89,7 +89,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         rv_labels_add_note.adapter = addLabelAdapter
 
         //observing added labels
-        viewModel.labelsLiveData.observe(this, androidx.lifecycle.Observer {
+        viewModel.noteLabelsLiveData.observe(this, androidx.lifecycle.Observer {
             it?.let { labels ->
                 //adding last added label
                 if (labels.size > 0) {
@@ -184,7 +184,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
 
     //observing saved changes in database
     private fun observeSavedLabels() {
-        viewModel.savedLabelsLiveData.observe(this, Observer {
+        viewModel.allLabelsLiveData.observe(this, Observer {
             it?.let { labels ->
                 selectLabelBinding.rvSelectLabel.adapter = LabelsSelectAdapter(this, labels, this::onLabelClicked)
             }
