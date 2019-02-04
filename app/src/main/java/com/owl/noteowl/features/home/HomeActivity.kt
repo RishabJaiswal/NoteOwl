@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //observing notes list
-    fun observeNotes() {
+    private fun observeNotes() {
         viewModel.notesLiveData.observe(this, Observer {
             it?.let { notes ->
                 if (notes.size == 0) {
@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //observing labels list
-    fun observeLabels() {
+    private fun observeLabels() {
         viewModel.labelsLiveData.observe(this, Observer {
             it?.let { labels ->
                 setLabels(labels)
@@ -62,19 +62,24 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //setting notes list
-    fun setNotes(notes: List<Note>) {
-        rv_notes.adapter = NotesAdapter(this, notes)
+    private fun setNotes(notes: List<Note>) {
+        rv_notes.adapter = NotesAdapter(this, notes, this::onNoteClicked)
     }
 
     //setting labels
-    fun setLabels(labels: List<Label>) {
+    private fun setLabels(labels: List<Label>) {
         rv_label_filter.adapter = LabelsForFilterAdapter(this, labels, this::onLabelClicked)
     }
 
     //on click label
-    fun onLabelClicked(label: Label?) {
+    private fun onLabelClicked(label: Label?) {
         label?.let {
             //todo:: filter notes via label
         } ?: startActivity(Intent(this, AddNoteActivity::class.java))
+    }
+
+    //on clicking note
+    private fun onNoteClicked(note: Note) {
+        startActivity(AddNoteActivity.getIntent(this, note.id))
     }
 }

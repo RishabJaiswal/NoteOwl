@@ -1,5 +1,7 @@
 package com.owl.noteowl.features.addNote
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -38,8 +40,12 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     private lateinit var mainBinding: AddNoteBinding
 
     private val viewModel by lazy {
-        ViewModelProviders.of(
-            this, AddNoteViewModel.Factory(null)
+        var noteId: Int? = intent.getIntExtra(Constants.Note().KEY_ID, -1)
+        if (noteId == -1) {
+            noteId = null
+        }
+        return@lazy ViewModelProviders.of(
+            this, AddNoteViewModel.Factory(noteId)
         )[AddNoteViewModel::class.java]
     }
 
@@ -235,5 +241,13 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
                 .create()
         }
         exitDialog?.show()
+    }
+
+    companion object {
+        fun getIntent(context: Context, noteId: Int): Intent {
+            return Intent(context, AddNoteActivity::class.java).apply {
+                putExtra(Constants.Note().KEY_ID, noteId)
+            }
+        }
     }
 }
