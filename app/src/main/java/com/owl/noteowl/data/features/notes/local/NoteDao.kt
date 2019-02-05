@@ -36,6 +36,10 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
         return defaultQuery(noteId)?.findFirst()
     }
 
+    fun getNoteLive(noteId: Int?): LiveData<Note>? {
+        return getNote(noteId)?.asLiveData()
+    }
+
     //saving image
     fun saveImage(noteId: Int, url: String) {
         if (url.isNotEmpty()) {
