@@ -27,3 +27,7 @@ fun <T : RealmObject> RealmList<T>.asLiveData(): LiveData<RealmList<T>> {
 fun <T : RealmObject> T.asNonManagedRealmCopy(realm: Realm = Realm.getDefaultInstance()): T {
     return realm.copyFromRealm(this)
 }
+
+fun <T : RealmObject> RealmList<T>.asNonManagedRealmCopy(realm: Realm = Realm.getDefaultInstance()): List<T> {
+    return realm.copyFromRealm(this)
+}
