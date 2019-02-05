@@ -58,10 +58,11 @@ class SelectImageAdapter(val context: Context) : RecyclerView.Adapter<SelectImag
 
         init {
             binding.root.setOnClickListener(this)
+            binding.imvNoteImage.clipToOutline = true
         }
 
         fun bind(image: Image) {
-            binding.imageUrl = image.urls?.regular
+            binding.imageUrl = image.getDisplayImageUrl()
             //showing selector
             if (selectedItemPosition == adapterPosition) {
                 binding.selector.visible()

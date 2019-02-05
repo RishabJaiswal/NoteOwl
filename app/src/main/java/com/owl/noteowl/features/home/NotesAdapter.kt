@@ -2,6 +2,7 @@ package com.owl.noteowl.features.home
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.data.features.notes.models.Note
@@ -10,7 +11,8 @@ import com.owl.noteowl.extensions.text
 
 class NotesAdapter(
     val context: Context,
-    val notes: List<Note>
+    val notes: List<Note>,
+    val onNoteClicked: (note: Note) -> Unit
 ) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -29,12 +31,21 @@ class NotesAdapter(
         holder.bind(notes[position])
     }
 
-    inner class NoteViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class NoteViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root),
+        View.OnClickListener {
+        init {
+            binding.root.setOnClickListener(this)
+        }
+
         fun bind(note: Note) {
             binding.note = note
             binding.rvLabelsNote.adapter = LabelsInNoteAdapter(context, note.labels ?: emptyList())
             binding.tvNoteDate.text = note.createdAt.text("dd MMM")
             binding.imvNoteBanner.clipToOutline = true
+        }
+
+        override fun onClick(v: View?) {
+            onNoteClicked(notes[adapterPosition])
         }
     }
 }

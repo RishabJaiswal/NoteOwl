@@ -11,13 +11,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
         android:animateLayoutChanges="true"
-        android:focusable="true"
+        android:background="@android:color/white"
         android:clickable="true"
+        android:focusable="true"
         android:focusableInTouchMode="true">
 
         <!--note title-->
@@ -25,7 +24,6 @@
             android:id="@+id/edt_note_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="@dimen/add_note_start_margin"
             android:background="@android:color/white"
@@ -33,6 +31,7 @@
             android:gravity="start"
             android:hint="@string/add_title"
             android:maxLines="3"
+            android:paddingTop="20dp"
             android:text="@={note.title}"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_40"
@@ -58,7 +57,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/add_note_start_margin"
-            app:layout_goneMarginTop="16dp"
             android:drawableStart="@drawable/ic_date"
             android:drawablePadding="8dp"
             android:fontFamily="@font/medium"
@@ -67,6 +65,7 @@
             android:textSize="@dimen/txt_body"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_labels_add_note"
+            app:layout_goneMarginTop="16dp"
             tools:text="12 June 2018" />
 
         <!--divider-->
@@ -85,9 +84,9 @@
             android:id="@+id/confetti_fav"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            app:layout_constraintTop_toTopOf="@+id/cb_fav_note"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/cb_fav_note"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cb_fav_note"
             app:lottie_fileName="confetti.json" />
 
         <!--favourite icon-->
@@ -95,12 +94,12 @@
             android:id="@+id/cb_fav_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:paddingEnd="24dp"
             android:button="@drawable/favorite_selector"
-            android:src="@drawable/ic_favorite"
             android:checked="@={note.liked}"
+            android:paddingTop="16dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="16dp"
+            android:src="@drawable/ic_favorite"
             app:layout_constraintBottom_toBottomOf="@+id/tv_note_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_note_date" />
@@ -114,10 +113,10 @@
             android:fontFamily="@font/semi_bold"
             android:gravity="start"
             android:lineSpacingExtra="6dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
             android:paddingStart="@dimen/add_note_start_margin"
+            android:paddingTop="16dp"
             android:paddingEnd="@dimen/add_note_start_margin"
+            android:paddingBottom="16dp"
             android:text="@={note.text}"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_body"
@@ -126,6 +125,43 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider_date_text"
             tools:text="This is going to be an amazing about winning hearts and it simply starts with a thing called humility This is going to be an amazing about winning hearts and it simply starts with a thing called humility This is going to be an amazing about winning hearts and it simply starts with a thing called humility." />
+
+        <!--artwork for blank note text-->
+        <ImageView
+            android:id="@+id/art_blank_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/art_blank_note"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@+id/tv_tap_to_fill"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider_date_text"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <!--tap to fill label-->
+        <TextView
+            android:id="@+id/tv_tap_to_fill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/tap_to_fill"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/txt_18"
+            app:layout_constraintBottom_toTopOf="@+id/divider_text_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/art_blank_note" />
+
+        <!--blank slate group-->
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_blank_slate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_tap_to_fill, art_blank_note" />
 
         <!--divider-->
         <View
@@ -151,9 +187,9 @@
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_body"
             android:visibility="invisible"
-            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
 
 
         <!--edit title indicator-->

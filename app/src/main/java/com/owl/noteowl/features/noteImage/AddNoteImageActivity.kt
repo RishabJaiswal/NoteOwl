@@ -31,6 +31,9 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var binding: ActivityAddNoteImageBinding
     private var selectImageDialog: AlertDialog? = null
     private lateinit var imagesAdapter: SelectImageAdapter
+    private val contextUtils by lazy {
+        ContextUtility(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,7 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             tvAddImage.setOnClickListener(this@AddNoteImageActivity)
             addImage.setOnClickListener(this@AddNoteImageActivity)
             btnSave.setOnClickListener(this@AddNoteImageActivity)
+            addImage.clipToOutline = true
         }
     }
 
@@ -80,7 +84,7 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //showing dialog
-    fun showSelectImageDialog() {
+    private fun showSelectImageDialog() {
         if (selectImageDialog == null) {
             val view = LayoutInflater.from(this).inflate(R.layout.dialog_select_image, null)
             selectImageDialog = AlertDialog.Builder(this)
@@ -126,18 +130,21 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //for images grid list
-    class ImagesDecoration(val rightMargin: Int, val bottomMargin: Int) : RecyclerView.ItemDecoration() {
+    class ImagesDecoration(private val rightMargin: Int, private val bottomMargin: Int) :
+        RecyclerView.ItemDecoration() {
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
             val position = parent.getChildLayoutPosition(view)
             if (position == 0 || position % 2 == 0) {
-                outRect.right = rightMargin
+                outRect.right = rightMargin / 2
+            } else {
+                outRect.left = rightMargin / 2
             }
             outRect.bottom = bottomMargin
         }
     }
 
     //showing note saved
-    fun showNoteSavedDialog() {
+    private fun showNoteSavedDialog() {
         val view = layoutInflater.inflate(R.layout.dialog_note_saved, null)
         val alertDialog = AlertDialog.Builder(this)
             .setView(view)

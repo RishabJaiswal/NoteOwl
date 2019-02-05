@@ -17,8 +17,18 @@
         android:layout_height="match_parent"
         android:background="@android:color/white">
 
+        <!--artwork-->
+        <ImageView
+            android:id="@+id/art_add_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/art_add_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <!--note-->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/divider_text_next"
@@ -31,20 +41,20 @@
                 android:id="@+id/add_image"
                 android:layout_width="210dp"
                 android:layout_height="160dp"
-                android:background="#f4f4f4"
+                android:background="@drawable/radial_rect_8dp"
                 android:elevation="2dp"
                 android:scaleType="centerCrop"
-                bind:loadImage="@{note.imageUrl}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                bind:loadImage="@{note.imageUrl}" />
 
             <!--add image icon-->
             <ImageView
                 android:id="@+id/ic_add_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_add_photo"
                 android:elevation="2dp"
+                android:src="@drawable/ic_add_photo"
                 app:layout_constraintBottom_toTopOf="@+id/tv_add_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -73,55 +83,36 @@
                 android:id="@+id/imv_liked"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:padding="1dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_image"
+                app:layout_constraintTop_toBottomOf="@+id/tv_note_date"
                 app:srcCompat="@drawable/ic_liked"
                 bind:visibleOrGone="@{note.liked}"
                 tools:visibility="visible" />
 
-            <!--labels-->
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toEndOf="@+id/imv_liked"
-                app:layout_constraintTop_toBottomOf="@+id/add_image"
-                bind:visibleOrGone="@{note.labels.size() > 0}">
-
-                <LinearLayout
-                    android:id="@+id/ll_labels"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <include layout="@layout/item_label_note_home" />
-
-                </LinearLayout>
-            </HorizontalScrollView>
-
             <!--note title-->
             <TextView
                 android:id="@+id/tv_note_title"
+                style="@style/noteTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:maxLines="1"
                 android:text="@{note.title}"
-                style="@style/noteTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imv_liked"
+                app:layout_constraintTop_toBottomOf="@+id/add_image"
                 tools:text="Cook for heart" />
 
             <!--note text-->
             <TextView
                 android:id="@+id/tv_note_details"
+                style="@style/noteText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="3"
+                android:maxLines="4"
                 android:text="@{note.text}"
-                style="@style/noteText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_note_title"
@@ -130,14 +121,35 @@
             <!--note date-->
             <TextView
                 android:id="@+id/tv_note_date"
+                style="@style/noteDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/noteDate"
+                android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_note_details"
                 tools:text="12 May" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--note placeholder-->
+        <ImageView
+            android:id="@+id/ph_note_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/place_holder_note"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
+
+        <!--note placeholder-->
+        <ImageView
+            android:id="@+id/ph_note_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/place_holder_note"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
         <!--divider-->
         <View
@@ -153,11 +165,12 @@
         <Button
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:layout_marginStart="@dimen/add_note_start_margin"
             android:background="?android:attr/selectableItemBackground"
             android:elevation="0dp"
             android:fontFamily="@font/semi_bold"
+            android:padding="0dp"
             android:text="@string/cta_save"
             android:textAllCaps="false"
             android:textColor="@color/textPrimary"
