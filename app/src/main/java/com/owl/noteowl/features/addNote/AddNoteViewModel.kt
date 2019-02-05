@@ -1,6 +1,6 @@
 package com.owl.noteowl.features.addNote
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,16 +8,14 @@ import com.owl.noteowl.data.features.notes.local.LabelDao
 import com.owl.noteowl.data.features.notes.local.NoteDao
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
-import com.owl.noteowl.extensions.asLiveData
 import com.owl.noteowl.extensions.asNonManagedRealmCopy
 import com.owl.noteowl.utils.Constants
-import io.realm.RealmList
 
 class AddNoteViewModel(var noteId: Int?) : ViewModel() {
 
     val noteLabelsLiveData by lazy {
-        MutableLiveData<RealmList<Label>>().apply {
-            value = noteLiveData?.value?.labels ?: RealmList()
+        MediatorLiveData<ArrayList<Label>>().apply {
+            value = noteDao.getNote(noteId)?.labels?.asNonManagedRealmCopy() as ArrayList<Label>
         }
     }
 
@@ -37,7 +35,7 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
             //changing status of an already saved note
             noteDao.saveStatus(noteId, NOTE_STATUS.SAVED_EDIT)
         }
-        noteDao.getNote(noteId)?.asLiveData()?.let { noteLive ->
+        noteDao.getNoteLive(noteId)?.let { noteLive ->
             Transformations.map(noteLive) { note ->
                 note.asNonManagedRealmCopy()
             }
@@ -108,10 +106,14 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
     }
 
     //deleting note
-    fun deleteNote() {
+    fun changeNoteStatus() {
         noteLiveData?.value?.let { note ->
             if (note.status == NOTE_STATUS.NEW_EDIT) {
+                //new note
                 noteDao.deleteNote(noteId)
+            } else {
+                //user was editing previous saved note
+                noteDao.saveStatus(noteId, NOTE_STATUS.SAVED)
             }
         }
     }

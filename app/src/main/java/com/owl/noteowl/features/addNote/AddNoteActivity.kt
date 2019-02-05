@@ -84,7 +84,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     }
 
     override fun onDestroy() {
-        viewModel.deleteNote()
+        viewModel.changeNoteStatus()
         super.onDestroy()
     }
 
