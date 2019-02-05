@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -161,6 +162,7 @@
             android:id="@+id/group_blank_slate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            bind:visibleOrGone="@{note.text.trim().length() == 0}"
             app:constraint_referenced_ids="tv_tap_to_fill, art_blank_note" />
 
         <!--divider-->
@@ -206,13 +208,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_note_date"
             tools:visibility="visible" />
-
-        <!--group-->
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/group_above_text"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            app:constraint_referenced_ids="edt_note_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
