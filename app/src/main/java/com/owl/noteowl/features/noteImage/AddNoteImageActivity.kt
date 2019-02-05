@@ -94,9 +94,13 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             //images recycler listing
             val margin = ContextUtility(this).convertDpToPx(10f).toInt()
             imagesAdapter = SelectImageAdapter(this)
-            view.rv_images.adapter = imagesAdapter
-            view.rv_images.addItemDecoration(ImagesDecoration(margin, margin))
-            view.btn_select.setOnClickListener(this)
+            view.apply {
+                sv_image.isIconified = false
+                sv_image.clearFocus()
+                rv_images.adapter = imagesAdapter
+                rv_images.addItemDecoration(ImagesDecoration(margin, margin))
+                btn_select.setOnClickListener(this@AddNoteImageActivity)
+            }
             viewModel.getImages()
             observeImages()
         }
