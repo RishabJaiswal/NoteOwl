@@ -11,11 +11,11 @@ import io.realm.*
 class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     fun defaultQuery(noteId: Int? = null): RealmQuery<Note> {
+        val query = realm.where(Note::class.java)
         if (noteId != null) {
-            return realm.where(Note::class.java)
-                .equalTo(NoteFields.ID, noteId)
+            return query.equalTo(NoteFields.ID, noteId)
         }
-        return realm.where(Note::class.java)
+        return query
     }
 
     fun saveNote(note: Note) {
@@ -91,6 +91,7 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     fun getNotesByLabelAsyncLive(labelTitles: Array<String>): LiveData<RealmResults<Note>>? {
         return defaultQuery()
             .`in`(NoteFields.LABELS.TITLE, labelTitles)
+            .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
             .findAllAsync()
             .asLiveData()
     }
