@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     //on click label
     private fun onLabelClicked(label: Label?) {
         label?.let {
-            //todo:: filter notes via label
+            viewModel.editFilter(label.title)
         } ?: startActivity(Intent(this, AddNoteActivity::class.java))
     }
 

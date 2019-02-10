@@ -1,14 +1,45 @@
 package com.owl.noteowl.features.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.owl.noteowl.data.features.notes.local.LabelDao
 import com.owl.noteowl.data.features.notes.local.NoteDao
+import com.owl.noteowl.data.features.notes.models.Note
+import io.realm.RealmResults
 
 class NotesViewModel : ViewModel() {
 
     private val notesDao by lazy { NoteDao() }
     private val labelsDao by lazy { LabelDao() }
 
-    val notesLiveData = notesDao.getSavedNotesLive()
+    private val labelsFilter = arrayListOf<String>()
+    private val labelsFilterLive by lazy {
+        MutableLiveData<ArrayList<String>>().apply {
+            value = labelsFilter
+        }
+    }
+
+    //notes by filter
+    val notesLiveData: LiveData<RealmResults<Note>> by lazy {
+        Transformations.switchMap(labelsFilterLive) { labels ->
+            if (labels == null || labels.isEmpty()) {
+                return@switchMap notesDao.getSavedNotesLive()
+            }
+            return@switchMap notesDao.getNotesByLabelAsyncLive(labels.toTypedArray())
+        }
+    }
+
     val labelsLiveData = labelsDao.getLabelsLive()
+
+    //editing filter
+    fun editFilter(labelTitle: String) {
+        if (!labelsFilter.contains(labelTitle)) {
+            labelsFilter.add(labelTitle)
+        } else {
+            labelsFilter.remove(labelTitle)
+        }
+        labelsFilterLive.value = labelsFilter
+    }
 }
