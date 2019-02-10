@@ -24,7 +24,7 @@ class LabelsForFilterAdapter(
             return AddNoteViewHolder(
                 LayoutInflater.from(context).inflate(
                     R.layout.item_add_note_label_filters,
-                    null,
+                    parent,
                     false
                 )
             )
@@ -42,14 +42,14 @@ class LabelsForFilterAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is LabelViewHolder) {
-            holder.bind(labels[position])
+            holder.bind(labels[position - 1])
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0)
             return POSITION.FIRST
-        return super.getItemViewType(position)
+        return POSITION.MID
     }
 
 
@@ -66,11 +66,7 @@ class LabelsForFilterAdapter(
         }
 
         override fun onClick(view: View?) {
-            var label: Label? = null
-            if (adapterPosition != 0) {
-                label = labels[adapterPosition]
-            }
-            onLabelClicked(label)
+            onLabelClicked(binding.label)
         }
     }
 
