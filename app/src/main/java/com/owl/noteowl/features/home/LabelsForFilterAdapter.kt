@@ -9,6 +9,7 @@ import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelHomeFiltersBinding
 import com.owl.noteowl.utils.Constants
+import com.owl.noteowl.utils.ContextUtility
 
 class LabelsForFilterAdapter(
     val context: Context,
@@ -18,6 +19,10 @@ class LabelsForFilterAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val POSITION = Constants.Position()
+    private val labelTranslationY by lazy {
+        ContextUtility(context).convertDpToPx(8f)
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == POSITION.FIRST) {
@@ -67,6 +72,14 @@ class LabelsForFilterAdapter(
 
         override fun onClick(view: View?) {
             onLabelClicked(binding.label)
+            //animating label
+            itemView.animate().translationY(
+                if (itemView.translationY == 0f) {
+                    labelTranslationY
+                } else {
+                    0f
+                }
+            ).start()
         }
     }
 
