@@ -46,7 +46,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                     blank_slate_home.visible()
                 } else {
                     blank_slate_home.gone()
-                    setNotes(notes)
+                    setNotes(notes.toList())
                 }
             }
         })
@@ -61,9 +61,15 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
+    private var notesAdapter: NotesAdapter? = null
+
     //setting notes list
     private fun setNotes(notes: List<Note>) {
-        rv_notes.adapter = NotesAdapter(this, notes, this::onNoteClicked)
+        if (notesAdapter == null) {
+            notesAdapter = NotesAdapter(this, arrayListOf(), this::onNoteClicked)
+            rv_notes.adapter = notesAdapter
+        }
+        notesAdapter?.update(notes)
     }
 
     //setting labels
