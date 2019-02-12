@@ -1,11 +1,14 @@
 package com.owl.noteowl.features.home
 
 import android.content.Context
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.databinding.ItemNoteBinding
 import com.owl.noteowl.extensions.text
@@ -42,8 +45,17 @@ class NotesAdapter(
 
     inner class NoteViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root),
         View.OnClickListener {
+
+        //creating actions menu for note
+        private val popupMenu by lazy {
+            val popupMenu = PopupMenu(context, binding.btnMore, Gravity.TOP)
+            popupMenu.inflate(R.menu.note_options)
+            return@lazy popupMenu
+        }
+
         init {
             binding.root.setOnClickListener(this)
+            binding.btnMore.setOnClickListener(this)
         }
 
         fun bind(note: Note) {
@@ -54,7 +66,14 @@ class NotesAdapter(
         }
 
         override fun onClick(v: View?) {
-            onNoteClicked(notes[adapterPosition])
+            when (v?.id) {
+                R.id.btn_more -> {
+                    popupMenu.show()
+                }
+                else -> {
+                    onNoteClicked(notes[adapterPosition])
+                }
+            }
         }
     }
 
