@@ -108,5 +108,17 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_note_details"
             tools:text="12 May" />
 
+        <!--more button-->
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="2dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_date" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
