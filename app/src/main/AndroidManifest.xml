@@ -32,6 +32,8 @@
 
         <!--add image screen-->
         <activity android:name=".features.noteImage.AddNoteImageActivity" />
+        <!--view note-->
+        <activity android:name=".features.viewNote.ViewNoteActivity" />
     </application>
 
 </manifest>

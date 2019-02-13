@@ -73,7 +73,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
 
         })
 
-        edt_note_text.setOnFocusChangeListener(this)
+        edt_note_text.onFocusChangeListener = this
         btn_edit_title.setOnClickListener(this)
         cb_fav_note.setOnCheckedChangeListener(this)
         btn_next.setOnClickListener(this)

@@ -12,6 +12,7 @@ import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.addNote.AddNoteActivity
+import com.owl.noteowl.features.viewNote.ViewNoteActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
@@ -87,7 +88,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     //on clicking note
     private fun onNoteClicked(note: Note) {
-        startActivity(AddNoteActivity.getIntent(this, note.id))
+        startActivity(ViewNoteActivity.getIntent(this, note.id))
     }
 
     //on note actions clicked
