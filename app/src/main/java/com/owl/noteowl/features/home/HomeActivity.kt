@@ -66,11 +66,12 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     //setting notes list
     private fun setNotes(notes: List<Note>) {
         if (notesAdapter == null) {
-            notesAdapter = NotesAdapter(this, arrayListOf(), this::onNoteClicked)
+            notesAdapter = NotesAdapter(this, arrayListOf(), this::onNoteClicked, this::onNoteActionClicked)
             rv_notes.adapter = notesAdapter
         }
         notesAdapter?.update(notes)
     }
+
 
     //setting labels
     private fun setLabels(labels: List<Label>) {
@@ -87,5 +88,20 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     //on clicking note
     private fun onNoteClicked(note: Note) {
         startActivity(AddNoteActivity.getIntent(this, note.id))
+    }
+
+    //on note actions clicked
+    private fun onNoteActionClicked(menuItemId: Int?, noteId: Int) {
+        when (menuItemId) {
+            //edit note
+            R.id.edit -> {
+                startActivity(AddNoteActivity.getIntent(this, noteId))
+            }
+
+            //delete note
+            R.id.delete -> {
+                //todo:: delete note here
+            }
+        }
     }
 }

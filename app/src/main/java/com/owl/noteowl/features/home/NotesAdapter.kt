@@ -1,10 +1,7 @@
 package com.owl.noteowl.features.home
 
 import android.content.Context
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,9 +11,10 @@ import com.owl.noteowl.databinding.ItemNoteBinding
 import com.owl.noteowl.extensions.text
 
 class NotesAdapter(
-    val context: Context,
-    val notes: ArrayList<Note>,
-    val onNoteClicked: (note: Note) -> Unit
+    private val context: Context,
+    private val notes: ArrayList<Note>,
+    private val onNoteClicked: (note: Note) -> Unit,
+    private val onNoteActionClicked: (menuItemId: Int?, noteId: Int) -> Unit
 ) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -43,13 +41,14 @@ class NotesAdapter(
         noteDiff.dispatchUpdatesTo(this)
     }
 
-    inner class NoteViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root),
-        View.OnClickListener {
+    inner class NoteViewHolder(private val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root),
+        View.OnClickListener, PopupMenu.OnMenuItemClickListener {
 
         //creating actions menu for note
         private val popupMenu by lazy {
             val popupMenu = PopupMenu(context, binding.btnMore, Gravity.TOP)
             popupMenu.inflate(R.menu.note_options)
+            popupMenu.setOnMenuItemClickListener(this)
             return@lazy popupMenu
         }
 
@@ -74,6 +73,12 @@ class NotesAdapter(
                     onNoteClicked(notes[adapterPosition])
                 }
             }
+        }
+
+        //actions more menu item click
+        override fun onMenuItemClick(item: MenuItem?): Boolean {
+            onNoteActionClicked(item?.itemId, notes[adapterPosition].id)
+            return true
         }
     }
 
