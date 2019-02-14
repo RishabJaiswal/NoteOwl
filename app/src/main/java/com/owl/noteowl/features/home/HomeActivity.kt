@@ -12,6 +12,7 @@ import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.addNote.AddNoteActivity
+import com.owl.noteowl.features.viewNote.ViewNoteActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
@@ -46,7 +47,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                     blank_slate_home.visible()
                 } else {
                     blank_slate_home.gone()
-                    setNotes(notes)
+                    setNotes(notes.toList())
                 }
             }
         })
@@ -61,10 +62,17 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
+    private var notesAdapter: NotesAdapter? = null
+
     //setting notes list
     private fun setNotes(notes: List<Note>) {
-        rv_notes.adapter = NotesAdapter(this, notes, this::onNoteClicked)
+        if (notesAdapter == null) {
+            notesAdapter = NotesAdapter(this, arrayListOf(), this::onNoteClicked, this::onNoteActionClicked)
+            rv_notes.adapter = notesAdapter
+        }
+        notesAdapter?.update(notes)
     }
+
 
     //setting labels
     private fun setLabels(labels: List<Label>) {
@@ -74,12 +82,27 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     //on click label
     private fun onLabelClicked(label: Label?) {
         label?.let {
-            //todo:: filter notes via label
+            viewModel.editFilter(label.title)
         } ?: startActivity(Intent(this, AddNoteActivity::class.java))
     }
 
     //on clicking note
     private fun onNoteClicked(note: Note) {
-        startActivity(AddNoteActivity.getIntent(this, note.id))
+        startActivity(ViewNoteActivity.getIntent(this, note.id))
+    }
+
+    //on note actions clicked
+    private fun onNoteActionClicked(menuItemId: Int?, noteId: Int) {
+        when (menuItemId) {
+            //edit note
+            R.id.edit -> {
+                startActivity(AddNoteActivity.getIntent(this, noteId))
+            }
+
+            //delete note
+            R.id.delete -> {
+                //todo:: delete note here
+            }
+        }
     }
 }

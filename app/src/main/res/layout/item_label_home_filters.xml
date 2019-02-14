@@ -18,7 +18,8 @@
         android:padding="1dp"
         android:id="@+id/fl_label_parent"
         android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp">
+        android:layout_marginEnd="12dp"
+        android:translationY="8dp">
 
         <!--label name-->
         <TextView

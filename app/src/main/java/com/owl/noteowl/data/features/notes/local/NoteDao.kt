@@ -10,12 +10,12 @@ import io.realm.*
 
 class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
 
-    fun defaultQuery(noteId: Int?): RealmQuery<Note>? {
+    fun defaultQuery(noteId: Int? = null): RealmQuery<Note> {
+        val query = realm.where(Note::class.java)
         if (noteId != null) {
-            return realm.where(Note::class.java)
-                .equalTo(NoteFields.ID, noteId)
+            return query.equalTo(NoteFields.ID, noteId)
         }
-        return realm.where(Note::class.java)
+        return query
     }
 
     fun saveNote(note: Note) {
@@ -25,7 +25,7 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     }
 
     fun saveLabels(noteId: Int?, labels: List<Label>) {
-        defaultQuery(noteId)?.findFirst()?.let { note ->
+        defaultQuery(noteId).findFirst()?.let { note ->
             realm.executeTransaction {
                 note.labels.addAll(labels)
             }
@@ -33,7 +33,7 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     }
 
     fun getNote(noteId: Int?): Note? {
-        return defaultQuery(noteId)?.findFirst()
+        return defaultQuery(noteId).findFirst()
     }
 
     fun getNoteLive(noteId: Int?): LiveData<Note>? {
@@ -43,7 +43,7 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     //saving image
     fun saveImage(noteId: Int, url: String) {
         if (url.isNotEmpty()) {
-            defaultQuery(noteId)?.findFirst()?.let { note ->
+            defaultQuery(noteId).findFirst()?.let { note ->
                 realm.executeTransaction {
                     note.imageUrl = url
                 }
@@ -65,14 +65,14 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     //get note labels live
     fun getNoteLabelsLive(noteId: Int?): LiveData<RealmList<Label>>? {
         return defaultQuery(noteId)
-            ?.findFirst()?.labels
+            .findFirst()?.labels
             ?.asLiveData()
     }
 
     //saving status
     fun saveStatus(noteId: Int?, status: String) {
         realm.executeTransaction {
-            defaultQuery(noteId)?.findFirst()?.let { note ->
+            defaultQuery(noteId).findFirst()?.let { note ->
                 note.status = status
             }
         }
@@ -80,11 +80,20 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     //deleting note
     fun deleteNote(noteId: Int?) {
-        defaultQuery(noteId)?.findFirst()?.let { note ->
+        defaultQuery(noteId).findFirst()?.let { note ->
             realm.executeTransaction {
                 note.deleteFromRealm()
             }
         }
+    }
+
+    //getting labels by label title
+    fun getNotesByLabelAsyncLive(labelTitles: Array<String>): LiveData<RealmResults<Note>>? {
+        return defaultQuery()
+            .`in`(NoteFields.LABELS.TITLE, labelTitles)
+            .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
+            .findAllAsync()
+            .asLiveData()
     }
 
     fun close() {
