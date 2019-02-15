@@ -26,6 +26,7 @@ import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.noteImage.AddNoteImageActivity
 import com.owl.noteowl.utils.Constants
 import com.owl.noteowl.utils.ContextUtility
+import com.owl.noteowl.utils.visibleOrGone
 import io.realm.RealmList
 import kotlinx.android.synthetic.main.add_note.*
 import java.util.*
@@ -192,6 +193,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     private fun observeSavedLabels() {
         viewModel.allLabelsLiveData.observe(this, Observer {
             it?.let { labels ->
+                visibleOrGone(selectLabelBinding.tvLblSelectOne, labels.size > 0)
                 selectLabelBinding.rvSelectLabel.adapter = LabelsSelectAdapter(this, labels, this::onLabelClicked)
             }
         })

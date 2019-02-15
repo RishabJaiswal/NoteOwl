@@ -53,7 +53,7 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     fun getSavedNotes(): RealmResults<Note> {
         return realm.where(Note::class.java)
-            .equalTo("status", Constants.NoteStatus().SAVED)
+            .contains(NoteFields.STATUS, Constants.NoteStatus().SAVED)
             .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
             .findAll()
     }

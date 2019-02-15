@@ -18,8 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:paddingBottom="24dp">
+        android:background="@android:color/white">
 
         <!--title-->
         <TextView
@@ -112,25 +111,25 @@
             android:id="@+id/tv_lbl_select_one"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/lbl_select_one"
-            android:gravity="center"
-            android:textColor="@color/textSecondary"
-            android:fontFamily="@font/medium"
-            android:textSize="@dimen/txt_body"
-            android:padding="5dp"
+            android:layout_marginTop="24dp"
             android:background="#F2F2F2"
+            android:fontFamily="@font/medium"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/lbl_select_one"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/txt_body"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_cancel_select_label"
-            android:visibility="visible" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_cancel_select_label" />
 
         <!--labels list-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_select_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="24dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"

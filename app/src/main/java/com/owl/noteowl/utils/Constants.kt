@@ -10,8 +10,8 @@ class Constants {
 
     class NoteStatus {
         val NEW_EDIT = "new.edit"
-        val SAVED_EDIT = "saved.edit"
         val SAVED = "saved"
+        val SAVED_EDIT = "${SAVED}.edit"
     }
 
     class Note {
