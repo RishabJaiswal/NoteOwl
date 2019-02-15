@@ -77,6 +77,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
         edt_note_text.onFocusChangeListener = this
         btn_edit_title.setOnClickListener(this)
         cb_fav_note.setOnCheckedChangeListener(this)
+        cb_fav_note.setOnClickListener(this)
         btn_next.setOnClickListener(this)
     }
 
@@ -178,12 +179,22 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
                 editTitle()
                 contextUtils.closeKeyboard(edt_note_text)
             }
+
+            //fav note
+            R.id.cb_fav_note -> {
+                animateFavCheckbox()
+            }
         }
     }
 
     //checkbox change
-    override fun onCheckedChanged(view: CompoundButton?, isChecked: Boolean) {
-        if (isChecked) {
+    override fun onCheckedChanged(view: CompoundButton, isChecked: Boolean) {
+        animateFavCheckbox()
+    }
+
+    //animating confetti
+    private fun animateFavCheckbox() {
+        if (cb_fav_note.isChecked) {
             confetti_fav.speed = 1.3f
             confetti_fav.playAnimation()
         }
