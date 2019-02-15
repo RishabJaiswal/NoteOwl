@@ -21,7 +21,7 @@
         android:focusableInTouchMode="true">
 
         <!--note title-->
-        <EditText
+        <TextView
             android:id="@+id/edt_note_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:hint="@string/add_title"
             android:maxLines="3"
             android:paddingTop="20dp"
-            android:text="@={note.title}"
+            android:text="@{note.title}"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_40"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/favorite_selector"
-            android:checked="@={note.liked}"
+            android:checked="@{note.liked}"
             android:paddingTop="16dp"
             android:paddingEnd="24dp"
             android:paddingBottom="16dp"
@@ -106,7 +106,7 @@
             app:layout_constraintTop_toTopOf="@+id/tv_note_date" />
 
         <!--note text-->
-        <EditText
+        <TextView
             android:id="@+id/edt_note_text"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -118,7 +118,7 @@
             android:paddingTop="16dp"
             android:paddingEnd="@dimen/add_note_start_margin"
             android:paddingBottom="16dp"
-            android:text="@={note.text}"
+            android:text="@{note.text}"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_body"
             app:layout_constraintBottom_toTopOf="@+id/divider_text_next"
@@ -150,7 +150,7 @@
             android:id="@+id/btn_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/add_note_start_margin"
+            android:layout_marginEnd="8dp"
             android:background="@android:color/white"
             android:elevation="0dp"
             android:fontFamily="@font/semi_bold"
@@ -160,7 +160,7 @@
             android:textSize="@dimen/txt_body"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:visibility="visible" />
 
 
