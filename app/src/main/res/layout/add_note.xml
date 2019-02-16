@@ -69,6 +69,13 @@
             app:layout_goneMarginTop="16dp"
             tools:text="12 June 2018" />
 
+        <!--group-->
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_date_fav_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="rv_labels_add_note, tv_note_date, cb_fav_note, confetti_fav" />
+
         <!--divider-->
         <View
             android:id="@+id/divider_date_text"
@@ -198,15 +205,18 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_edit_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
             android:src="@drawable/ic_up"
             android:visibility="gone"
             app:backgroundTint="@android:color/white"
             app:fabCustomSize="32dp"
             app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@+id/edt_note_text"
+            app:layout_constraintDimensionRatio="h,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_note_date"
+            app:layout_constraintTop_toBottomOf="@+id/edt_note_title"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

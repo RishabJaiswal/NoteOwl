@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.TypedValue
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
@@ -111,7 +110,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     override fun onFocusChange(view: View?, isFocused: Boolean) {
         //hiding all views above note text
         if (isFocused) {
-            hideTitle()
+            editText()
             group_blank_slate.gone()
         } else {
             editTitle()
@@ -135,17 +134,17 @@ class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.On
     }
 
     //showing hiding title
-    fun editTitle() {
+    private fun editTitle() {
         btn_edit_title.gone()
         edt_note_text.clearFocus()
-        edt_note_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40f)
+        group_date_fav_labels.visible()
         rv_labels_add_note.visible()
     }
 
-    fun hideTitle() {
+    private fun editText() {
         btn_edit_title.visible()
-        edt_note_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
         rv_labels_add_note.gone()
+        group_date_fav_labels.gone()
     }
 
     //click listener
