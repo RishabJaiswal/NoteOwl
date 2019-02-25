@@ -42,4 +42,8 @@ class NotesViewModel : ViewModel() {
         }
         labelsFilterLive.value = labelsFilter
     }
+
+    fun isLabelsFilterEmpty(): Boolean {
+        return labelsFilter.size == 0
+    }
 }
