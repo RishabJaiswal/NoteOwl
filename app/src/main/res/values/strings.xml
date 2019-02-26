@@ -25,4 +25,9 @@
     <string name="yes">yes</string>
     <string name="tap_to_fill">So Empty! Tap to fill!</string>
     <string name="add_note_label_filters">+ Add</string>
+
+    <!--delete note dialog-->
+    <string name="delete_note">Delete note?</string>
+    <string name="delete_note_msg">Are you sure you want to delete the note: \'%s\'</string>
+    <string name="del_note_positive">No, keep it</string>
 </resources>

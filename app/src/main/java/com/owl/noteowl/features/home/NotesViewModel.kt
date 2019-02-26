@@ -42,4 +42,9 @@ class NotesViewModel : ViewModel() {
         }
         labelsFilterLive.value = labelsFilter
     }
+
+    //deleting note
+    fun deleteNote(noteId: Int) {
+        notesDao.deleteNote(noteId)
+    }
 }

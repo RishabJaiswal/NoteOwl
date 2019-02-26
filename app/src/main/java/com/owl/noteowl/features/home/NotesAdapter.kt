@@ -14,7 +14,7 @@ class NotesAdapter(
     private val context: Context,
     private val notes: ArrayList<Note>,
     private val onNoteClicked: (note: Note) -> Unit,
-    private val onNoteActionClicked: (menuItemId: Int?, noteId: Int) -> Unit
+    private val onNoteActionClicked: (menuItemId: Int?, note: Note) -> Unit
 ) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -77,13 +77,14 @@ class NotesAdapter(
 
         //actions more menu item click
         override fun onMenuItemClick(item: MenuItem?): Boolean {
-            onNoteActionClicked(item?.itemId, notes[adapterPosition].id)
+            onNoteActionClicked(item?.itemId, notes[adapterPosition])
             return true
         }
     }
 
     inner class NoteDiffUtil(private val newNotes: List<Note>) : DiffUtil.Callback() {
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+
             return notes[oldItemPosition].id == newNotes[newItemPosition].id
         }
 

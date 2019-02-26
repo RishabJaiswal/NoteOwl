@@ -3,6 +3,7 @@ package com.owl.noteowl.features.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +20,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     private val viewModel by lazy {
         ViewModelProviders.of(this)[NotesViewModel::class.java]
     }
+    private var deleteNoteDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,17 +93,31 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //on note actions clicked
-    private fun onNoteActionClicked(menuItemId: Int?, noteId: Int) {
+    private fun onNoteActionClicked(menuItemId: Int?, note: Note) {
         when (menuItemId) {
             //edit note
             R.id.edit -> {
-                startActivity(AddNoteActivity.getIntent(this, noteId))
+                startActivity(AddNoteActivity.getIntent(this, note.id))
             }
 
             //delete note
             R.id.delete -> {
-                //todo:: delete note here
+                showDeleteNoteDialog(note)
             }
         }
+    }
+
+    private fun showDeleteNoteDialog(note: Note) {
+        if (deleteNoteDialog == null) {
+            deleteNoteDialog = AlertDialog.Builder(this, R.style.baseDialog)
+                .setTitle(R.string.delete_note)
+                .setPositiveButton(R.string.del_note_positive, null)
+                .setNegativeButton(R.string.yes) { _, _ ->
+                    viewModel.deleteNote(note.id)
+                }
+                .create()
+        }
+        deleteNoteDialog?.setMessage(getString(R.string.delete_note_msg, note.title))
+        deleteNoteDialog?.show()
     }
 }
