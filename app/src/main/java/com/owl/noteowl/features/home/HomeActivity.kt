@@ -46,8 +46,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                     showBlankSlate()
                 } else {
                     blank_slate_home.gone()
-                    setNotes(notes.toList())
                 }
+                setNotes(notes.toList())
             }
         })
     }
