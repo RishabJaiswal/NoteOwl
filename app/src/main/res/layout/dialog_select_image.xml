@@ -80,4 +80,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_images" />
 
+    <!--blankslate artwork-->
+    <ImageView
+        android:id="@+id/imv_blankslate_no_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/art_blank_canvas"
+        app:layout_constraintBottom_toTopOf="@+id/btn_select"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_image" />
+
+    <!--blankslate text-->
+    <TextView
+        android:id="@+id/tv_no_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/no_results_images"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/txt_body"
+        android:fontFamily="@font/semi_bold"
+        app:layout_constraintEnd_toEndOf="@+id/imv_blankslate_no_results"
+        app:layout_constraintStart_toStartOf="@+id/imv_blankslate_no_results"
+        app:layout_constraintTop_toBottomOf="@+id/imv_blankslate_no_results" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_blankslate_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="imv_blankslate_no_results, tv_no_images" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

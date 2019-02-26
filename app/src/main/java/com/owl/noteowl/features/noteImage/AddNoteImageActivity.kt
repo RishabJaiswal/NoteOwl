@@ -156,6 +156,11 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener, SearchVi
                 //success
                 { images ->
                     imagesAdapter.updateImages(images)
+                    if (images.size == 0) {
+                        selectImageDialog?.group_blankslate_images?.visible()
+                    } else {
+                        selectImageDialog?.group_blankslate_images?.gone()
+                    }
                     hideProgress()
                 },
 
@@ -170,6 +175,7 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener, SearchVi
         selectImageDialog?.apply {
             if (rv_images?.layoutManager?.itemCount == 0) {
                 pb_images.visible()
+                group_blankslate_images.gone()
             } else {
                 pb_images_more?.visible()
             }

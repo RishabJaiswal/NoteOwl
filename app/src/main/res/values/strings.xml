@@ -30,4 +30,5 @@
     <string name="delete_note">Delete note?</string>
     <string name="delete_note_msg">Are you sure you want to delete the note: \'%s\'</string>
     <string name="del_note_positive">No, keep it</string>
+    <string name="no_results_images">Sorry, no results!</string>
 </resources>
