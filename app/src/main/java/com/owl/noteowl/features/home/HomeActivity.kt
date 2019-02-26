@@ -45,13 +45,19 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         viewModel.notesLiveData.observe(this, Observer {
             it?.let { notes ->
                 if (notes.size == 0) {
-                    blank_slate_home.visible()
+                    showBlankSlate()
                 } else {
                     blank_slate_home.gone()
-                    setNotes(notes.toList())
                 }
+                setNotes(notes.toList())
             }
         })
+    }
+
+    private fun showBlankSlate() {
+        if (viewModel.isLabelsFilterEmpty()) {
+            blank_slate_home.visible()
+        }
     }
 
     //observing labels list

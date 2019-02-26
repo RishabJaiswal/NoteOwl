@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.databinding.ItemSelectImageBinding
@@ -27,9 +28,11 @@ class SelectImageAdapter(val context: Context) : RecyclerView.Adapter<SelectImag
         return images.size
     }
 
-    fun addImages(images: List<Image>) {
+    fun updateImages(images: List<Image>) {
+        val diff = DiffUtil.calculateDiff(ImageDiffUtil(images))
+        this.images.clear()
         this.images.addAll(images)
-        notifyDataSetChanged()
+        diff.dispatchUpdatesTo(this)
     }
 
     override fun onBindViewHolder(holder: ImageHolder, position: Int) {
@@ -51,6 +54,25 @@ class SelectImageAdapter(val context: Context) : RecyclerView.Adapter<SelectImag
             return images[selectedItemPosition]
         }
         return null
+    }
+
+    //image diff util
+    inner class ImageDiffUtil(private val newImages: List<Image>) : DiffUtil.Callback() {
+        override fun getOldListSize(): Int {
+            return images.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newImages.size
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return images[oldItemPosition].getDisplayImageUrl() == newImages[newItemPosition].getDisplayImageUrl()
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return images[oldItemPosition].getDisplayImageUrl() == newImages[newItemPosition].getDisplayImageUrl()
+        }
     }
 
     inner class ImageHolder(val binding: ItemSelectImageBinding) : RecyclerView.ViewHolder(binding.root),

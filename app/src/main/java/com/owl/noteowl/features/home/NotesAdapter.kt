@@ -97,7 +97,7 @@ class NotesAdapter(
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return notes[oldItemPosition] == newNotes[newItemPosition]
+            return notes[oldItemPosition] === newNotes[newItemPosition]
         }
 
     }

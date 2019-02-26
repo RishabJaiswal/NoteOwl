@@ -2,6 +2,7 @@ package com.owl.noteowl.data.features.images.network
 
 import com.owl.noteowl.data.NoteOwlRetrofit
 import com.owl.noteowl.data.features.images.models.Image
+import com.owl.noteowl.data.features.images.models.ImageSearchResult
 import retrofit2.Call
 
 class ImageApiManager {
@@ -11,7 +12,11 @@ class ImageApiManager {
         NoteOwlRetrofit.createService(ImageApiService::class.java)
     }
 
-    fun getImages(pageSize: Int, pageNo: Int): Call<List<Image>> {
+    fun getRandomImages(pageSize: Int, pageNo: Int): Call<List<Image>> {
         return imageApiService.getImages(clientId, pageSize, pageNo)
+    }
+
+    fun searchImages(searchQuery: String, pageSize: Int, pageNo: Int): Call<ImageSearchResult> {
+        return imageApiService.searchImages(clientId, searchQuery, pageSize, pageNo)
     }
 }

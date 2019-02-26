@@ -9,31 +9,32 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
+import com.owl.noteowl.data.Result
 import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.databinding.ActivityAddNoteImageBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.text
+import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.utils.Constants.Note
 import com.owl.noteowl.utils.ContextUtility
 import kotlinx.android.synthetic.main.dialog_note_saved.view.*
 import kotlinx.android.synthetic.main.dialog_select_image.*
 import kotlinx.android.synthetic.main.dialog_select_image.view.*
 
-class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
-
+class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
     lateinit var viewModel: AddNoteImageViewModel
     val NOTE = Note()
     lateinit var binding: ActivityAddNoteImageBinding
     private var selectImageDialog: AlertDialog? = null
     private lateinit var imagesAdapter: SelectImageAdapter
-    private val contextUtils by lazy {
-        ContextUtility(this)
-    }
+    private lateinit var imagesScrollListener: RecyclerView.OnScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,13 +96,35 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             val margin = ContextUtility(this).convertDpToPx(10f).toInt()
             imagesAdapter = SelectImageAdapter(this)
             view.apply {
+                //search view
                 sv_image.isIconified = false
                 sv_image.clearFocus()
+                sv_image.setOnQueryTextListener(this@AddNoteImageActivity)
+
+                /*images list
+                adding pagination for image listing*/
+                val layoutManager = rv_images.layoutManager as LinearLayoutManager
+                imagesScrollListener = object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+                        val visibleItemCount = layoutManager.childCount
+                        val totalItemCount = layoutManager.itemCount
+                        val isScrolledToLast = firstVisibleItem + visibleItemCount >= totalItemCount
+                        if (viewModel.canLoadMoreImages() && isScrolledToLast) {
+                            if (viewModel.currentSearchQuery.isNullOrEmpty()) {
+                                viewModel.getRandomImages()
+                            } else {
+                                viewModel.searchImages(viewModel.currentSearchQuery!!)
+                            }
+                        }
+                    }
+                }
                 rv_images.adapter = imagesAdapter
                 rv_images.addItemDecoration(ImagesDecoration(margin, margin))
+                rv_images.addOnScrollListener(imagesScrollListener)
                 btn_select.setOnClickListener(this@AddNoteImageActivity)
             }
-            viewModel.getImages()
+            viewModel.getRandomImages()
             observeImages()
         }
         selectImageDialog?.show()
@@ -119,19 +142,58 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
 
     //observing images
     private fun observeImages() {
-        viewModel.imagesLiveData.observe(this, Observer<List<Image>> { images ->
-            selectImageDialog?.pb_images?.gone()
-            imagesAdapter.addImages(images)
+        viewModel.imagesLiveData.observe(this, Observer<Result<List<Image>>> {
+            it?.parseResponse(
+                //progress
+                { isLoading ->
+                    if (isLoading) {
+                        showProgress()
+                    } else {
+                        hideProgress()
+                    }
+                },
+
+                //success
+                { images ->
+                    imagesAdapter.updateImages(images)
+                    hideProgress()
+                },
+
+                //error
+                { errorThrowable ->
+                    hideProgress()
+                })
         })
     }
 
-    companion object {
-        fun getIntent(context: Context, noteId: Int): Intent {
-            return Intent(context, AddNoteImageActivity::class.java).apply {
-                putExtra(Note().KEY_ID, noteId)
+    private fun showProgress() {
+        selectImageDialog?.apply {
+            if (rv_images?.layoutManager?.itemCount == 0) {
+                pb_images.visible()
+            } else {
+                pb_images_more?.visible()
             }
         }
     }
+
+    private fun hideProgress() {
+        selectImageDialog?.pb_images?.gone()
+        selectImageDialog?.pb_images_more?.gone()
+    }
+
+    //search query callback starts
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        query?.let {
+            viewModel.clearImages()
+            viewModel.searchImages(it)
+        }
+        return true
+    }
+    //search query callback ends
 
     //for images grid list
     class ImagesDecoration(private val rightMargin: Int, private val bottomMargin: Int) :
@@ -156,5 +218,13 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             .create()
         view.lottie_note_saved.playAnimation()
         alertDialog.show()
+    }
+
+    companion object {
+        fun getIntent(context: Context, noteId: Int): Intent {
+            return Intent(context, AddNoteImageActivity::class.java).apply {
+                putExtra(Note().KEY_ID, noteId)
+            }
+        }
     }
 }
