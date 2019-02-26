@@ -24,6 +24,7 @@ import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.utils.Constants.Note
 import com.owl.noteowl.utils.ContextUtility
+import com.owl.noteowl.utils.visibleOrGone
 import kotlinx.android.synthetic.main.dialog_note_saved.view.*
 import kotlinx.android.synthetic.main.dialog_select_image.*
 import kotlinx.android.synthetic.main.dialog_select_image.view.*
@@ -156,10 +157,8 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
                 //success
                 { images ->
                     imagesAdapter.updateImages(images)
-                    if (images.size == 0) {
-                        selectImageDialog?.group_blankslate_images?.visible()
-                    } else {
-                        selectImageDialog?.group_blankslate_images?.gone()
+                    selectImageDialog?.group_blankslate_images?.let {
+                        visibleOrGone(it, images.isEmpty())
                     }
                     hideProgress()
                 },
