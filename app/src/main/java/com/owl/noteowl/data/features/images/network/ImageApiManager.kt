@@ -12,7 +12,7 @@ class ImageApiManager {
         NoteOwlRetrofit.createService(ImageApiService::class.java)
     }
 
-    fun getImages(pageSize: Int, pageNo: Int): Call<List<Image>> {
+    fun getRandomImages(pageSize: Int, pageNo: Int): Call<List<Image>> {
         return imageApiService.getImages(clientId, pageSize, pageNo)
     }
 
