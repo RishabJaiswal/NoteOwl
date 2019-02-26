@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -24,8 +25,7 @@ import kotlinx.android.synthetic.main.dialog_note_saved.view.*
 import kotlinx.android.synthetic.main.dialog_select_image.*
 import kotlinx.android.synthetic.main.dialog_select_image.view.*
 
-class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
-
+class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
     lateinit var viewModel: AddNoteImageViewModel
     val NOTE = Note()
     lateinit var binding: ActivityAddNoteImageBinding
@@ -97,6 +97,7 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             view.apply {
                 sv_image.isIconified = false
                 sv_image.clearFocus()
+                sv_image.setOnQueryTextListener(this@AddNoteImageActivity)
                 rv_images.adapter = imagesAdapter
                 rv_images.addItemDecoration(ImagesDecoration(margin, margin))
                 btn_select.setOnClickListener(this@AddNoteImageActivity)
@@ -124,6 +125,17 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener {
             imagesAdapter.addImages(images)
         })
     }
+
+    //search query callback starts
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        query?.let { viewModel.searchImages(it) }
+        return true
+    }
+    //search query callback ends
 
     companion object {
         fun getIntent(context: Context, noteId: Int): Intent {

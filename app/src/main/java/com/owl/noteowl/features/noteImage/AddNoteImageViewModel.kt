@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.owl.noteowl.data.features.images.models.Image
+import com.owl.noteowl.data.features.images.models.ImageSearchResult
 import com.owl.noteowl.data.features.images.network.ImageApiManager
 import com.owl.noteowl.data.features.notes.local.NoteDao
 import com.owl.noteowl.extensions.asLiveData
@@ -31,6 +32,7 @@ class AddNoteImageViewModel(private val noteId: Int) : ViewModel() {
     fun getImages() {
         imageApiManager.getImages(12, 1)
             .enqueue(object : Callback<List<Image>> {
+
                 override fun onResponse(call: Call<List<Image>>, response: Response<List<Image>>) {
                     response.body()?.let { images ->
                         imagesLiveData.value = images
@@ -40,6 +42,23 @@ class AddNoteImageViewModel(private val noteId: Int) : ViewModel() {
                 override fun onFailure(call: Call<List<Image>>, t: Throwable) {
 
                 }
+            })
+    }
+
+    fun searchImages(query: String) {
+        imageApiManager.searchImages(query, 12, 1)
+            .enqueue(object : Callback<ImageSearchResult> {
+
+                override fun onResponse(call: Call<ImageSearchResult>, response: Response<ImageSearchResult>) {
+                    response.body()?.images?.let { images ->
+                        imagesLiveData.value = images
+                    }
+                }
+
+                override fun onFailure(call: Call<ImageSearchResult>, t: Throwable) {
+
+                }
+
             })
     }
 
