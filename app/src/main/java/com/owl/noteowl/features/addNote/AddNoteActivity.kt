@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -22,6 +21,7 @@ import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.invisible
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.extensions.visible
+import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.features.noteImage.AddNoteImageActivity
 import com.owl.noteowl.utils.Constants
 import com.owl.noteowl.utils.ContextUtility
@@ -30,7 +30,7 @@ import io.realm.RealmList
 import kotlinx.android.synthetic.main.add_note.*
 import java.util.*
 
-class AddNoteActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnClickListener,
+class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClickListener,
     CompoundButton.OnCheckedChangeListener {
 
     private var selectLabelDialog: AlertDialog? = null

@@ -8,7 +8,6 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -22,13 +21,15 @@ import com.owl.noteowl.databinding.ActivityAddNoteImageBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.text
 import com.owl.noteowl.extensions.visible
+import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.utils.Constants.Note
 import com.owl.noteowl.utils.ContextUtility
+import com.owl.noteowl.utils.visibleOrGone
 import kotlinx.android.synthetic.main.dialog_note_saved.view.*
 import kotlinx.android.synthetic.main.dialog_select_image.*
 import kotlinx.android.synthetic.main.dialog_select_image.view.*
 
-class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
+class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
     lateinit var viewModel: AddNoteImageViewModel
     val NOTE = Note()
     lateinit var binding: ActivityAddNoteImageBinding
@@ -156,6 +157,9 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener, SearchVi
                 //success
                 { images ->
                     imagesAdapter.updateImages(images)
+                    selectImageDialog?.group_blankslate_images?.let {
+                        visibleOrGone(it, images.isEmpty())
+                    }
                     hideProgress()
                 },
 
@@ -170,6 +174,7 @@ class AddNoteImageActivity : AppCompatActivity(), View.OnClickListener, SearchVi
         selectImageDialog?.apply {
             if (rv_images?.layoutManager?.itemCount == 0) {
                 pb_images.visible()
+                group_blankslate_images.gone()
             } else {
                 pb_images_more?.visible()
             }
