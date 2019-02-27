@@ -21,6 +21,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         ViewModelProviders.of(this)[NotesViewModel::class.java]
     }
     private var deleteNoteDialog: AlertDialog? = null
+    private var notesAdapter: NotesAdapter? = null
+    private lateinit var labelsForFilterAdapter: LabelsForFilterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +71,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         })
     }
 
-    private var notesAdapter: NotesAdapter? = null
-
     //setting notes list
     private fun setNotes(notes: List<Note>) {
         if (notesAdapter == null) {
@@ -83,7 +83,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
     //setting labels
     private fun setLabels(labels: List<Label>) {
-        rv_label_filter.adapter = LabelsForFilterAdapter(this, labels, this::onLabelClicked)
+        if (rv_label_filter.adapter == null) {
+            labelsForFilterAdapter = LabelsForFilterAdapter(this, viewModel, this::onLabelClicked)
+            rv_label_filter.adapter = labelsForFilterAdapter
+        }
+        labelsForFilterAdapter.update(labels)
     }
 
     //on click label

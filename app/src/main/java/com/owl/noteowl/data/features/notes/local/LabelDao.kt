@@ -2,9 +2,11 @@ package com.owl.noteowl.data.features.notes.local
 
 import androidx.lifecycle.LiveData
 import com.owl.noteowl.data.features.notes.models.Label
+import com.owl.noteowl.data.features.notes.models.LabelFields
 import com.owl.noteowl.extensions.asLiveData
 import io.realm.Realm
 import io.realm.RealmResults
+import io.realm.Sort
 
 class LabelDao(val realm: Realm = Realm.getDefaultInstance()) {
 
@@ -16,6 +18,7 @@ class LabelDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     fun getLabels(): RealmResults<Label> {
         return realm.where(Label::class.java)
+            .sort(LabelFields.CREATED_AT, Sort.DESCENDING)
             .findAll()
     }
 

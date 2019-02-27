@@ -157,8 +157,8 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
                 //success
                 { images ->
                     imagesAdapter.updateImages(images)
-                    selectImageDialog?.group_blankslate_images?.let {
-                        visibleOrGone(it, images.isEmpty())
+                    selectImageDialog?.group_blankslate_images?.let { view ->
+                        visibleOrGone(view, images.isEmpty())
                     }
                     hideProgress()
                 },

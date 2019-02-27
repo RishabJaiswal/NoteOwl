@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
@@ -13,11 +14,12 @@ import com.owl.noteowl.utils.ContextUtility
 
 class LabelsForFilterAdapter(
     val context: Context,
-    val labels: List<Label>,
+    val viewModel: NotesViewModel,
     val onLabelClicked: (label: Label?) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    val labels: ArrayList<Label> = arrayListOf()
     private val POSITION = Constants.Position()
     private val labelTranslationY by lazy {
         ContextUtility(context).convertDpToPx(8f)
@@ -57,6 +59,13 @@ class LabelsForFilterAdapter(
         return POSITION.MID
     }
 
+    fun update(labels: List<Label>) {
+        val diffUtil = DiffUtil.calculateDiff(LabelDiffUtil(labels))
+        this.labels.clear()
+        this.labels.addAll(labels)
+        diffUtil.dispatchUpdatesTo(this)
+    }
+
 
     //label view holder
     inner class LabelViewHolder(private val binding: ItemLabelHomeFiltersBinding) :
@@ -68,16 +77,23 @@ class LabelsForFilterAdapter(
 
         fun bind(label: Label) {
             binding.label = label
+            showFilteredLabel()
+            binding.executePendingBindings()
         }
 
         override fun onClick(view: View?) {
             onLabelClicked(binding.label)
             //animating label
+            showFilteredLabel()
+        }
+
+        fun showFilteredLabel() {
+            val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.title ?: "")
             itemView.animate().translationY(
-                if (itemView.translationY == 0f) {
-                    labelTranslationY
-                } else {
+                if (isLabelInFilter) {
                     0f
+                } else {
+                    labelTranslationY
                 }
             ).start()
         }
@@ -92,5 +108,24 @@ class LabelsForFilterAdapter(
         override fun onClick(v: View?) {
             onLabelClicked(null)
         }
+    }
+
+    inner class LabelDiffUtil(val newLabels: List<Label>) : DiffUtil.Callback() {
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return labels[oldItemPosition].title == newLabels[oldItemPosition].title
+        }
+
+        override fun getOldListSize(): Int {
+            return labels.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newLabels.size
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return labels[oldItemPosition] == newLabels[oldItemPosition]
+        }
+
     }
 }

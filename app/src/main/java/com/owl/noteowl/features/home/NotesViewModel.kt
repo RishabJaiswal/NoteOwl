@@ -43,6 +43,10 @@ class NotesViewModel : ViewModel() {
         labelsFilterLive.value = labelsFilter
     }
 
+    fun containsLabelInFilter(labelTitle: String): Boolean {
+        return labelsFilter.contains(labelTitle)
+    }
+
     //deleting note
     fun deleteNote(noteId: Int) {
         notesDao.deleteNote(noteId)
