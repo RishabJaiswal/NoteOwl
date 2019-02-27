@@ -210,8 +210,8 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
     }
 
     private fun onLabelClicked(label: Label?) {
-        selectLabelBinding.labelName = label?.title
-        selectLabelBinding.colorSelected = label?.colorHex
+        selectLabelDialog?.dismiss()
+        viewModel.saveLabel(null, label?.title, label?.colorHex)
     }
 
     //dialog helps in selecting or creating a label

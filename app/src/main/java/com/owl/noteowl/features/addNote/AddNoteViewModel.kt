@@ -62,7 +62,8 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
                 }
 
                 //checking if label is already present
-                val isLabelPresent = isLabelPresent(label, value ?: emptyList())
+                val isLabelPresent: Boolean? = (isLabelPresent(label, value ?: emptyList()) == true
+                        && isLabelPresent(label, allLabelsLiveData.value?.toList() ?: emptyList()) == true)
                 if (isLabelPresent == false) {
                     //saving label
                     if (position != null) {
