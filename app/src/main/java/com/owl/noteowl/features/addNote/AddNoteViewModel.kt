@@ -59,7 +59,7 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
         if (!labelTitle.isNullOrEmpty() && color != null) {
             noteLabelsLiveData.apply {
                 //checking if label is already present
-                if (!isLabelPresent(labelTitle!!)) {
+                if (!isLabelPresentInNote(labelTitle!!) && !isLabelPresentInLabelsList(labelTitle)) {
 
                     //creating label
                     val label = Label().apply {
@@ -84,16 +84,16 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
         return null
     }
 
-    fun isLabelPresent(labelTitle: String): Boolean {
-        val isLabelInNoteLabels = noteLabelsLiveData.value?.find {
+    fun isLabelPresentInNote(labelTitle: String): Boolean {
+        return noteLabelsLiveData.value?.find {
             it.title == labelTitle
         } != null
+    }
 
-        val isLabelOutsideNote = allLabelsLiveData.value?.toList()?.find {
+    fun isLabelPresentInLabelsList(labelTitle: String): Boolean {
+        return allLabelsLiveData.value?.find {
             it.title == labelTitle
         } != null
-
-        return (isLabelInNoteLabels == true || isLabelOutsideNote == true)
     }
 
     //removing label

@@ -8,7 +8,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.CompoundButton
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -157,15 +156,17 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
 
             //select label
             R.id.btn_save_select_label -> {
-                if (selectLabelBinding.labelName.isNullOrEmpty()) {
-                    Toast.makeText(this, getString(R.string.error_empty_label), Toast.LENGTH_SHORT).show()
-                } else {
-                    val isSaved =
-                        viewModel.saveLabel(null, selectLabelBinding.labelName, selectLabelBinding.colorSelected)
-                    if (isSaved == false) {
-                        showToast(R.string.error_saving_label)
+                selectLabelBinding.apply {
+                    if (labelName.isNullOrEmpty()) {
+                        showToast(R.string.error_empty_label)
                     } else {
-                        selectLabelDialog?.dismiss()
+                        if (viewModel.isLabelPresentInLabelsList(labelName!!) ||
+                            viewModel.saveLabel(null, labelName, colorSelected) == false
+                        ) {
+                            showToast(R.string.error_saving_label)
+                        } else {
+                            selectLabelDialog?.dismiss()
+                        }
                     }
                 }
             }
@@ -215,8 +216,11 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
     }
 
     private fun onLabelClicked(label: Label?) {
-        selectLabelDialog?.dismiss()
-        viewModel.saveLabel(null, label?.title, label?.colorHex)
+        label?.let {
+            selectLabelDialog?.dismiss()
+            if (!viewModel.isLabelPresentInNote(it.title))
+                viewModel.saveLabel(null, it.title, it.colorHex)
+        }
     }
 
     //dialog helps in selecting or creating a label
