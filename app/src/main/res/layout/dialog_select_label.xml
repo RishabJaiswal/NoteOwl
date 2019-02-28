@@ -75,6 +75,7 @@
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_body"
             android:text="@={labelName}"
+            android:singleLine="true"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@+id/view"
             app:layout_constraintHorizontal_bias="0.0"

@@ -63,7 +63,7 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
 
                     //creating label
                     val label = Label().apply {
-                        title = labelTitle
+                        title = labelTitle.trim()
                         colorHex = color
                     }
 
@@ -84,15 +84,17 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
         return null
     }
 
+    //checks if label is present in current note
     fun isLabelPresentInNote(labelTitle: String): Boolean {
         return noteLabelsLiveData.value?.find {
-            it.title == labelTitle
+            it.title == labelTitle.trim()
         } != null
     }
 
+    //checks if label is present in any note
     fun isLabelPresentInLabelsList(labelTitle: String): Boolean {
         return allLabelsLiveData.value?.find {
-            it.title == labelTitle
+            it.title == labelTitle.trim()
         } != null
     }
 
