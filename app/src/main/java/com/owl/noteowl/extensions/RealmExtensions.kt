@@ -31,3 +31,7 @@ fun <T : RealmObject> T.asNonManagedRealmCopy(realm: Realm = Realm.getDefaultIns
 fun <T : RealmObject> RealmList<T>.asNonManagedRealmCopy(realm: Realm = Realm.getDefaultInstance()): List<T> {
     return realm.copyFromRealm(this)
 }
+
+fun <T : RealmObject> RealmResults<T>.asNonManagedRealmCopy(realm: Realm = Realm.getDefaultInstance()): List<T> {
+    return realm.copyFromRealm(this)
+}

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.owl.noteowl.data.features.notes.local.LabelDao
 import com.owl.noteowl.data.features.notes.local.NoteDao
 import com.owl.noteowl.data.features.notes.models.Note
-import io.realm.RealmResults
+import com.owl.noteowl.extensions.asNonManagedRealmCopy
 
 class NotesViewModel : ViewModel() {
 
@@ -22,12 +22,15 @@ class NotesViewModel : ViewModel() {
     }
 
     //notes by filter
-    val notesLiveData: LiveData<RealmResults<Note>> by lazy {
-        Transformations.switchMap(labelsFilterLive) { labels ->
+    val notesLiveData: LiveData<List<Note>> by lazy {
+        val managedRealmListLive = Transformations.switchMap(labelsFilterLive) { labels ->
             if (labels == null || labels.isEmpty()) {
                 return@switchMap notesDao.getSavedNotesLive()
             }
             return@switchMap notesDao.getNotesByLabelAsyncLive(labels.toTypedArray())
+        }
+        return@lazy Transformations.map(managedRealmListLive) {
+            it.asNonManagedRealmCopy()
         }
     }
 
