@@ -51,20 +51,22 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
         saveLabel(0, name, color)
     }
 
-    //saving label
-    fun saveLabel(position: Int? = null, name: String?, color: Int?) {
-        if (!name.isNullOrEmpty() && color != null) {
+    /**saving label
+     * returns true when label is saved
+     * returns false when label is already present
+     * returns null when title or color of label is null*/
+    fun saveLabel(position: Int? = null, labelTitle: String?, color: Int?): Boolean? {
+        if (!labelTitle.isNullOrEmpty() && color != null) {
             noteLabelsLiveData.apply {
-                //creating label
-                val label = Label().apply {
-                    title = name!!
-                    colorHex = color
-                }
-
                 //checking if label is already present
-                val isLabelPresent: Boolean? = (isLabelPresent(label, value ?: emptyList()) == true
-                        && isLabelPresent(label, allLabelsLiveData.value?.toList() ?: emptyList()) == true)
-                if (isLabelPresent == false) {
+                if (!isLabelPresent(labelTitle!!)) {
+
+                    //creating label
+                    val label = Label().apply {
+                        title = labelTitle
+                        colorHex = color
+                    }
+
                     //saving label
                     if (position != null) {
                         value?.add(position, label)
@@ -74,15 +76,24 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
 
                     //streaming changes
                     value = value
+                    return true
                 }
+                return false
             }
         }
+        return null
     }
 
-    fun isLabelPresent(label: Label, labels: List<Label>): Boolean? {
-        return labels.find {
-            it.title == label.title
+    fun isLabelPresent(labelTitle: String): Boolean {
+        val isLabelInNoteLabels = noteLabelsLiveData.value?.find {
+            it.title == labelTitle
         } != null
+
+        val isLabelOutsideNote = allLabelsLiveData.value?.toList()?.find {
+            it.title == labelTitle
+        } != null
+
+        return (isLabelInNoteLabels == true || isLabelOutsideNote == true)
     }
 
     //removing label

@@ -17,6 +17,7 @@
     <string name="search_image">Search image</string>
     <string name="cta_select">Select</string>
     <string name="note_saved">Note saved!</string>
+    <string name="error_saving_label">Label already created</string>
 
     <!--exit confirmation dialog-->
     <string name="exit">Exit?</string>

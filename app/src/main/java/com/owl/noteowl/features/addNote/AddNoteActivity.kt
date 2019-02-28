@@ -160,9 +160,14 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
                 if (selectLabelBinding.labelName.isNullOrEmpty()) {
                     Toast.makeText(this, getString(R.string.error_empty_label), Toast.LENGTH_SHORT).show()
                 } else {
-                    viewModel.saveLabel(null, selectLabelBinding.labelName, selectLabelBinding.colorSelected)
+                    val isSaved =
+                        viewModel.saveLabel(null, selectLabelBinding.labelName, selectLabelBinding.colorSelected)
+                    if (isSaved == false) {
+                        showToast(R.string.error_saving_label)
+                    } else {
+                        selectLabelDialog?.dismiss()
+                    }
                 }
-                selectLabelDialog?.dismiss()
             }
 
             //next
