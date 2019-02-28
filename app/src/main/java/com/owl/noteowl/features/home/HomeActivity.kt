@@ -51,7 +51,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                 } else {
                     blank_slate_home.gone()
                 }
-                setNotes(notes.toList())
+                setNotes(notes)
             }
         })
     }
