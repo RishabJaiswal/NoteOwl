@@ -31,6 +31,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         observeNotes()
         observeLabels()
         btn_add_note.setOnClickListener(this)
+        btn_clear_filters.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -38,6 +39,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             //add note
             R.id.btn_add_note -> {
                 startActivity(Intent(this, AddNoteActivity::class.java))
+            }
+
+            //clear filters
+            R.id.btn_clear_filters -> {
+                viewModel.clearFilters()
             }
         }
     }
@@ -47,8 +53,14 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         viewModel.notesLiveData.observe(this, Observer {
             it?.let { notes ->
                 if (notes.size == 0) {
-                    showBlankSlate()
+                    if (viewModel.isLabelsFilterEmpty()) {
+                        //no label filter is selected
+                        showBlankSlate()
+                    } else {
+                        blank_slate_filters.visible()
+                    }
                 } else {
+                    blank_slate_filters.gone()
                     blank_slate_home.gone()
                 }
                 setNotes(notes)

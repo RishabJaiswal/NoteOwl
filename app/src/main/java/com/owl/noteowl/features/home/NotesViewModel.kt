@@ -58,4 +58,9 @@ class NotesViewModel : ViewModel() {
     fun isLabelsFilterEmpty(): Boolean {
         return labelsFilter.size == 0
     }
+
+    fun clearFilters() {
+        labelsFilter.clear()
+        labelsFilterLive.value = labelsFilter
+    }
 }
