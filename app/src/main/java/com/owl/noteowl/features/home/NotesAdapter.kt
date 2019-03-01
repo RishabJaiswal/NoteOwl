@@ -84,7 +84,6 @@ class NotesAdapter(
 
     inner class NoteDiffUtil(private val newNotes: List<Note>) : DiffUtil.Callback() {
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-
             return notes[oldItemPosition].id == newNotes[newItemPosition].id
         }
 

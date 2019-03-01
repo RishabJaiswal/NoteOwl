@@ -63,8 +63,10 @@
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <!--blank slate animation-->
         <com.airbnb.lottie.LottieAnimationView
@@ -74,27 +76,29 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="72dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_fileName="home_blankslate.json" />
+            app:lottie_fileName="home_blankslate.json"
+            app:lottie_loop="true" />
 
         <!--add note-->
         <Button
             android:id="@+id/btn_add_note"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="230dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_button_main"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:text="@string/add_note"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/lottieAnimationView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/lottieAnimationView" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -114,30 +118,42 @@
             android:id="@+id/anim_filter_blank_slate"
             android:layout_width="320dp"
             android:layout_height="320dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_fileName="home_blankslate.json" />
+            app:lottie_fileName="no_filters.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:id="@+id/tv_blank_slate_filters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/medium"
+            android:gravity="center"
+            android:text="@string/msg_blank_slate_filters"
+            app:layout_constraintBottom_toTopOf="@+id/btn_clear_filters"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- clear filter button-->
         <Button
             android:id="@+id/btn_clear_filters"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="230dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_button_secondary"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:text="@string/clear_filter"
+            android:textColor="@color/textPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/anim_filter_blank_slate"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/anim_filter_blank_slate" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
