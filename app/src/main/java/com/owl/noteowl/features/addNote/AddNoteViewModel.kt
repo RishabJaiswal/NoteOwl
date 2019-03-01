@@ -59,7 +59,7 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
         if (!labelTitle.isNullOrEmpty() && color != null) {
             noteLabelsLiveData.apply {
                 //checking if label is already present
-                if (!isLabelPresentInNote(labelTitle!!) && !isLabelPresentInLabelsList(labelTitle)) {
+                if (!isLabelPresentInNote(labelTitle!!)) {
 
                     //creating label
                     val label = Label().apply {

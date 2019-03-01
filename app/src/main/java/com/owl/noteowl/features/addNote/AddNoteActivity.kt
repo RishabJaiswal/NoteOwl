@@ -224,8 +224,7 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
     private fun onLabelClicked(label: Label?) {
         label?.let {
             selectLabelDialog?.dismiss()
-            if (!viewModel.isLabelPresentInNote(it.title))
-                viewModel.saveLabel(null, it.title, it.colorHex)
+            viewModel.saveLabel(null, it.title, it.colorHex)
         }
     }
 
