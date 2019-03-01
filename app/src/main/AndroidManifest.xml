@@ -28,7 +28,7 @@
         <!-- Add note screen -->
         <activity
             android:name=".features.addNote.AddNoteActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustNothing" />
 
         <!--add image screen-->
         <activity android:name=".features.noteImage.AddNoteImageActivity" />

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.WindowManager
 import android.widget.CompoundButton
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -111,12 +112,14 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
         if (isFocused) {
             editText()
             group_blank_slate.gone()
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         } else {
             editTitle()
             //showing blank slate
             if (edt_note_text.length() == 0) {
                 group_blank_slate.visible()
             }
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         }
     }
 
@@ -138,12 +141,15 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
         edt_note_text.clearFocus()
         group_date_fav_labels.visible()
         rv_labels_add_note.visible()
+        edt_note_title.maxLines = 3
+        edt_note_title.setSelection(0)
     }
 
     private fun editText() {
         btn_edit_title.visible()
         rv_labels_add_note.gone()
         group_date_fav_labels.gone()
+        edt_note_title.maxLines = 1
     }
 
     //click listener
