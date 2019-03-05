@@ -69,17 +69,18 @@
                 android:id="@+id/tv_add_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:elevation="2dp"
                 android:text="@string/add_image"
                 android:textColor="@color/textSecondary"
                 android:textSize="@dimen/txt_18"
-                bind:visibleOrGone="@{note.imageUrl.empty}"
                 app:layout_constraintBottom_toBottomOf="@+id/add_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ic_add_image" />
+                app:layout_constraintTop_toBottomOf="@+id/ic_add_image"
+                bind:visibleOrGone="@{note.imageUrl.empty}" />
 
             <!--liked icon-->
             <ImageView
