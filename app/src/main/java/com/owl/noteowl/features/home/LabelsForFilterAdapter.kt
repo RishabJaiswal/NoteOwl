@@ -66,6 +66,9 @@ class LabelsForFilterAdapter(
         diffUtil.dispatchUpdatesTo(this)
     }
 
+    fun clearFilter() {
+        notifyDataSetChanged()
+    }
 
     //label view holder
     inner class LabelViewHolder(private val binding: ItemLabelHomeFiltersBinding) :

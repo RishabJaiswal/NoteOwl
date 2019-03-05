@@ -43,6 +43,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             //clear filters
             R.id.btn_clear_filters -> {
                 viewModel.clearFilters()
+                labelsForFilterAdapter.clearFilter()
             }
         }
     }
