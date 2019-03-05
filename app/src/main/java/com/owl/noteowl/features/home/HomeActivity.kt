@@ -20,7 +20,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     private val viewModel by lazy {
         ViewModelProviders.of(this)[NotesViewModel::class.java]
     }
-    private var deleteNoteDialog: AlertDialog? = null
     private var notesAdapter: NotesAdapter? = null
     private lateinit var labelsForFilterAdapter: LabelsForFilterAdapter
 
@@ -130,16 +129,14 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun showDeleteNoteDialog(note: Note) {
-        if (deleteNoteDialog == null) {
-            deleteNoteDialog = AlertDialog.Builder(this, R.style.baseDialog)
-                .setTitle(R.string.delete_note)
-                .setPositiveButton(R.string.del_note_positive, null)
-                .setNegativeButton(R.string.yes) { _, _ ->
-                    viewModel.deleteNote(note.id)
-                }
-                .create()
-        }
-        deleteNoteDialog?.setMessage(getString(R.string.delete_note_msg, note.title))
-        deleteNoteDialog?.show()
+        val deleteNoteDialog: AlertDialog = AlertDialog.Builder(this, R.style.baseDialog)
+            .setTitle(R.string.delete_note)
+            .setPositiveButton(R.string.del_note_positive, null)
+            .setNegativeButton(R.string.yes) { _, _ ->
+                viewModel.deleteNote(note.id)
+            }
+            .create()
+        deleteNoteDialog.setMessage(getString(R.string.delete_note_msg, note.title))
+        deleteNoteDialog.show()
     }
 }
