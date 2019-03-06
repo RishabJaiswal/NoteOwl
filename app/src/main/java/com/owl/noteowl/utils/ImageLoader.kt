@@ -13,6 +13,8 @@ class ImageLoader {
                 Picasso.get()
                     .load(imageUrl)
                     .into(imv)
+            } else {
+                imv.setImageDrawable(null)
             }
         }
     }
