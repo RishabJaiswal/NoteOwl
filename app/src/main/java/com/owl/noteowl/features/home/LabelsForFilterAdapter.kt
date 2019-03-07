@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
-import com.owl.noteowl.databinding.ItemLabelHomeFiltersBinding
+import com.owl.noteowl.databinding.ItemLabelFilterNotesBinding
 import com.owl.noteowl.utils.Constants
 import com.owl.noteowl.utils.ContextUtility
+import java.util.*
 
 class LabelsForFilterAdapter(
     val context: Context,
@@ -27,29 +27,20 @@ class LabelsForFilterAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == POSITION.FIRST) {
-            return AddNoteViewHolder(
-                LayoutInflater.from(context).inflate(
-                    R.layout.item_add_note_label_filters,
-                    parent,
-                    false
-                )
-            )
-        }
         return LabelViewHolder(
-            ItemLabelHomeFiltersBinding.inflate(
+            ItemLabelFilterNotesBinding.inflate(
                 LayoutInflater.from(context), parent, false
             )
         )
     }
 
     override fun getItemCount(): Int {
-        return labels.size + 1
+        return labels.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is LabelViewHolder) {
-            holder.bind(labels[position - 1])
+            holder.bind(labels[position])
         }
     }
 
@@ -71,7 +62,7 @@ class LabelsForFilterAdapter(
     }
 
     //label view holder
-    inner class LabelViewHolder(private val binding: ItemLabelHomeFiltersBinding) :
+    inner class LabelViewHolder(private val binding: ItemLabelFilterNotesBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
@@ -91,14 +82,14 @@ class LabelsForFilterAdapter(
         }
 
         fun showFilteredLabel() {
-            val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.title ?: "")
+            /*val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.title ?: "")
             itemView.animate().translationY(
                 if (isLabelInFilter) {
                     0f
                 } else {
                     labelTranslationY
                 }
-            ).start()
+            ).start()*/
         }
     }
 

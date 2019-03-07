@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.data.features.notes.models.Label
-import com.owl.noteowl.databinding.ItemLabelHomeFiltersBinding
+import com.owl.noteowl.databinding.ItemLabelSelectBinding
 
 class LabelsSelectAdapter(
     val context: Context,
@@ -16,7 +16,7 @@ class LabelsSelectAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LabelViewHolder {
         return LabelViewHolder(
-            ItemLabelHomeFiltersBinding.inflate(
+            ItemLabelSelectBinding.inflate(
                 LayoutInflater.from(context), parent, false
             )
         )
@@ -30,7 +30,7 @@ class LabelsSelectAdapter(
         return labels.size
     }
 
-    inner class LabelViewHolder(private val binding: ItemLabelHomeFiltersBinding) :
+    inner class LabelViewHolder(private val binding: ItemLabelSelectBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
