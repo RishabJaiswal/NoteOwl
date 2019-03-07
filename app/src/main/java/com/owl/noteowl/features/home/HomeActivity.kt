@@ -4,8 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
@@ -21,7 +24,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         ViewModelProviders.of(this)[NotesViewModel::class.java]
     }
     private var notesAdapter: NotesAdapter? = null
+    private var notesHorizontalAdapter: NotesHorizontalAdapter? = null
     private lateinit var labelsForFilterAdapter: LabelsForFilterAdapter
+    private val horizontalLayoutManager by lazy {
+        LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +38,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         observeLabels()
         btn_add_note.setOnClickListener(this)
         btn_clear_filters.setOnClickListener(this)
+        imv_circle.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -44,6 +52,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_clear_filters -> {
                 viewModel.clearFilters()
                 labelsForFilterAdapter.clearFilter()
+            }
+
+            //type of list view of circle
+            R.id.imv_circle -> {
+                setHorizontalNotes()
             }
         }
     }
@@ -139,5 +152,29 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             .create()
         deleteNoteDialog.setMessage(getString(R.string.delete_note_msg, note.title))
         deleteNoteDialog.show()
+    }
+
+    fun setHorizontalNotes() {
+        ConstraintSet().apply {
+            clone(const_home)
+            constrainHeight(R.id.rv_notes, 0)
+            connect(R.id.rv_notes, ConstraintSet.TOP, R.id.imv_circle, ConstraintSet.BOTTOM, 16)
+            connect(R.id.rv_notes, ConstraintSet.BOTTOM, R.id.rv_label_filter, ConstraintSet.TOP, 16)
+            applyTo(const_home)
+        }
+        rv_notes.layoutManager = horizontalLayoutManager
+        viewModel.notesLiveData.value?.let { notes ->
+            if (notesHorizontalAdapter == null) {
+                notesHorizontalAdapter =
+                        NotesHorizontalAdapter(
+                            this,
+                            arrayListOf(),
+                            this::onNoteClicked,
+                            this::onNoteActionClicked
+                        )
+            }
+            notesHorizontalAdapter?.update(notes)
+            rv_notes.adapter = notesHorizontalAdapter
+        }
     }
 }

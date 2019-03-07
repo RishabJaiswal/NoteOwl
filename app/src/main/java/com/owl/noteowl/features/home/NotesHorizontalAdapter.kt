@@ -7,19 +7,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Note
-import com.owl.noteowl.databinding.ItemNoteBinding
+import com.owl.noteowl.databinding.ItemNoteHorizontalBinding
 import com.owl.noteowl.extensions.text
 
-class NotesAdapter(
+class NotesHorizontalAdapter(
     private val context: Context,
     private val notes: ArrayList<Note>,
     private val onNoteClicked: (note: Note) -> Unit,
     private val onNoteActionClicked: (menuItemId: Int?, note: Note) -> Unit
-) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(), BaseNotesAdapter {
+) : RecyclerView.Adapter<NotesHorizontalAdapter.NoteViewHolder>(), BaseNotesAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
-            ItemNoteBinding.inflate(
+            ItemNoteHorizontalBinding.inflate(
                 LayoutInflater.from(context), parent, false
             )
         )
@@ -41,7 +41,7 @@ class NotesAdapter(
         noteDiff.dispatchUpdatesTo(this)
     }
 
-    inner class NoteViewHolder(private val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root),
+    inner class NoteViewHolder(private val binding: ItemNoteHorizontalBinding) : RecyclerView.ViewHolder(binding.root),
         View.OnClickListener, PopupMenu.OnMenuItemClickListener {
 
         //creating actions menu for note
@@ -59,9 +59,7 @@ class NotesAdapter(
 
         fun bind(note: Note) {
             binding.note = note
-            binding.rvLabelsNote.adapter = LabelsInNoteAdapter(context, note.labels ?: emptyList())
             binding.tvNoteDate.text = note.createdAt.text("dd MMM")
-            binding.imvNoteBanner.clipToOutline = true
         }
 
         override fun onClick(v: View?) {

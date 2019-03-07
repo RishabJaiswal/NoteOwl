@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="note"
+            type="com.owl.noteowl.data.features.notes.models.Note" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:paddingBottom="8dp"
+        android:background="?android:attr/selectableItemBackground">
+
+        <!--liked icon-->
+        <ImageView
+            android:id="@+id/imv_liked"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="16dp"
+            android:padding="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_date"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_liked"
+            bind:visibleOrGone="@{note.liked}"
+            tools:visibility="visible" />
+
+        <!--note title-->
+        <TextView
+            android:id="@+id/tv_note_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/regular"
+            android:maxLines="2"
+            android:text="@{note.title}"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/txt_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Cook for heart" />
+
+        <!--note details-->
+        <TextView
+            android:id="@+id/tv_note_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/medium"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="4"
+            android:text="@{note.text}"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/txt_body"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_title"
+            tools:text="@tools:sample/lorem/random" />
+
+        <!--note date-->
+        <TextView
+            android:id="@+id/tv_note_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/regular"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/txt_caption"
+            app:layout_constraintBottom_toTopOf="@+id/imv_liked"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_details"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="12 May" />
+
+        <!--more button-->
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="2dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_date"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
