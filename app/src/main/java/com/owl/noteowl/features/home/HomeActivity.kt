@@ -3,6 +3,7 @@ package com.owl.noteowl.features.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewAnimationUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,6 +15,7 @@ import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.features.addNote.AddNoteActivity
 import kotlinx.android.synthetic.main.activity_home.*
+
 
 class HomeActivity : BaseActivity(), View.OnClickListener {
 
@@ -30,7 +32,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         observeNotes()
         observeLabels()
         btn_add_note.setOnClickListener(this)
+        btn_filter_labels.setOnClickListener(this)
         btn_clear_filters.setOnClickListener(this)
+        btn_add_note_home.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -45,7 +49,30 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                 viewModel.clearFilters()
                 labelsForFilterAdapter.clearFilter()
             }
+
+            //add note
+            R.id.btn_add_note_home -> {
+                startActivity(Intent(this, AddNoteActivity::class.java))
+            }
+
+            //filter labels
+            R.id.btn_filter_labels -> {
+                circularRevealFilters()
+            }
         }
+    }
+
+    private fun circularRevealFilters() {
+        card_labels.visible()
+        val x = card_labels.left
+        val y = card_labels.bottom
+
+        val startRadius = 0f
+        val endRadius = Math.hypot(card_labels.width.toDouble(), card_labels.height.toDouble()).toFloat()
+
+        val anim = ViewAnimationUtils.createCircularReveal(card_labels, x, y, startRadius, 400f)
+        anim.duration = 1000L
+        anim.start()
     }
 
     //observing notes list
