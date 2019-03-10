@@ -31,6 +31,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         observeLabels()
         btn_add_note.setOnClickListener(this)
         btn_clear_filters.setOnClickListener(this)
+        btn_add_note_home.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -44,6 +45,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_clear_filters -> {
                 viewModel.clearFilters()
                 labelsForFilterAdapter.clearFilter()
+            }
+
+            //add note
+            R.id.btn_add_note_home -> {
+                startActivity(Intent(this, AddNoteActivity::class.java))
             }
         }
     }

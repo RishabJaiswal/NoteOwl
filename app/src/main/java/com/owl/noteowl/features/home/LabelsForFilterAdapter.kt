@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelFilterNotesBinding
-import com.owl.noteowl.utils.Constants
-import com.owl.noteowl.utils.ContextUtility
 import java.util.*
 
 class LabelsForFilterAdapter(
@@ -17,16 +15,11 @@ class LabelsForFilterAdapter(
     val viewModel: NotesViewModel,
     val onLabelClicked: (label: Label?) -> Unit
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<LabelsForFilterAdapter.LabelViewHolder>() {
 
     val labels: ArrayList<Label> = arrayListOf()
-    private val POSITION = Constants.Position()
-    private val labelTranslationY by lazy {
-        ContextUtility(context).convertDpToPx(8f)
-    }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LabelsForFilterAdapter.LabelViewHolder {
         return LabelViewHolder(
             ItemLabelFilterNotesBinding.inflate(
                 LayoutInflater.from(context), parent, false
@@ -38,16 +31,8 @@ class LabelsForFilterAdapter(
         return labels.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is LabelViewHolder) {
-            holder.bind(labels[position])
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        if (position == 0)
-            return POSITION.FIRST
-        return POSITION.MID
+    override fun onBindViewHolder(holder: LabelsForFilterAdapter.LabelViewHolder, position: Int) {
+        holder.bind(labels[position])
     }
 
     fun update(labels: List<Label>) {
@@ -90,17 +75,6 @@ class LabelsForFilterAdapter(
                     labelTranslationY
                 }
             ).start()*/
-        }
-    }
-
-    //add note viewholder
-    inner class AddNoteViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        init {
-            view.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            onLabelClicked(null)
         }
     }
 
