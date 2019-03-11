@@ -77,7 +77,8 @@
     <com.google.android.material.circularreveal.cardview.CircularRevealCardView
         android:id="@+id/card_labels"
         android:layout_width="280dp"
-        android:layout_height="320dp"
+        android:layout_height="wrap_content"
+        android:maxHeight="320dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/btn_filter_labels"
         app:layout_constraintStart_toStartOf="@+id/btn_filter_labels">
@@ -86,7 +87,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_label_filter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_label_filter_notes" />
