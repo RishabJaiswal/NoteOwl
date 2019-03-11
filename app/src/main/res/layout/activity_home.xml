@@ -74,11 +74,11 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!--card of labels-->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
         android:id="@+id/card_labels"
         android:layout_width="280dp"
         android:layout_height="320dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/btn_filter_labels"
         app:layout_constraintStart_toStartOf="@+id/btn_filter_labels">
 
@@ -91,7 +91,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_label_filter_notes" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
     <!--blank slate-->
     <androidx.constraintlayout.widget.ConstraintLayout
