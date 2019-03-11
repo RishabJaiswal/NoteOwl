@@ -2,18 +2,15 @@ package com.owl.noteowl.features.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewAnimationUtils
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.gone
-import com.owl.noteowl.extensions.invisible
 import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.features.addNote.AddNoteActivity
@@ -27,7 +24,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     }
     private var notesAdapter: NotesAdapter? = null
     private lateinit var labelsForFilterAdapter: LabelsForFilterAdapter
-    val x by lazy { (card_labels.right - card_labels.left) / 2 }
+    val x by lazy { card_labels.left }
     val y by lazy { (card_labels.bottom - card_labels.top) / 2 }
     val endRadius by lazy {
         Math.hypot(card_labels.measuredWidth.toDouble(), card_labels.measuredWidth.toDouble()).toFloat()
@@ -68,14 +65,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                 circularRevealFilters()
             }
         }
-    }
-
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        if (card_labels.isVisible) {
-            card_labels.invisible()
-            return true
-        }
-        return super.dispatchTouchEvent(ev)
     }
 
     private fun circularRevealFilters() {
