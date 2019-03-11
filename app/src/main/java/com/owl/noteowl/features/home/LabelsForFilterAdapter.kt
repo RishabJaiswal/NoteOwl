@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelFilterNotesBinding
+import com.owl.noteowl.utils.visibleOrGone
 import java.util.*
 
 class LabelsForFilterAdapter(
@@ -67,14 +68,8 @@ class LabelsForFilterAdapter(
         }
 
         fun showFilteredLabel() {
-            /*val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.title ?: "")
-            itemView.animate().translationY(
-                if (isLabelInFilter) {
-                    0f
-                } else {
-                    labelTranslationY
-                }
-            ).start()*/
+            val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.title ?: "")
+            visibleOrGone(binding.imvSelected, isLabelInFilter)
         }
     }
 

@@ -14,13 +14,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/label_parent"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="48dp"
+        android:background="?android:attr/selectableItemBackground">
 
         <!--label color indicator-->
         <View
             android:id="@+id/label_color"
             android:layout_width="8dp"
             android:layout_height="match_parent"
+            android:background="@color/colorAccent"
             bind:bgTint="@{label.colorHex}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +70,8 @@
             android:layout_height="24dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_round_check"
+            android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
