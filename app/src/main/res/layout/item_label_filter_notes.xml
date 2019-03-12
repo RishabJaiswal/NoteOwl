@@ -11,59 +11,98 @@
             type="com.owl.noteowl.data.features.notes.models.Label" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/label_parent"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="?android:attr/selectableItemBackground">
+        android:layout_height="48dp">
 
-        <!--label color indicator-->
-        <View
-            android:id="@+id/label_color"
-            android:layout_width="8dp"
+        <!--label options-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--label color tinted background-->
+            <View
+                android:id="@+id/view_bg_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                bind:bgTint="@{label.colorHex}"
+                android:background="@color/colorAccent" />
+
+            <!--choose color button-->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="color"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--label-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/label_parent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            bind:bgTint="@{label.colorHex}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="#444" />
+            android:background="?android:attr/selectableItemBackground">
 
-        <!--label name-->
-        <TextView
-            android:id="@+id/tv_label_name_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/semi_bold"
-            android:singleLine="true"
-            android:text="@{label.title}"
-            android:textColor="@color/textPrimary"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imv_selected"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/label_color"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/lorem/random" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--label color indicator-->
+            <View
+                android:id="@+id/label_color"
+                android:layout_width="8dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                bind:bgTint="@{label.colorHex}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="#444" />
+
+            <!--label name-->
+            <TextView
+                android:id="@+id/tv_label_name_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/semi_bold"
+                android:singleLine="true"
+                android:text="@{label.title}"
+                android:textColor="@color/textPrimary"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imv_selected"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/label_color"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem/random" />
 
 
-        <!--label selecte indicator-->
-        <ImageView
-            android:id="@+id/imv_selected"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_round_check"
-            android:visibility="gone"
-            tools:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <!--label selecte indicator-->
+            <ImageView
+                android:id="@+id/imv_selected"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_round_check"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 
 </layout>
