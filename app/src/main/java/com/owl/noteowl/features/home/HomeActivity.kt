@@ -11,6 +11,7 @@ import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.gone
+import com.owl.noteowl.extensions.invisible
 import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.features.addNote.AddNoteActivity
@@ -40,6 +41,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         btn_filter_labels.setOnClickListener(this)
         btn_clear_filters.setOnClickListener(this)
         btn_add_note_home.setOnClickListener(this)
+        btn_close_labels.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -62,15 +64,27 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
             //filter labels
             R.id.btn_filter_labels -> {
-                circularRevealFilters()
+                showFilters()
+            }
+
+            //close labels
+            R.id.btn_close_labels -> {
+                hideFilters()
             }
         }
     }
 
-    private fun circularRevealFilters() {
+    private fun showFilters() {
         val anim = ViewAnimationUtils.createCircularReveal(card_labels, x, y, 0f, endRadius)
         anim.duration = 400L
         card_labels.visible()
+        anim.start()
+    }
+
+    private fun hideFilters() {
+        val anim = ViewAnimationUtils.createCircularReveal(card_labels, x, y, endRadius, 0f)
+        anim.duration = 400L
+        card_labels.invisible()
         anim.start()
     }
 
@@ -78,7 +92,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     private fun observeNotes() {
         viewModel.notesLiveData.observe(this, Observer {
             it?.let { notes ->
-                if (notes.size == 0) {
+                if (notes.isEmpty()) {
                     if (viewModel.isLabelsFilterEmpty()) {
                         //no label filter is selected
                         showBlankSlate()

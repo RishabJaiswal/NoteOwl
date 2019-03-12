@@ -35,4 +35,5 @@
     <string name="clear_filter">Clear filters</string>
     <string name="msg_blank_slate_filters">Oops! No note from the selected labels</string>
     <string name="labels">Labels</string>
+    <string name="select_label_to_filter">Select label to filter</string>
 </resources>
