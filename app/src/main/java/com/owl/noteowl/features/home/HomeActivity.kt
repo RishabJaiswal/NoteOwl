@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
@@ -148,6 +149,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         if (rv_label_filter.adapter == null) {
             labelsForFilterAdapter = LabelsForFilterAdapter(this, viewModel, this::onLabelClicked)
             rv_label_filter.adapter = labelsForFilterAdapter
+            ItemTouchHelper(LabelItemTouchListener()).attachToRecyclerView(rv_label_filter)
         }
         labelsForFilterAdapter.update(labels)
     }
