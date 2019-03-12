@@ -4,6 +4,7 @@
     <string name="cta_next">Next</string>
     <string name="add_title">Add title</string>
     <string name="add_note">Add Note</string>
+    <string name="paras_number">(%d)</string>
 
     <!--creating label-->
     <string name="add_label">Add label</string>

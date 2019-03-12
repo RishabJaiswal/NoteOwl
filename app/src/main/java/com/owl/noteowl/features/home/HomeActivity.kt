@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
@@ -44,6 +45,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         btn_close_labels.setOnClickListener(this)
     }
 
+    override fun onPause() {
+        super.onPause()
+        hideFilters()
+    }
+
     override fun onClick(view: View?) {
         when (view?.id) {
             //add note
@@ -75,17 +81,21 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun showFilters() {
-        val anim = ViewAnimationUtils.createCircularReveal(card_labels, x, y, 0f, endRadius)
-        anim.duration = 400L
-        card_labels.visible()
-        anim.start()
+        if (!card_labels.isVisible) {
+            val anim = ViewAnimationUtils.createCircularReveal(card_labels, x, y, 0f, endRadius)
+            anim.duration = 400L
+            card_labels.visible()
+            anim.start()
+        }
     }
 
     private fun hideFilters() {
-        val anim = ViewAnimationUtils.createCircularReveal(card_labels, x, y, endRadius, 0f)
-        anim.duration = 400L
-        card_labels.invisible()
-        anim.start()
+        if (card_labels.isVisible) {
+            val anim = ViewAnimationUtils.createCircularReveal(card_labels, x, y, endRadius, 0f)
+            anim.duration = 400L
+            card_labels.invisible()
+            anim.start()
+        }
     }
 
     //observing notes list

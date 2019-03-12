@@ -35,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:fontFamily="@font/semi_bold"
             android:singleLine="true"
@@ -42,26 +43,13 @@
             android:textColor="@color/textPrimary"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_label_notes_count"
+            app:layout_constraintEnd_toStartOf="@+id/imv_selected"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/label_color"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/lorem/random" />
 
-        <!--label notes count-->
-        <TextView
-            android:id="@+id/tv_label_notes_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imv_selected"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_label_name_filter"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="(108)" />
 
         <!--label selecte indicator-->
         <ImageView

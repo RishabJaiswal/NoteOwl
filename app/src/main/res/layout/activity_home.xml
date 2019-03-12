@@ -76,7 +76,7 @@
     <!--card of labels-->
     <com.google.android.material.circularreveal.cardview.CircularRevealCardView
         android:id="@+id/card_labels"
-        android:layout_width="280dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:maxHeight="320dp"
         android:visibility="invisible"
