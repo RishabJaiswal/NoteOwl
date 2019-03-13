@@ -27,9 +27,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     }
     private var notesAdapter: NotesAdapter? = null
     private lateinit var labelsForFilterAdapter: LabelsForFilterAdapter
-    val x by lazy { card_labels.left }
-    val y by lazy { (card_labels.bottom - card_labels.top) / 2 }
-    val endRadius by lazy {
+    private val x by lazy { card_labels.left }
+    private val y by lazy { (card_labels.bottom - card_labels.top) / 2 }
+    private val endRadius by lazy {
         Math.hypot(card_labels.measuredWidth.toDouble(), card_labels.measuredWidth.toDouble()).toFloat()
     }
 
