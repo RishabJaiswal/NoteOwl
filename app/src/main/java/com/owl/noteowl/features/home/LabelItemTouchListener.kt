@@ -6,10 +6,12 @@ import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_label_filter_notes.view.*
 
 
 class LabelItemTouchListener : ItemTouchHelper.Callback() {
+
+    private var swipeBack: Boolean = true
+
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         return makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
     }
@@ -64,8 +66,6 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
         )
     }
 
-    private var swipeBack: Boolean = true
-
     private fun setTouchListener(recyclerView: RecyclerView, dX: Float, dY: Float) {
         recyclerView.setOnTouchListener { v, event ->
             swipeBack = (event.action == MotionEvent.ACTION_CANCEL || event.action == MotionEvent.ACTION_UP)
@@ -75,7 +75,7 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
 
     private fun getForegroundView(viewHolder: RecyclerView.ViewHolder): View? {
         if (viewHolder is LabelsForFilterAdapter.LabelViewHolder) {
-            return viewHolder.itemView.label_parent
+            return viewHolder.getSwipeableView()
         }
         return null
     }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelFilterNotesBinding
 import com.owl.noteowl.utils.visibleOrGone
+import kotlinx.android.synthetic.main.item_label_filter_notes.view.*
 import java.util.*
 
 class LabelsForFilterAdapter(
@@ -70,6 +71,10 @@ class LabelsForFilterAdapter(
         fun showFilteredLabel() {
             val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.title ?: "")
             visibleOrGone(binding.imvSelected, isLabelInFilter)
+        }
+
+        fun getSwipeableView(): View {
+            return itemView.label_parent
         }
     }
 
