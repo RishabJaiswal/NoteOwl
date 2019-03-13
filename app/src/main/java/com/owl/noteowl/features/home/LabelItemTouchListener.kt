@@ -1,14 +1,16 @@
 package com.owl.noteowl.features.home
 
 import android.graphics.Canvas
+import android.view.MotionEvent
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_label_filter_notes.view.*
 
+
 class LabelItemTouchListener : ItemTouchHelper.Callback() {
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-        val swipe = ItemTouchHelper.LEFT
         return makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
     }
 
@@ -24,6 +26,10 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
     }
 
     override fun convertToAbsoluteDirection(flags: Int, layoutDirection: Int): Int {
+        if (swipeBack) {
+            swipeBack = false;
+            return 0;
+        }
         return super.convertToAbsoluteDirection(flags, layoutDirection)
     }
 
@@ -49,13 +55,25 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
         canvas: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
         dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
     ) {
+        if (actionState == ACTION_STATE_SWIPE) {
+            setTouchListener(recyclerView, dX, dY)
+        }
         getDefaultUIUtil().onDraw(
             canvas, recyclerView, getForegroundView(viewHolder),
             dX, dY, actionState, isCurrentlyActive
         )
     }
 
-    fun getForegroundView(viewHolder: RecyclerView.ViewHolder): View? {
+    private var swipeBack: Boolean = true
+
+    private fun setTouchListener(recyclerView: RecyclerView, dX: Float, dY: Float) {
+        recyclerView.setOnTouchListener { v, event ->
+            swipeBack = (event.action == MotionEvent.ACTION_CANCEL || event.action == MotionEvent.ACTION_UP)
+            false
+        }
+    }
+
+    private fun getForegroundView(viewHolder: RecyclerView.ViewHolder): View? {
         if (viewHolder is LabelsForFilterAdapter.LabelViewHolder) {
             return viewHolder.itemView.label_parent
         }
