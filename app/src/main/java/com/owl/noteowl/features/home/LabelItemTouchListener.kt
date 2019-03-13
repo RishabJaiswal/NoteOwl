@@ -34,44 +34,24 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
     }
 
     override fun onChildDrawOver(
-        c: Canvas,
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder?,
-        dX: Float,
-        dY: Float,
-        actionState: Int,
-        isCurrentlyActive: Boolean
+        canvas: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder?,
+        dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
     ) {
         viewHolder?.let {
             getDefaultUIUtil().onDrawOver(
-                c,
-                recyclerView,
-                getForegroundView(it),
-                dX,
-                dY,
-                actionState,
-                isCurrentlyActive
+                canvas, recyclerView, getForegroundView(it),
+                dX, dY, actionState, isCurrentlyActive
             )
         }
     }
 
     override fun onChildDraw(
-        c: Canvas,
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder,
-        dX: Float,
-        dY: Float,
-        actionState: Int,
-        isCurrentlyActive: Boolean
+        canvas: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+        dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
     ) {
         getDefaultUIUtil().onDraw(
-            c,
-            recyclerView,
-            getForegroundView(viewHolder),
-            dX,
-            dY,
-            actionState,
-            isCurrentlyActive
+            canvas, recyclerView, getForegroundView(viewHolder),
+            dX, dY, actionState, isCurrentlyActive
         )
     }
 
