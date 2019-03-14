@@ -53,7 +53,8 @@ class LabelsForFilterAdapter(
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
-            binding.root.setOnClickListener(this)
+            binding.labelParent.setOnClickListener(this)
+            binding.labelParentBg.setOnClickListener(this)
         }
 
         fun bind(label: Label) {

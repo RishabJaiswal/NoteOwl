@@ -43,12 +43,16 @@
             android:id="@+id/label_parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?android:attr/selectableItemBackground">
+            android:background="@android:color/white"
+            android:clickable="true"
+            android:focusable="true">
 
             <View
+                android:id="@+id/label_parent_bg"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@android:color/white"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
