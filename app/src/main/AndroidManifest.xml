@@ -16,8 +16,19 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <!-- home screen -->
+        <activity android:name=".features.home.HomeActivity" />
+
+        <!-- Add note screen -->
         <activity
-            android:name=".features.home.HomeActivity"
+            android:name=".features.addNote.AddNoteActivity"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <!-- add image screen -->
+        <activity android:name=".features.noteImage.AddNoteImageActivity" />
+
+        <!--splash screen-->
+        <activity
+            android:name=".SplashScreen"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +36,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Add note screen -->
-        <activity
-            android:name=".features.addNote.AddNoteActivity"
-            android:windowSoftInputMode="adjustNothing" />
-
-        <!--add image screen-->
-        <activity android:name=".features.noteImage.AddNoteImageActivity" />
     </application>
 
 </manifest>
