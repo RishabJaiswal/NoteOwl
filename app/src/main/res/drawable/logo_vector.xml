@@ -88,7 +88,7 @@
         </vector>
     </aapt:attr>
 
-    <!--animation-->
+    <!--left wing-->
     <target android:name="wing_left">
         <aapt:attr name="android:animation">
             <objectAnimator
@@ -97,11 +97,12 @@
                 android:valueFrom="30"
                 android:valueTo="0"
                 android:repeatCount="2"
-                android:repeatMode="reverse" />
+                android:repeatMode="reverse"
+                android:interpolator="@android:anim/accelerate_interpolator" />
         </aapt:attr>
     </target>
 
-    <!--animation-->
+    <!--right wing-->
     <target android:name="wing_right">
         <aapt:attr name="android:animation">
             <objectAnimator
@@ -110,7 +111,8 @@
                 android:valueFrom="-30"
                 android:valueTo="0"
                 android:repeatCount="2"
-                android:repeatMode="reverse" />
+                android:repeatMode="reverse"
+                android:interpolator="@android:anim/accelerate_interpolator" />
         </aapt:attr>
     </target>
 
