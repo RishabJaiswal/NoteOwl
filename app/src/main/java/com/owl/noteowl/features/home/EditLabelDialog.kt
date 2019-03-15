@@ -13,12 +13,12 @@ class EditLabelDialog(
     val viewModel: NotesViewModel
 ) : AlertDialog.Builder(mContext), View.OnClickListener, ColorSeekBar.OnColorChangeListener {
 
+    lateinit var dialog: AlertDialog
     val binding = DialogEditLabelBinding.inflate(LayoutInflater.from(context)).apply {
         label = viewModel.getLabel(labelId)
         btnSaveLabel.setOnClickListener(this@EditLabelDialog)
         colorPicker.setOnColorChangeListener(this@EditLabelDialog)
     }
-    lateinit var dialog: AlertDialog
 
     override fun show(): AlertDialog {
         setView(binding.root)
@@ -36,5 +36,6 @@ class EditLabelDialog(
 
     override fun onColorChangeListener(colorBarPosition: Int, alphaBarPosition: Int, color: Int) {
         binding.label?.colorHex = color
+        binding.colorSelected = color
     }
 }

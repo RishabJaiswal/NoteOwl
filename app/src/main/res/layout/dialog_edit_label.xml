@@ -7,6 +7,11 @@
         <variable
             name="label"
             type="com.owl.noteowl.data.features.notes.models.Label"/>
+
+        <variable
+            name="colorSelected"
+            type="Integer" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,11 +23,11 @@
             android:id="@+id/label_color_tint"
             android:layout_width="64dp"
             android:layout_height="0dp"
-            android:background="#424242"
-            bind:bgTint="@{label.colorHex}"
+            android:background="@color/textPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:bgTint="@{colorSelected}" />
 
         <!--label name-->
         <EditText
