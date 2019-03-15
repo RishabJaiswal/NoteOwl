@@ -35,7 +35,9 @@ class NotesViewModel : ViewModel() {
         }
     }
 
-    val labelsLiveData = labelsDao.getLabelsLive()
+    val labelsLiveData = Transformations.map(labelsDao.getLabelsLive()) {
+        it.asNonManagedRealmCopy()
+    }
 
     //editing filter
     fun editFilter(labelTitle: String) {

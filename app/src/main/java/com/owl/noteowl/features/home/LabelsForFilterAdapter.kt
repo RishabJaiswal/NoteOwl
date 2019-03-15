@@ -37,10 +37,10 @@ class LabelsForFilterAdapter(
         holder.bind(labels[position])
     }
 
-    fun update(labels: List<Label>) {
-        val diffUtil = DiffUtil.calculateDiff(LabelDiffUtil(labels))
+    fun update(newLabels: List<Label>) {
+        val diffUtil = DiffUtil.calculateDiff(LabelDiffUtil(newLabels))
         this.labels.clear()
-        this.labels.addAll(labels)
+        this.labels.addAll(newLabels)
         diffUtil.dispatchUpdatesTo(this)
     }
 
@@ -95,6 +95,5 @@ class LabelsForFilterAdapter(
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return labels[oldItemPosition] == newLabels[newItemPosition]
         }
-
     }
 }
