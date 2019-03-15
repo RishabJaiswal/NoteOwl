@@ -81,7 +81,7 @@ class LabelsForFilterAdapter(
 
     inner class LabelDiffUtil(val newLabels: List<Label>) : DiffUtil.Callback() {
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return labels[oldItemPosition].title == newLabels[newItemPosition].title
+            return labels[oldItemPosition].id == newLabels[newItemPosition].id
         }
 
         override fun getOldListSize(): Int {

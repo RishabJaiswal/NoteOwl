@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="label"
+            type="com.owl.noteowl.data.features.notes.models.Label"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--label color tint-->
+        <View
+            android:id="@+id/label_color_tint"
+            android:layout_width="64dp"
+            android:layout_height="0dp"
+            android:background="#424242"
+            bind:bgTint="@{label.colorHex}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--label name-->
+        <EditText
+            android:id="@+id/edt_label_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/semi_bold"
+            android:hint="@string/add_label_name"
+            android:padding="16dp"
+            android:text="@={label.title}"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/txt_body"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/label_color_tint"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--label description-->
+        <EditText
+            android:id="@+id/edt_label_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:hint="@string/add_label_description"
+            android:text="@={label.description}"
+            android:textSize="@dimen/txt_body"
+            android:textColor="@color/textSecondary"
+            android:fontFamily="@font/semi_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/label_color_tint"
+            app:layout_constraintTop_toBottomOf="@+id/edt_label_name" />
+
+        <!--label color picker-->
+        <com.rtugeek.android.colorseekbar.ColorSeekBar
+            android:id="@+id/color_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:colorSeeds="@array/material_colors"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/label_color_tint"
+            app:layout_constraintTop_toBottomOf="@+id/edt_label_description" />
+
+        <!--save button-->
+        <Button
+            android:id="@+id/btn_save_label"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_button_secondary"
+            android:elevation="3dp"
+            android:fontFamily="@font/semi_bold"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="@string/cta_save"
+            android:textAllCaps="false"
+            android:textSize="@dimen/txt_body"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/color_picker" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

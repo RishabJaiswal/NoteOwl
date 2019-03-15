@@ -19,6 +19,8 @@
     <string name="cta_select">Select</string>
     <string name="note_saved">Note saved!</string>
     <string name="error_saving_label">Label already created</string>
+    <string name="add_label_name">Add label name</string>
+    <string name="add_label_description">Add label description</string>
 
     <!--exit confirmation dialog-->
     <string name="exit">Exit?</string>

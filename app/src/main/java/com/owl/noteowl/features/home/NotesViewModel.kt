@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.owl.noteowl.data.features.notes.local.LabelDao
 import com.owl.noteowl.data.features.notes.local.NoteDao
+import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.asNonManagedRealmCopy
 
@@ -62,5 +63,13 @@ class NotesViewModel : ViewModel() {
     fun clearFilters() {
         labelsFilter.clear()
         labelsFilterLive.value = labelsFilter
+    }
+
+    fun getLabel(labelId: String): Label? {
+        return labelsDao.getLabel(id = labelId)?.asNonManagedRealmCopy()
+    }
+
+    fun saveLabel(label: Label) {
+        labelsDao.saveLabel(label)
     }
 }

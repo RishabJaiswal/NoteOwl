@@ -9,6 +9,7 @@ import java.util.*
 
 open class Label : RealmObject() {
     @PrimaryKey
+    var id: String = UUID.randomUUID().toString()
     var title: String = ""
     var createdAt: Date = Date()
     var colorHex: Int = Color.RED

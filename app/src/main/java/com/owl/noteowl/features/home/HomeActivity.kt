@@ -153,7 +153,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     //on click label
     private fun onLabelClicked(label: Label?) {
         label?.let {
-            viewModel.editFilter(label.title)
+            //viewModel.editFilter(label.title)
+            EditLabelDialog(this, label.id, viewModel).show()
         } ?: startActivity(Intent(this, AddNoteActivity::class.java))
     }
 
