@@ -12,6 +12,7 @@ open class Label : RealmObject() {
     var title: String = ""
     var createdAt: Date = Date()
     var colorHex: Int = Color.RED
+    var description: String = ""
 
     @LinkingObjects("labels")
     val notes: RealmResults<Note>? = null

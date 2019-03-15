@@ -13,20 +13,25 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="wrap_content">
 
         <!--label options-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:minHeight="48dp">
 
             <!--label color tinted background-->
             <View
                 android:id="@+id/view_bg_options"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                bind:bgTint="@{label.colorHex}"
-                android:background="@color/colorAccent" />
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:bgTint="@{label.colorHex}" />
 
             <!--choose color button-->
             <Button
@@ -42,11 +47,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/label_parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@android:color/white"
+            android:minHeight="48dp"
             android:clickable="true"
             android:focusable="true">
 
+            <!--selector ripple-->
             <View
                 android:id="@+id/label_parent_bg"
                 android:layout_width="0dp"
@@ -62,34 +69,56 @@
             <View
                 android:id="@+id/label_color"
                 android:layout_width="8dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="@color/colorAccent"
-                bind:bgTint="@{label.colorHex}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/label_parent_bg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                bind:bgTint="@{label.colorHex}"
                 tools:background="#444" />
 
             <!--label name-->
             <TextView
                 android:id="@+id/tv_label_name_filter"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/semi_bold"
                 android:singleLine="true"
                 android:text="@{label.title}"
                 android:textColor="@color/textPrimary"
+                android:textSize="@dimen/txt_body"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imv_selected"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/label_color"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/lorem/random" />
+
+            <!--label description-->
+            <TextView
+                android:id="@+id/tv_label_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/semi_bold"
+                android:maxLines="3"
+                tools:text="@tools:sample/lorem/random"
+                android:textColor="@color/textSecondary"
+                android:visibility="visible"
+                android:textSize="@dimen/txt_body"
+                bind:visibleOrGone="@{label.description.length() != 0}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_label_name_filter"
+                app:layout_constraintStart_toStartOf="@+id/tv_label_name_filter"
+                app:layout_constraintTop_toBottomOf="@+id/tv_label_name_filter"
+                app:layout_goneMarginBottom="16dp" />
 
 
             <!--label selecte indicator-->
@@ -100,10 +129,10 @@
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_round_check"
                 android:visibility="gone"
-                tools:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_label_name_filter"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/tv_label_name_filter"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
