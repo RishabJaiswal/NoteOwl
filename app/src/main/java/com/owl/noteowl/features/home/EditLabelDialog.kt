@@ -22,6 +22,9 @@ class EditLabelDialog(
 
     override fun show(): AlertDialog {
         setView(binding.root)
+        binding.label?.colorHex?.let {
+            binding.colorPicker.color = it
+        }
         return super.show().apply {
             dialog = this
         }
