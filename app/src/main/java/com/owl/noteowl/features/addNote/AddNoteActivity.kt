@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
-import com.owl.noteowl.databinding.AddNoteBinding
+import com.owl.noteowl.databinding.ActivityAddNoteBinding
 import com.owl.noteowl.databinding.DialogSelectLabelBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.invisible
@@ -27,7 +27,7 @@ import com.owl.noteowl.utils.Constants
 import com.owl.noteowl.utils.ContextUtility
 import com.owl.noteowl.utils.visibleOrGone
 import io.realm.RealmList
-import kotlinx.android.synthetic.main.add_note.*
+import kotlinx.android.synthetic.main.activity_add_note.*
 import java.util.*
 
 class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClickListener,
@@ -37,7 +37,7 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
     private var exitDialog: AlertDialog? = null
     private val contextUtils by lazy { ContextUtility(this) }
     private lateinit var selectLabelBinding: DialogSelectLabelBinding
-    private lateinit var mainBinding: AddNoteBinding
+    private lateinit var mainBinding: ActivityAddNoteBinding
 
     private val viewModel by lazy {
         var noteId: Int? = intent.getIntExtra(Constants.Note().KEY_ID, -1)
@@ -51,7 +51,7 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainBinding = DataBindingUtil.setContentView(this, R.layout.add_note)
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_note)
         observeNote()
         setLabels()
         tv_note_date.text = Date().text("dd MMM yyy")
