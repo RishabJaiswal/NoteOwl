@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ActivityAddNoteBinding
-import com.owl.noteowl.databinding.DialogSelectLabelBinding
+import com.owl.noteowl.databinding.DialogCreateLabelBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.invisible
 import com.owl.noteowl.extensions.text
@@ -36,7 +36,7 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
     private var selectLabelDialog: AlertDialog? = null
     private var exitDialog: AlertDialog? = null
     private val contextUtils by lazy { ContextUtility(this) }
-    private lateinit var selectLabelBinding: DialogSelectLabelBinding
+    private lateinit var selectLabelBinding: DialogCreateLabelBinding
     private lateinit var mainBinding: ActivityAddNoteBinding
 
     private val viewModel by lazy {
@@ -161,13 +161,13 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
             }
 
             //select label
-            R.id.btn_save_select_label -> {
-                selectLabelBinding.apply {
-                    if (labelName.isNullOrEmpty()) {
+            R.id.btn_save_label -> {
+                selectLabelBinding.label?.let { label ->
+                    if (label.title.isEmpty()) {
                         showToast(R.string.error_empty_label)
                     } else {
-                        if (viewModel.isLabelPresentInLabelsList(labelName!!) ||
-                            viewModel.saveLabel(null, labelName, colorSelected) == false
+                        if (viewModel.isLabelPresentInLabelsList(label.title) ||
+                            viewModel.saveLabel(null, label) == false
                         ) {
                             showToast(R.string.error_saving_label)
                         } else {
@@ -224,22 +224,23 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
     private fun onLabelClicked(label: Label?) {
         label?.let {
             selectLabelDialog?.dismiss()
-            viewModel.saveLabel(null, it.title, it.colorHex)
+            viewModel.saveLabel(null, label)
         }
     }
 
     //dialog helps in selecting or creating a label
     fun showSelectLabelDialog() {
         if (selectLabelDialog == null) {
-            selectLabelBinding = DialogSelectLabelBinding.inflate(layoutInflater)
+            selectLabelBinding = DialogCreateLabelBinding.inflate(layoutInflater)
+            selectLabelBinding.label = Label()
 
             selectLabelBinding.apply {
-                HSLColorPicker.setOnColorChangeListener { colorBarPosition, alphaBarPosition, color ->
+                colorPicker.setOnColorChangeListener { colorBarPosition, alphaBarPosition, color ->
+                    label?.colorHex = color
                     colorSelected = color
                 }
                 //click listeners
-                btnCancelSelectLabel.setOnClickListener(this@AddNoteActivity)
-                btnSaveSelectLabel.setOnClickListener(this@AddNoteActivity)
+                btnSaveLabel.setOnClickListener(this@AddNoteActivity)
 
                 //creating dialog
                 selectLabelDialog = AlertDialog.Builder(this@AddNoteActivity)
@@ -250,7 +251,7 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
         }
 
         //selecting random color and emptying label title
-        selectLabelBinding.edtLabelTitle.setText("")
+        selectLabelBinding.edtLabelName.setText("")
         selectLabelDialog?.show()
     }
 

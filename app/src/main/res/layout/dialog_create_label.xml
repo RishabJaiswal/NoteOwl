@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="label"
-            type="com.owl.noteowl.data.features.notes.models.Label"/>
+            type="com.owl.noteowl.data.features.notes.models.Label" />
 
         <variable
             name="colorSelected"
@@ -24,7 +26,7 @@
             android:layout_width="64dp"
             android:layout_height="0dp"
             android:background="@color/textPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_save_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             bind:bgTint="@{colorSelected}" />
@@ -36,8 +38,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/edit_label"
-            android:textSize="@dimen/txt_18"
             android:textColor="@color/textPrimary"
+            android:textSize="@dimen/txt_18"
             app:layout_constraintStart_toEndOf="@+id/label_color_tint"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,10 +51,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:maxLines="2"
             android:background="@drawable/radial_rect_2dp"
             android:fontFamily="@font/semi_bold"
             android:hint="@string/add_label_name"
+            android:maxLines="2"
             android:padding="16dp"
             android:text="@={label.title}"
             android:textColor="@color/textPrimary"
@@ -66,17 +68,17 @@
             android:id="@+id/edt_label_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:minHeight="80dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/radial_rect_2dp"
             android:fontFamily="@font/semi_bold"
             android:hint="@string/add_label_description"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:minHeight="80dp"
             android:paddingStart="16dp"
+            android:paddingTop="8dp"
             android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
             android:text="@={label.description}"
             android:textColor="@color/textSecondary"
             android:textSize="@dimen/txt_body"
@@ -117,9 +119,43 @@
             android:layout_marginBottom="24dp"
             android:elevation="3dp"
             android:text="@string/cta_save"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_lbl_select_one"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/color_picker" />
+
+        <!--OR label-->
+        <TextView
+            android:id="@+id/tv_lbl_select_one"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#F2F2F2"
+            android:fontFamily="@font/medium"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/lbl_select_one"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/txt_body"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/rv_select_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_save_label" />
+
+        <!--labels list-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_select_label"
+            tools:listitem="@layout/item_label_select"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_lbl_select_one" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

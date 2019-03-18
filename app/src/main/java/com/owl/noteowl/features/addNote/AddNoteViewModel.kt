@@ -47,39 +47,33 @@ class AddNoteViewModel(var noteId: Int?) : ViewModel() {
     private val addLabel by lazy { noteLabelsLiveData.value?.first() }
 
     //adding "add Label" to the labels list of note
-    fun setAddLabel(name: String?, color: Int?) {
-        saveLabel(0, name, color)
+    fun setAddLabel(name: String, color: Int) {
+        saveLabel(0, Label().apply {
+            title = name
+            colorHex = color
+        })
     }
 
     /**saving label
      * returns true when label is saved
      * returns false when label is already present
      * returns null when title or color of label is null*/
-    fun saveLabel(position: Int? = null, labelTitle: String?, color: Int?): Boolean? {
-        if (!labelTitle.isNullOrEmpty() && color != null) {
-            noteLabelsLiveData.apply {
-                //checking if label is already present
-                if (!isLabelPresentInNote(labelTitle!!)) {
-
-                    //creating label
-                    val label = Label().apply {
-                        title = labelTitle.trim()
-                        colorHex = color
-                    }
-
-                    //saving label
-                    if (position != null) {
-                        value?.add(position, label)
-                    } else {
-                        value?.add(1, label)
-                    }
-
-                    //streaming changes
-                    value = value
-                    return true
+    fun saveLabel(position: Int? = null, label: Label): Boolean? {
+        noteLabelsLiveData.apply {
+            //checking if label is already present
+            if (!isLabelPresentInNote(label.title)) {
+                //saving label
+                if (position != null) {
+                    value?.add(position, label)
+                } else {
+                    value?.add(1, label)
                 }
-                return false
+
+                //streaming changes
+                value = value
+                return true
             }
+            return false
         }
         return null
     }
