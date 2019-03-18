@@ -58,7 +58,7 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
         dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
     ) {
         if (actionState == ACTION_STATE_SWIPE) {
-            setTouchListener(recyclerView, dX, dY)
+            setTouchListener(recyclerView, viewHolder, dX)
         }
         getDefaultUIUtil().onDraw(
             canvas, recyclerView, getForegroundView(viewHolder),
@@ -66,9 +66,12 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
         )
     }
 
-    private fun setTouchListener(recyclerView: RecyclerView, dX: Float, dY: Float) {
+    private fun setTouchListener(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder?, dX: Float) {
         recyclerView.setOnTouchListener { v, event ->
             swipeBack = (event.action == MotionEvent.ACTION_CANCEL || event.action == MotionEvent.ACTION_UP)
+            if (dX > 140 && swipeBack && viewHolder is LabelsForFilterAdapter.LabelViewHolder) {
+                viewHolder.filterNote()
+            }
             false
         }
     }

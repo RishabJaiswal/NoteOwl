@@ -143,19 +143,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     //setting labels
     private fun setLabels(labels: List<Label>) {
         if (rv_label_filter.adapter == null) {
-            labelsForFilterAdapter = LabelsForFilterAdapter(this, viewModel, this::onLabelClicked)
+            labelsForFilterAdapter = LabelsForFilterAdapter(this, viewModel)
             rv_label_filter.adapter = labelsForFilterAdapter
             ItemTouchHelper(LabelItemTouchListener()).attachToRecyclerView(rv_label_filter)
         }
         labelsForFilterAdapter.update(labels)
-    }
-
-    //on click label
-    private fun onLabelClicked(label: Label?) {
-        label?.let {
-            //viewModel.editFilter(label.title)
-            EditLabelDialog(this, label.id, viewModel).show()
-        } ?: startActivity(Intent(this, AddNoteActivity::class.java))
     }
 
     //on clicking note

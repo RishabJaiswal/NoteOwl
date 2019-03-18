@@ -40,13 +40,15 @@ class NotesViewModel : ViewModel() {
     }
 
     //editing filter
-    fun editFilter(labelTitle: String) {
-        if (!labelsFilter.contains(labelTitle)) {
-            labelsFilter.add(labelTitle)
-        } else {
-            labelsFilter.remove(labelTitle)
+    fun editFilter(labelTitle: String?) {
+        if (labelTitle != null) {
+            if (!labelsFilter.contains(labelTitle)) {
+                labelsFilter.add(labelTitle)
+            } else {
+                labelsFilter.remove(labelTitle)
+            }
+            labelsFilterLive.value = labelsFilter
         }
-        labelsFilterLive.value = labelsFilter
     }
 
     fun containsLabelInFilter(labelTitle: String): Boolean {

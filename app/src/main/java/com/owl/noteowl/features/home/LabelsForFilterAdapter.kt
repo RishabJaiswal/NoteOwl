@@ -12,11 +12,7 @@ import com.owl.noteowl.utils.visibleOrGone
 import kotlinx.android.synthetic.main.item_label_filter_notes.view.*
 import java.util.*
 
-class LabelsForFilterAdapter(
-    val context: Context,
-    val viewModel: NotesViewModel,
-    val onLabelClicked: (label: Label?) -> Unit
-) :
+class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel) :
     RecyclerView.Adapter<LabelsForFilterAdapter.LabelViewHolder>() {
 
     val labels: ArrayList<Label> = arrayListOf()
@@ -64,9 +60,9 @@ class LabelsForFilterAdapter(
         }
 
         override fun onClick(view: View?) {
-            onLabelClicked(binding.label)
-            //animating label
-            showFilteredLabel()
+            binding.label?.let { label ->
+                EditLabelDialog(context, label.id, viewModel).show()
+            }
         }
 
         fun showFilteredLabel() {
@@ -76,6 +72,11 @@ class LabelsForFilterAdapter(
 
         fun getSwipeableView(): View {
             return itemView.label_parent
+        }
+
+        fun filterNote() {
+            viewModel.editFilter(binding.label?.title)
+            showFilteredLabel()
         }
     }
 
