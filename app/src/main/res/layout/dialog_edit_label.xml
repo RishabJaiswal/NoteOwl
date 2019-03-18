@@ -29,12 +29,28 @@
             app:layout_constraintTop_toTopOf="parent"
             bind:bgTint="@{colorSelected}" />
 
+        <TextView
+            android:id="@+id/tv_edit_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Edit label"
+            android:textSize="@dimen/txt_18"
+            android:textColor="@color/textPrimary"
+            app:layout_constraintStart_toEndOf="@+id/label_color_tint"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <!--label name-->
         <EditText
             android:id="@+id/edt_label_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:maxLines="2"
+            android:background="@drawable/radial_rect_2dp"
             android:fontFamily="@font/semi_bold"
             android:hint="@string/add_label_name"
             android:padding="16dp"
@@ -43,39 +59,54 @@
             android:textSize="@dimen/txt_body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/label_color_tint"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_edit_label" />
 
         <!--label description-->
         <EditText
             android:id="@+id/edt_label_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/radial_rect_2dp"
+            android:fontFamily="@font/semi_bold"
+            android:hint="@string/add_label_description"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:hint="@string/add_label_description"
             android:text="@={label.description}"
-            android:textSize="@dimen/txt_body"
             android:textColor="@color/textSecondary"
-            android:fontFamily="@font/semi_bold"
+            android:textSize="@dimen/txt_body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/label_color_tint"
             app:layout_constraintTop_toBottomOf="@+id/edt_label_name" />
+
+        <!--Select color label-->
+        <TextView
+            android:id="@+id/tv_select_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:text="Select label color"
+            app:layout_constraintStart_toStartOf="@+id/edt_label_description"
+            app:layout_constraintTop_toBottomOf="@+id/edt_label_description" />
 
         <!--label color picker-->
         <com.rtugeek.android.colorseekbar.ColorSeekBar
             android:id="@+id/color_picker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             app:colorSeeds="@array/material_colors"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/label_color_tint"
-            app:layout_constraintTop_toBottomOf="@+id/edt_label_description" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_select_color" />
 
         <!--save button-->
         <Button

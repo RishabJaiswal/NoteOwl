@@ -13,7 +13,7 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
     private var swipeBack: Boolean = true
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-        return makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+        return makeMovementFlags(0, ItemTouchHelper.RIGHT)
     }
 
     override fun onMove(

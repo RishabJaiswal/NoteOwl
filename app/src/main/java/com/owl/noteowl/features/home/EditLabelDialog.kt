@@ -3,7 +3,9 @@ package com.owl.noteowl.features.home
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.owl.noteowl.R
 import com.owl.noteowl.databinding.DialogEditLabelBinding
 import com.rtugeek.android.colorseekbar.ColorSeekBar
 
@@ -32,6 +34,11 @@ class EditLabelDialog(
 
     override fun onClick(view: View?) {
         binding.label?.let {
+            //checking empty label name
+            if (binding.label?.title?.isEmpty() == true) {
+                Toast.makeText(context, R.string.error_empty_label, Toast.LENGTH_SHORT).show()
+                return
+            }
             viewModel.saveLabel(it)
             dialog.dismiss()
         }
