@@ -16,6 +16,7 @@ class SplashScreen : BaseActivity() {
 
         Handler().postDelayed({
             start(HomeActivity::class.java)
+            finish()
         }, 600)
     }
 }
