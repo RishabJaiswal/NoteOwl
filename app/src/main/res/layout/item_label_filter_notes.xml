@@ -34,11 +34,15 @@
                 bind:bgTint="@{label.colorHex}" />
 
             <!--choose color button-->
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="color"
+                android:text="Filter label"
                 android:textColor="@android:color/white"
+                android:layout_marginStart="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:background="?android:attr/selectableItemBackground" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -82,7 +86,7 @@
                 android:id="@+id/tv_label_name_filter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
@@ -92,10 +96,10 @@
                 android:textColor="@color/textPrimary"
                 android:textSize="@dimen/txt_body"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintEnd_toStartOf="@+id/imv_selected"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@+id/label_color"
+                app:layout_constraintStart_toEndOf="@+id/imv_selected"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/lorem/random" />
 
@@ -125,14 +129,17 @@
             <!--label selecte indicator-->
             <ImageView
                 android:id="@+id/imv_selected"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_round_check"
+                android:layout_width="wrap_content"
+                android:paddingEnd="8dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_filter"
+                android:tint="@android:color/white"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_label_name_filter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_label_name_filter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/label_color"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/colorAccent"
+                bind:bgTint="@{label.colorHex}"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
