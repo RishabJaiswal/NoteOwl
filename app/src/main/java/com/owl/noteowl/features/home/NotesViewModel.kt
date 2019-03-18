@@ -15,6 +15,7 @@ class NotesViewModel : ViewModel() {
     private val notesDao by lazy { NoteDao() }
     private val labelsDao by lazy { LabelDao() }
 
+    //contains ids of labels in filter in a list
     private val labelsFilter = arrayListOf<String>()
     private val labelsFilterLive by lazy {
         MutableLiveData<ArrayList<String>>().apply {
@@ -40,12 +41,12 @@ class NotesViewModel : ViewModel() {
     }
 
     //editing filter
-    fun editFilter(labelTitle: String?) {
-        if (labelTitle != null) {
-            if (!labelsFilter.contains(labelTitle)) {
-                labelsFilter.add(labelTitle)
+    fun editFilter(labelId: String?) {
+        if (labelId != null) {
+            if (!labelsFilter.contains(labelId)) {
+                labelsFilter.add(labelId)
             } else {
-                labelsFilter.remove(labelTitle)
+                labelsFilter.remove(labelId)
             }
             labelsFilterLive.value = labelsFilter
         }

@@ -85,10 +85,10 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
         }
     }
 
-    //getting labels by label title
-    fun getNotesByLabelAsyncLive(labelTitles: Array<String>): LiveData<RealmResults<Note>>? {
+    //getting labels by label ids
+    fun getNotesByLabelAsyncLive(labelIds: Array<String>): LiveData<RealmResults<Note>>? {
         return defaultQuery()
-            .`in`(NoteFields.LABELS.TITLE, labelTitles)
+            .`in`(NoteFields.LABELS.ID, labelIds)
             .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
             .findAllAsync()
             .asLiveData()

@@ -66,7 +66,7 @@ class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel
         }
 
         fun showFilteredLabel() {
-            val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.title ?: "")
+            val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.id ?: "")
             visibleOrGone(binding.imvSelected, isLabelInFilter)
         }
 
@@ -75,7 +75,7 @@ class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel
         }
 
         fun filterNote() {
-            viewModel.editFilter(binding.label?.title)
+            viewModel.editFilter(binding.label?.id)
             showFilteredLabel()
         }
     }

@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:background="#08000000"
                 android:padding="16dp"
-                android:text="@string/select_label_to_filter"
+                android:text="@string/swipe_select_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
