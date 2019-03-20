@@ -13,7 +13,7 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
     private var swipeBack: Boolean = true
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-        return makeMovementFlags(0, ItemTouchHelper.RIGHT)
+        return makeMovementFlags(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT)
     }
 
     override fun onMove(
@@ -60,17 +60,24 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
         if (actionState == ACTION_STATE_SWIPE) {
             setTouchListener(recyclerView, viewHolder, dX)
         }
+        //check if user is swiping left
+        var dx = dX
+        if (dx < -340) {
+            dx = -340f
+        }
         getDefaultUIUtil().onDraw(
             canvas, recyclerView, getForegroundView(viewHolder),
-            dX, dY, actionState, isCurrentlyActive
+            dx, dY, actionState, isCurrentlyActive
         )
     }
 
     private fun setTouchListener(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder?, dX: Float) {
         recyclerView.setOnTouchListener { v, event ->
             swipeBack = (event.action == MotionEvent.ACTION_CANCEL || event.action == MotionEvent.ACTION_UP)
-            if (dX > 140 && swipeBack && viewHolder is LabelsForFilterAdapter.LabelViewHolder) {
-                viewHolder.filterNote()
+            if (viewHolder is LabelsForFilterAdapter.LabelViewHolder) {
+                if (dX > 140 && swipeBack) {
+                    viewHolder.filterNote()
+                }
             }
             false
         }

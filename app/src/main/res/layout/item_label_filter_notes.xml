@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 bind:bgTint="@{label.colorHex}" />
 
-            <!--choose color button-->
+            <!--filter note via label-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,6 +44,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="?android:attr/selectableItemBackground" />
+
+            <!--delete label-->
+            <TextView
+                android:id="@+id/tv_delete_label"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="24dp"
+                android:drawableEnd="@drawable/ic_delete_sweep"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:text="@string/delete_label"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/view_bg_options"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
