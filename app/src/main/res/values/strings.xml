@@ -45,4 +45,5 @@
     <string name="edit_label">Edit label</string>
     <string name="select_label_color">Select label color</string>
     <string name="delete_label">Delete</string>
+    <string name="search_hint">Search all notes</string>
 </resources>

@@ -8,26 +8,31 @@
     android:background="@android:color/white"
     android:animateLayoutChanges="true">
 
-    <!--semi-circle-->
-    <View
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:background="@drawable/circle"
-        android:translationX="-90dp"
-        android:translationY="-90dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <!--list view icon-->
     <ImageView
         android:id="@+id/imv_circle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/searchView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchView"
         app:srcCompat="@drawable/ic_list_view" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/rect_radial_white"
+        android:elevation="3dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imv_circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_hint" />
 
 
     <!--notes-->
@@ -129,7 +134,7 @@
         android:id="@+id/blank_slate_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:elevation="3.1dp"
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
