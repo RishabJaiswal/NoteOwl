@@ -25,10 +25,11 @@
         <ImageView
             android:id="@+id/imv_note_banner"
             android:layout_width="210dp"
-            android:layout_height="160dp"
+            android:layout_height="0dp"
             android:background="@drawable/radial_rect_8dp"
             android:elevation="2dp"
             android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="h,21:16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             bind:loadImage="@{note.imageUrl}" />

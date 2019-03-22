@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,7 +21,7 @@ import com.owl.noteowl.features.addNote.AddNoteActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 
-class HomeActivity : BaseActivity(), View.OnClickListener {
+class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
 
     private val viewModel by lazy {
         ViewModelProviders.of(this)[NotesViewModel::class.java]
@@ -44,6 +45,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         btn_clear_filters.setOnClickListener(this)
         btn_add_note_home.setOnClickListener(this)
         btn_close_labels.setOnClickListener(this)
+        sv_notes.setOnQueryTextListener(this)
     }
 
     override fun onPause() {
@@ -61,8 +63,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
             //clear filters
             R.id.btn_clear_filters -> {
-                viewModel.clearFilters()
-                labelsForFilterAdapter.clearFilter()
+                clearFilters()
             }
 
             //filter labels
@@ -75,6 +76,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                 hideFilters()
             }
         }
+    }
+
+    private fun clearFilters() {
+        viewModel.clearFilters()
+        labelsForFilterAdapter.clearFilter()
     }
 
     private fun showFilters() {
@@ -169,6 +175,18 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
+    /* search query callbacks starts*/
+    override fun onQueryTextSubmit(query: String): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String): Boolean {
+        clearFilters()
+        viewModel.searchNotes(newText)
+        return true
+    }
+    /* search query callbacks starts*/
 
     private fun showDeleteNoteDialog(note: Note) {
         val deleteNoteDialog: AlertDialog = AlertDialog.Builder(this, R.style.baseDialog)
