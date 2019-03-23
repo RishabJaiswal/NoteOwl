@@ -1,5 +1,8 @@
 package com.owl.noteowl.extensions
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.isVisible
@@ -30,4 +33,10 @@ fun <T : View> BottomSheetBehavior<T>.toggleState() {
     } else {
         this.state = BottomSheetBehavior.STATE_EXPANDED
     }
+}
+
+fun Context.openUrl(url: String) {
+    this.startActivity(Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(url)
+    })
 }

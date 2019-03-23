@@ -14,10 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
-import com.owl.noteowl.extensions.gone
-import com.owl.noteowl.extensions.invisible
-import com.owl.noteowl.extensions.toggleState
-import com.owl.noteowl.extensions.visible
+import com.owl.noteowl.extensions.*
 import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.features.addNote.AddNoteActivity
 import kotlinx.android.synthetic.main.activity_home.*
@@ -96,6 +93,16 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
             //options
             R.id.btn_options -> {
                 optionsBeottomSheet.toggleState()
+            }
+
+            //gift dev
+            R.id.option_gift_dev -> {
+                openUrl(getString(R.string.link_dev_paypal))
+            }
+
+            //more apps
+            R.id.option_dev_apps -> {
+                openUrl(getString(R.string.link_dev_play_store))
             }
         }
     }
