@@ -65,6 +65,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
     override fun onPause() {
         super.onPause()
         hideFilters()
+        if (optionsBeottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+            optionsBeottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
     }
 
     override fun onClick(view: View?) {
