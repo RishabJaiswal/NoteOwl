@@ -46,4 +46,9 @@
     <string name="select_label_color">Select label color</string>
     <string name="delete_label">Delete</string>
     <string name="search_hint">Search all notes</string>
+
+    <!--home options-->
+    <string name="edit_name">Edit name</string>
+    <string name="gift_developer">Buy developer a coffee</string>
+    <string name="more_dev_apps">More developer\'s apps</string>
 </resources>

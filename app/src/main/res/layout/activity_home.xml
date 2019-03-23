@@ -10,10 +10,11 @@
 
     <!--list view icon-->
     <ImageView
-        android:id="@+id/imv_circle"
+        android:id="@+id/btn_options"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
+        android:paddingStart="24dp"
+        android:background="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/sv_notes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sv_notes"
@@ -31,7 +32,7 @@
         android:elevation="3dp"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imv_circle"
+        app:layout_constraintStart_toEndOf="@+id/btn_options"
         app:layout_constraintTop_toTopOf="parent"
         app:queryHint="@string/search_hint" />
 

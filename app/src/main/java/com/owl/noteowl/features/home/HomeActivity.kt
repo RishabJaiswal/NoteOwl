@@ -10,15 +10,18 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.invisible
+import com.owl.noteowl.extensions.toggleState
 import com.owl.noteowl.extensions.visible
 import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.features.addNote.AddNoteActivity
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.home_options.*
 
 
 class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
@@ -34,9 +37,13 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         Math.hypot(card_labels.measuredWidth.toDouble(), card_labels.measuredWidth.toDouble()).toFloat()
     }
 
+    private val optionsBeottomSheet by lazy {
+        BottomSheetBehavior.from(home_options)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.home)
 
         observeNotes()
         observeLabels()
@@ -46,6 +53,13 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         btn_add_note_home.setOnClickListener(this)
         btn_close_labels.setOnClickListener(this)
         sv_notes.setOnQueryTextListener(this)
+
+        //options
+        home_options.clipToOutline = true
+        btn_options.setOnClickListener(this)
+        option_edit_name.setOnClickListener(this)
+        option_gift_dev.setOnClickListener(this)
+        option_dev_apps.setOnClickListener(this)
     }
 
     override fun onPause() {
@@ -74,6 +88,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
             //close labels
             R.id.btn_close_labels -> {
                 hideFilters()
+            }
+
+            //options
+            R.id.btn_options -> {
+                optionsBeottomSheet.toggleState()
             }
         }
     }
