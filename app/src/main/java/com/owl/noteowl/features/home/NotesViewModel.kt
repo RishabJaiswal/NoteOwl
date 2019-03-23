@@ -61,6 +61,15 @@ class NotesViewModel : ViewModel() {
         }
     }
 
+    fun removeFromFilter(labelId: String?): Boolean {
+        if (labelsFilter.contains(labelId)) {
+            labelsFilter.remove(labelId)
+            labelsFilterLive.value = labelsFilter
+            return true
+        }
+        return false
+    }
+
     fun containsLabelInFilter(labelTitle: String): Boolean {
         return labelsFilter.contains(labelTitle)
     }

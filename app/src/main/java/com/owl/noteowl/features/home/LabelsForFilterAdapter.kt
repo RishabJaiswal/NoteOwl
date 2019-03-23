@@ -55,7 +55,7 @@ class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel
 
         fun bind(label: Label) {
             binding.label = label
-            showFilteredLabel()
+            showLabelFilterState()
             binding.executePendingBindings()
         }
 
@@ -65,7 +65,7 @@ class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel
             }
         }
 
-        fun showFilteredLabel() {
+        fun showLabelFilterState() {
             val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.id ?: "")
             visibleOrGone(binding.imvSelected, isLabelInFilter)
         }
@@ -76,7 +76,13 @@ class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel
 
         fun filterNote() {
             viewModel.editFilter(binding.label?.id)
-            showFilteredLabel()
+            showLabelFilterState()
+        }
+
+        fun removeFromFilter() {
+            if (viewModel.removeFromFilter(binding.label?.id)) {
+                showLabelFilterState()
+            }
         }
     }
 

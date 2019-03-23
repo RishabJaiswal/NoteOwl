@@ -38,7 +38,7 @@
     <string name="clear_filter">Clear filters</string>
     <string name="msg_blank_slate_filters">Oops! No note from the selected labels</string>
     <string name="labels">Labels</string>
-    <string name="swipe_select_label">Swipe or select label</string>
+    <string name="swipe_select_label">Swipe to filter notes\nTap to edit label</string>
     <string name="filter_label">Filter notes</string>
 
     <!--edit label-->

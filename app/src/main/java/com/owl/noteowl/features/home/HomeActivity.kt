@@ -180,7 +180,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         if (rv_label_filter.adapter == null) {
             labelsForFilterAdapter = LabelsForFilterAdapter(this, viewModel)
             rv_label_filter.adapter = labelsForFilterAdapter
-            ItemTouchHelper(LabelItemTouchListener()).attachToRecyclerView(rv_label_filter)
+            ItemTouchHelper(LabelItemTouchListener(this)).attachToRecyclerView(rv_label_filter)
         }
         labelsForFilterAdapter.update(labels)
     }

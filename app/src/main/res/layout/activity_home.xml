@@ -30,6 +30,7 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/rect_radial_white"
         android:elevation="3dp"
+        app:queryBackground="@android:color/transparent"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_options"
