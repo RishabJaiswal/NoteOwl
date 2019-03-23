@@ -83,6 +83,10 @@ class NotesViewModel : ViewModel() {
         return labelsFilter.size == 0
     }
 
+    fun isSearchEmpty(): Boolean {
+        return searchQuery.value.isNullOrEmpty()
+    }
+
     fun clearFilters() {
         labelsFilter.clear()
         labelsFilterLive.value = labelsFilter

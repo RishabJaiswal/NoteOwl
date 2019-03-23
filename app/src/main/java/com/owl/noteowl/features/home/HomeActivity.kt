@@ -137,7 +137,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
                 if (notes.isEmpty()) {
                     if (viewModel.isLabelsFilterEmpty()) {
                         //no label filter is selected
-                        showBlankSlate()
+                        if (viewModel.isSearchEmpty()) {
+                            showBlankSlate()
+                        }
                     } else {
                         blank_slate_filters.visible()
                     }
