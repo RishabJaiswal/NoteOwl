@@ -34,8 +34,23 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         Math.hypot(card_labels.measuredWidth.toDouble(), card_labels.measuredWidth.toDouble()).toFloat()
     }
 
-    private val optionsBeottomSheet by lazy {
-        BottomSheetBehavior.from(home_options)
+    private val optionsBottomSheet by lazy {
+        BottomSheetBehavior.from(home_options).apply {
+            setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+                }
+
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    if (newState == BottomSheetBehavior.STATE_SETTLING) {
+                        scrim_home.gone()
+                    } else if (newState == BottomSheetBehavior.STATE_EXPANDED ||
+                            newState == BottomSheetBehavior.STATE_HALF_EXPANDED) {
+                        scrim_home.visible()
+                    }
+                }
+            })
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +65,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         btn_add_note_home.setOnClickListener(this)
         btn_close_labels.setOnClickListener(this)
         sv_notes.setOnQueryTextListener(this)
+        scrim_home.setOnClickListener(this)
 
         //options
         home_options.clipToOutline = true
@@ -62,8 +78,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
     override fun onPause() {
         super.onPause()
         hideFilters()
-        if (optionsBeottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
-            optionsBeottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        if (optionsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+            optionsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
     }
 
@@ -92,7 +108,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
 
             //options
             R.id.btn_options -> {
-                optionsBeottomSheet.toggleState()
+                optionsBottomSheet.toggleState()
             }
 
             //gift dev
@@ -103,6 +119,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
             //more apps
             R.id.option_dev_apps -> {
                 openUrl(getString(R.string.link_dev_play_store))
+            }
+
+            //scrim
+            R.id.scrim_home -> {
+                optionsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
     }
