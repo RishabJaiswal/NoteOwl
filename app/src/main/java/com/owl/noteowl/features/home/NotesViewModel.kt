@@ -1,9 +1,6 @@
 package com.owl.noteowl.features.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.owl.noteowl.data.features.notes.local.LabelDao
 import com.owl.noteowl.data.features.notes.local.NoteDao
 import com.owl.noteowl.data.features.notes.models.Label
@@ -15,6 +12,10 @@ class NotesViewModel : ViewModel() {
     private val notesDao by lazy { NoteDao() }
     private val labelsDao by lazy { LabelDao() }
 
+    //search filter
+    private val searchQuery by lazy {
+        MediatorLiveData<String>()
+    }
     //contains ids of labels in filter in a list
     private val labelsFilter = arrayListOf<String>()
     private val labelsFilterLive by lazy {
@@ -31,8 +32,16 @@ class NotesViewModel : ViewModel() {
             }
             return@switchMap notesDao.getNotesByLabelAsyncLive(labels.toTypedArray())
         }
-        return@lazy Transformations.map(managedRealmListLive) {
-            it.asNonManagedRealmCopy()
+
+
+        return@lazy MediatorLiveData<List<Note>>().apply {
+            addSource(managedRealmListLive) {
+                value = it.asNonManagedRealmCopy()
+            }
+
+            addSource(searchQuery) { query ->
+                value = notesDao.searchNotes(query.trim())
+            }
         }
     }
 
@@ -52,6 +61,15 @@ class NotesViewModel : ViewModel() {
         }
     }
 
+    fun removeFromFilter(labelId: String?): Boolean {
+        if (labelsFilter.contains(labelId)) {
+            labelsFilter.remove(labelId)
+            labelsFilterLive.value = labelsFilter
+            return true
+        }
+        return false
+    }
+
     fun containsLabelInFilter(labelTitle: String): Boolean {
         return labelsFilter.contains(labelTitle)
     }
@@ -65,6 +83,10 @@ class NotesViewModel : ViewModel() {
         return labelsFilter.size == 0
     }
 
+    fun isSearchEmpty(): Boolean {
+        return searchQuery.value.isNullOrEmpty()
+    }
+
     fun clearFilters() {
         labelsFilter.clear()
         labelsFilterLive.value = labelsFilter
@@ -76,5 +98,9 @@ class NotesViewModel : ViewModel() {
 
     fun saveLabel(label: Label) {
         labelsDao.saveLabel(label)
+    }
+
+    fun searchNotes(query: String) {
+        searchQuery.value = query
     }
 }

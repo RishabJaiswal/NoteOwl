@@ -38,11 +38,21 @@
     <string name="clear_filter">Clear filters</string>
     <string name="msg_blank_slate_filters">Oops! No note from the selected labels</string>
     <string name="labels">Labels</string>
-    <string name="swipe_select_label">Swipe or select label</string>
+    <string name="swipe_select_label">Swipe to filter notes\nTap to edit label</string>
     <string name="filter_label">Filter notes</string>
 
     <!--edit label-->
     <string name="edit_label">Edit label</string>
     <string name="select_label_color">Select label color</string>
     <string name="delete_label">Delete</string>
+    <string name="search_hint">Search all notes</string>
+
+    <!--home options-->
+    <string name="edit_name">Edit name</string>
+    <string name="gift_developer">Buy developer a coffee</string>
+    <string name="more_dev_apps">More developer\'s apps</string>
+
+    <!--links-->
+    <string name="link_dev_paypal">https://www.paypal.me/RishabJaiswal</string>
+    <string name="link_dev_play_store">https://play.google.com/store/apps/dev?id=7466184057107443731</string>
 </resources>

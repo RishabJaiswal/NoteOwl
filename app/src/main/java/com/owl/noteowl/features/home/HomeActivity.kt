@@ -5,22 +5,23 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
-import com.owl.noteowl.extensions.gone
-import com.owl.noteowl.extensions.invisible
-import com.owl.noteowl.extensions.visible
+import com.owl.noteowl.extensions.*
 import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.features.addNote.AddNoteActivity
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.home_options.*
 
 
-class HomeActivity : BaseActivity(), View.OnClickListener {
+class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
 
     private val viewModel by lazy {
         ViewModelProviders.of(this)[NotesViewModel::class.java]
@@ -33,9 +34,13 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         Math.hypot(card_labels.measuredWidth.toDouble(), card_labels.measuredWidth.toDouble()).toFloat()
     }
 
+    private val optionsBeottomSheet by lazy {
+        BottomSheetBehavior.from(home_options)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.home)
 
         observeNotes()
         observeLabels()
@@ -44,11 +49,22 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         btn_clear_filters.setOnClickListener(this)
         btn_add_note_home.setOnClickListener(this)
         btn_close_labels.setOnClickListener(this)
+        sv_notes.setOnQueryTextListener(this)
+
+        //options
+        home_options.clipToOutline = true
+        btn_options.setOnClickListener(this)
+        option_edit_name.setOnClickListener(this)
+        option_gift_dev.setOnClickListener(this)
+        option_dev_apps.setOnClickListener(this)
     }
 
     override fun onPause() {
         super.onPause()
         hideFilters()
+        if (optionsBeottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+            optionsBeottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
     }
 
     override fun onClick(view: View?) {
@@ -61,8 +77,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
             //clear filters
             R.id.btn_clear_filters -> {
-                viewModel.clearFilters()
-                labelsForFilterAdapter.clearFilter()
+                clearFilters()
             }
 
             //filter labels
@@ -74,7 +89,27 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_close_labels -> {
                 hideFilters()
             }
+
+            //options
+            R.id.btn_options -> {
+                optionsBeottomSheet.toggleState()
+            }
+
+            //gift dev
+            R.id.option_gift_dev -> {
+                openUrl(getString(R.string.link_dev_paypal))
+            }
+
+            //more apps
+            R.id.option_dev_apps -> {
+                openUrl(getString(R.string.link_dev_play_store))
+            }
         }
+    }
+
+    private fun clearFilters() {
+        viewModel.clearFilters()
+        labelsForFilterAdapter.clearFilter()
     }
 
     private fun showFilters() {
@@ -102,7 +137,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                 if (notes.isEmpty()) {
                     if (viewModel.isLabelsFilterEmpty()) {
                         //no label filter is selected
-                        showBlankSlate()
+                        if (viewModel.isSearchEmpty()) {
+                            showBlankSlate()
+                        }
                     } else {
                         blank_slate_filters.visible()
                     }
@@ -145,7 +182,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
         if (rv_label_filter.adapter == null) {
             labelsForFilterAdapter = LabelsForFilterAdapter(this, viewModel)
             rv_label_filter.adapter = labelsForFilterAdapter
-            ItemTouchHelper(LabelItemTouchListener()).attachToRecyclerView(rv_label_filter)
+            ItemTouchHelper(LabelItemTouchListener(this)).attachToRecyclerView(rv_label_filter)
         }
         labelsForFilterAdapter.update(labels)
     }
@@ -169,6 +206,18 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
+    /* search query callbacks starts*/
+    override fun onQueryTextSubmit(query: String): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String): Boolean {
+        clearFilters()
+        viewModel.searchNotes(newText)
+        return true
+    }
+    /* search query callbacks starts*/
 
     private fun showDeleteNoteDialog(note: Note) {
         val deleteNoteDialog: AlertDialog = AlertDialog.Builder(this, R.style.baseDialog)

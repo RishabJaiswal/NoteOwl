@@ -1,16 +1,22 @@
 package com.owl.noteowl.features.home
 
+import android.content.Context
 import android.graphics.Canvas
 import android.view.MotionEvent
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
 import androidx.recyclerview.widget.RecyclerView
+import com.owl.noteowl.utils.ContextUtility
 
 
-class LabelItemTouchListener : ItemTouchHelper.Callback() {
+class LabelItemTouchListener(val context: Context) : ItemTouchHelper.Callback() {
 
     private var swipeBack: Boolean = true
+    private val contextUtils = ContextUtility(context)
+    private val deleteX = -340f
+    private val toggleFilterX = 140f
+    private val removeFilterX = -(contextUtils.convertDpToPx(40f))
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         return makeMovementFlags(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT)
@@ -29,8 +35,8 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
 
     override fun convertToAbsoluteDirection(flags: Int, layoutDirection: Int): Int {
         if (swipeBack) {
-            swipeBack = false;
-            return 0;
+            swipeBack = false
+            return 0
         }
         return super.convertToAbsoluteDirection(flags, layoutDirection)
     }
@@ -62,8 +68,8 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
         }
         //check if user is swiping left
         var dx = dX
-        if (dx < -340) {
-            dx = -340f
+        if (dx < deleteX) {
+            dx = deleteX
         }
         getDefaultUIUtil().onDraw(
             canvas, recyclerView, getForegroundView(viewHolder),
@@ -75,8 +81,12 @@ class LabelItemTouchListener : ItemTouchHelper.Callback() {
         recyclerView.setOnTouchListener { v, event ->
             swipeBack = (event.action == MotionEvent.ACTION_CANCEL || event.action == MotionEvent.ACTION_UP)
             if (viewHolder is LabelsForFilterAdapter.LabelViewHolder) {
-                if (dX > 140 && swipeBack) {
+                if (dX > toggleFilterX && swipeBack) {
                     viewHolder.filterNote()
+                }
+                //swing right
+                else if (dX < removeFilterX && swipeBack) {
+                    viewHolder.removeFromFilter()
                 }
             }
             false

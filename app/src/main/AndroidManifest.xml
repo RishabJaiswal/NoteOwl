@@ -16,7 +16,9 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <!-- home screen -->
-        <activity android:name=".features.home.HomeActivity" />
+        <activity
+            android:name=".features.home.HomeActivity"
+            android:windowSoftInputMode="adjustNothing" />
 
         <!-- Add note screen -->
         <activity

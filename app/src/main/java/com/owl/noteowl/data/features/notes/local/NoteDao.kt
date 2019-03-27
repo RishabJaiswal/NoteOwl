@@ -86,12 +86,25 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     }
 
     //getting labels by label ids
-    fun getNotesByLabelAsyncLive(labelIds: Array<String>): LiveData<RealmResults<Note>>? {
+    fun getNotesByLabelAsync(labelIds: Array<String>): RealmResults<Note> {
         return defaultQuery()
             .`in`(NoteFields.LABELS.ID, labelIds)
             .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
             .findAllAsync()
-            .asLiveData()
+    }
+
+    fun getNotesByLabelAsyncLive(labelIds: Array<String>): LiveData<RealmResults<Note>>? {
+        return getNotesByLabelAsync(labelIds).asLiveData()
+    }
+
+    fun searchNotes(query: String): RealmResults<Note> {
+        return defaultQuery()
+            .beginGroup()
+            .contains(NoteFields.TITLE, query, Case.INSENSITIVE)
+            .or()
+            .contains(NoteFields.TEXT, query, Case.INSENSITIVE)
+            .endGroup()
+            .findAll()
     }
 
     fun close() {
