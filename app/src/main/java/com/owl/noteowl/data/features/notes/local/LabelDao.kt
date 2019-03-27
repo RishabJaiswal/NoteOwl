@@ -30,8 +30,8 @@ class LabelDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     fun getLabels(): RealmResults<Label> {
         return realm.where(Label::class.java)
-            .sort(LabelFields.CREATED_AT, Sort.DESCENDING)
-            .findAll()
+                .sort(LabelFields.CREATED_AT, Sort.DESCENDING)
+                .findAll()
     }
 
     fun getLabelsLive(): LiveData<RealmResults<Label>> {
@@ -40,5 +40,12 @@ class LabelDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     fun getLabel(id: String? = null, title: String? = null): Label? {
         return defaultQuery(labelId = id, labelTitle = title).findFirst()
+    }
+
+    fun deleteLabel(id: String) {
+        realm.executeTransaction {
+            defaultQuery(labelId = id)
+                    .findFirst()?.deleteFromRealm()
+        }
     }
 }

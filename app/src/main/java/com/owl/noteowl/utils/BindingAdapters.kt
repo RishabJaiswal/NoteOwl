@@ -36,8 +36,8 @@ fun setStartMargin(view: View, startMargin: Float) {
     layoutParams.setMargins(
         Math.round(startMargin), layoutParams.topMargin,
         layoutParams.rightMargin, layoutParams.bottomMargin
-    );
-    view.setLayoutParams(layoutParams)
+    )
+    view.layoutParams = layoutParams
 }
 
 @BindingAdapter("android:layout_marginEnd")
@@ -46,8 +46,8 @@ fun setEndMargin(view: View, endMargin: Float) {
     layoutParams.setMargins(
         layoutParams.leftMargin, layoutParams.topMargin,
         Math.round(endMargin), layoutParams.bottomMargin
-    );
-    view.setLayoutParams(layoutParams)
+    )
+    view.layoutParams = layoutParams
 }
 
 //setting visibility gone or visible

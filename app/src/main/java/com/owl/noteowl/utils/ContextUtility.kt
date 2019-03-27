@@ -39,6 +39,6 @@ class ContextUtility(val context: Context) {
     }
 
     fun closeKeyboard(view: View) {
-        inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
+        inputManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

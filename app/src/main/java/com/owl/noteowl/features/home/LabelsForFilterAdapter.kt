@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.owl.noteowl.R
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ItemLabelFilterNotesBinding
 import com.owl.noteowl.utils.visibleOrGone
@@ -13,15 +15,15 @@ import kotlinx.android.synthetic.main.item_label_filter_notes.view.*
 import java.util.*
 
 class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel) :
-    RecyclerView.Adapter<LabelsForFilterAdapter.LabelViewHolder>() {
+        RecyclerView.Adapter<LabelsForFilterAdapter.LabelViewHolder>() {
 
     val labels: ArrayList<Label> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LabelsForFilterAdapter.LabelViewHolder {
         return LabelViewHolder(
-            ItemLabelFilterNotesBinding.inflate(
-                LayoutInflater.from(context), parent, false
-            )
+                ItemLabelFilterNotesBinding.inflate(
+                        LayoutInflater.from(context), parent, false
+                )
         )
     }
 
@@ -46,7 +48,7 @@ class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel
 
     //label view holder
     inner class LabelViewHolder(private val binding: ItemLabelFilterNotesBinding) :
-        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+            RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
             binding.labelParent.setOnClickListener(this)
@@ -66,8 +68,7 @@ class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel
         }
 
         fun showLabelFilterState() {
-            val isLabelInFilter = viewModel.containsLabelInFilter(binding.label?.id ?: "")
-            visibleOrGone(binding.imvSelected, isLabelInFilter)
+            visibleOrGone(binding.imvSelected, isLabelInFilter())
         }
 
         fun getSwipeableView(): View {
@@ -83,6 +84,21 @@ class LabelsForFilterAdapter(val context: Context, val viewModel: NotesViewModel
             if (viewModel.removeFromFilter(binding.label?.id)) {
                 showLabelFilterState()
             }
+        }
+
+        fun isLabelInFilter(): Boolean {
+            return viewModel.containsLabelInFilter(binding.label?.id ?: "")
+        }
+
+        fun deleteLabel() {
+            AlertDialog.Builder(context, R.style.baseDialog)
+                    .setTitle(R.string.delete_label_title)
+                    .setMessage(context.getString(R.string.confirm_label_delete, binding.label?.title))
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        viewModel.deleteLabel(binding.label?.id)
+                    }
+                    .setNegativeButton(R.string.no, null)
+                    .create().show()
         }
     }
 

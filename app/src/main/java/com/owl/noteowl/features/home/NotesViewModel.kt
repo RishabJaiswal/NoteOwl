@@ -79,6 +79,12 @@ class NotesViewModel : ViewModel() {
         notesDao.deleteNote(noteId)
     }
 
+    fun deleteLabel(labelId: String?) {
+        labelId?.let {
+            labelsDao.deleteLabel(labelId)
+        }
+    }
+
     fun isLabelsFilterEmpty(): Boolean {
         return labelsFilter.size == 0
     }

@@ -27,6 +27,7 @@
     <string name="exit_confirmation">Your changes will be gone. Are you sure?</string>
     <string name="confirm_exit_msg">No, keep writing</string>
     <string name="yes">yes</string>
+    <string name="no">no</string>
     <string name="tap_to_fill">So Empty! Tap to fill!</string>
     <string name="add_note_label_filters">+ Add</string>
 
@@ -45,6 +46,8 @@
     <string name="edit_label">Edit label</string>
     <string name="select_label_color">Select label color</string>
     <string name="delete_label">Delete</string>
+    <string name="delete_label_title">Delete label?</string>
+    <string name="confirm_label_delete">Do you want to delete the label \'%s\'?</string>
     <string name="search_hint">Search all notes</string>
 
     <!--home options-->

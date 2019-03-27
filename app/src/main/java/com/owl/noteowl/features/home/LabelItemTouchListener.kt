@@ -22,11 +22,9 @@ class LabelItemTouchListener(val context: Context) : ItemTouchHelper.Callback() 
         return makeMovementFlags(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT)
     }
 
-    override fun onMove(
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder,
-        target: RecyclerView.ViewHolder
-    ): Boolean {
+    override fun onMove(recyclerView: RecyclerView,
+                        viewHolder: RecyclerView.ViewHolder,
+                        target: RecyclerView.ViewHolder): Boolean {
         return false
     }
 
@@ -48,20 +46,20 @@ class LabelItemTouchListener(val context: Context) : ItemTouchHelper.Callback() 
     }
 
     override fun onChildDrawOver(
-        canvas: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder?,
-        dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
+            canvas: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder?,
+            dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
     ) {
         viewHolder?.let {
             getDefaultUIUtil().onDrawOver(
-                canvas, recyclerView, getForegroundView(it),
-                dX, dY, actionState, isCurrentlyActive
+                    canvas, recyclerView, getForegroundView(it),
+                    dX, dY, actionState, isCurrentlyActive
             )
         }
     }
 
     override fun onChildDraw(
-        canvas: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
-        dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
+            canvas: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+            dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
     ) {
         if (actionState == ACTION_STATE_SWIPE) {
             setTouchListener(recyclerView, viewHolder, dX)
@@ -72,21 +70,29 @@ class LabelItemTouchListener(val context: Context) : ItemTouchHelper.Callback() 
             dx = deleteX
         }
         getDefaultUIUtil().onDraw(
-            canvas, recyclerView, getForegroundView(viewHolder),
-            dx, dY, actionState, isCurrentlyActive
+                canvas, recyclerView, getForegroundView(viewHolder),
+                dx, dY, actionState, isCurrentlyActive
         )
     }
 
     private fun setTouchListener(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder?, dX: Float) {
         recyclerView.setOnTouchListener { v, event ->
             swipeBack = (event.action == MotionEvent.ACTION_CANCEL || event.action == MotionEvent.ACTION_UP)
-            if (viewHolder is LabelsForFilterAdapter.LabelViewHolder) {
-                if (dX > toggleFilterX && swipeBack) {
+            if (swipeBack && viewHolder is LabelsForFilterAdapter.LabelViewHolder) {
+                //swipe right
+                if (dX > toggleFilterX) {
                     viewHolder.filterNote()
                 }
-                //swing right
-                else if (dX < removeFilterX && swipeBack) {
-                    viewHolder.removeFromFilter()
+                //swing left
+                else {
+                    //swipe to remove from filter
+                    if (viewHolder.isLabelInFilter() && dX < removeFilterX) {
+                        viewHolder.removeFromFilter()
+                    }
+                    //swipe left to delete label
+                    else if (dX <= deleteX) {
+                        viewHolder.deleteLabel()
+                    }
                 }
             }
             false

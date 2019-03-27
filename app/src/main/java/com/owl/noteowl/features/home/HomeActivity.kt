@@ -221,12 +221,12 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
 
     private fun showDeleteNoteDialog(note: Note) {
         val deleteNoteDialog: AlertDialog = AlertDialog.Builder(this, R.style.baseDialog)
-            .setTitle(R.string.delete_note)
-            .setPositiveButton(R.string.del_note_positive, null)
-            .setNegativeButton(R.string.yes) { _, _ ->
-                viewModel.deleteNote(note.id)
-            }
-            .create()
+                .setTitle(R.string.delete_note)
+                .setPositiveButton(R.string.del_note_positive, null)
+                .setNegativeButton(R.string.yes) { _, _ ->
+                    viewModel.deleteNote(note.id)
+                }
+                .create()
         deleteNoteDialog.setMessage(getString(R.string.delete_note_msg, note.title))
         deleteNoteDialog.show()
     }
