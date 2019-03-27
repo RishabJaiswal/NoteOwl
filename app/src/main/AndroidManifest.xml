@@ -18,20 +18,25 @@
         <!-- home screen -->
         <activity
             android:name=".features.home.HomeActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            android:screenOrientation="portrait" />
 
         <!-- Add note screen -->
         <activity
             android:name=".features.addNote.AddNoteActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            android:screenOrientation="portrait" />
 
         <!-- add image screen -->
-        <activity android:name=".features.noteImage.AddNoteImageActivity" />
+        <activity
+            android:name=".features.noteImage.AddNoteImageActivity"
+            android:screenOrientation="portrait" />
 
         <!--splash screen-->
         <activity
             android:name=".SplashScreen"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
