@@ -25,15 +25,15 @@
         android:id="@+id/rv_images"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="21dp"
         android:background="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_select"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sv_image" />
+        app:layout_constraintTop_toBottomOf="@+id/sv_image"
+        app:spanCount="2" />
 
     <!--progress bar-->
     <ProgressBar
@@ -44,16 +44,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rv_images" />
-
-    <!--next button-->
-    <Button
-        android:id="@+id/btn_select"
-        style="@style/primaryButton"
-        android:layout_marginBottom="16dp"
-        android:elevation="0dp"
-        android:text="@string/cta_select"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <!--more images progress-->
     <ProgressBar
@@ -73,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:src="@drawable/art_blank_canvas"
-        app:layout_constraintBottom_toTopOf="@+id/btn_select"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sv_image" />

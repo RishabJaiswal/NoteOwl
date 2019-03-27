@@ -36,6 +36,9 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
     private var selectImageDialog: AlertDialog? = null
     private lateinit var imagesAdapter: SelectImageAdapter
     private lateinit var imagesScrollListener: RecyclerView.OnScrollListener
+    private val contextUtility by lazy {
+        ContextUtility(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +47,7 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
 
         //creating view model
         viewModel = ViewModelProviders.of(
-            this, AddNoteImageViewModel.Factory(noteId)
+                this, AddNoteImageViewModel.Factory(noteId)
         )[AddNoteImageViewModel::class.java]
         observeNote()
 
@@ -66,14 +69,6 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
                 showSelectImageDialog()
             }
 
-            //select an image
-            R.id.btn_select -> {
-                imagesAdapter.getSelectedImage()?.getDisplayImageUrl()?.let { imageUrl ->
-                    viewModel.saveImage(imageUrl)
-                    selectImageDialog?.dismiss()
-                }
-            }
-
             //saving image
             R.id.btn_save -> {
                 viewModel.saveNote()
@@ -85,17 +80,24 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
         }
     }
 
+    fun onImageSelected(image: Image?) {
+        image?.getDisplayImageUrl()?.let { imageUrl ->
+            viewModel.saveImage(imageUrl)
+            selectImageDialog?.dismiss()
+        }
+    }
+
     //showing dialog
     private fun showSelectImageDialog() {
         if (selectImageDialog == null) {
             val view = LayoutInflater.from(this).inflate(R.layout.dialog_select_image, null)
             selectImageDialog = AlertDialog.Builder(this)
-                .setView(view)
-                .create()
+                    .setView(view)
+                    .create()
 
             //images recycler listing
             val margin = ContextUtility(this).convertDpToPx(10f).toInt()
-            imagesAdapter = SelectImageAdapter(this)
+            imagesAdapter = SelectImageAdapter(this, this::onImageSelected)
             view.apply {
                 //search view
                 sv_image.isIconified = false
@@ -123,7 +125,6 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
                 rv_images.adapter = imagesAdapter
                 rv_images.addItemDecoration(ImagesDecoration(margin, margin))
                 rv_images.addOnScrollListener(imagesScrollListener)
-                btn_select.setOnClickListener(this@AddNoteImageActivity)
             }
             viewModel.getRandomImages()
             observeImages()
@@ -145,28 +146,29 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
     private fun observeImages() {
         viewModel.imagesLiveData.observe(this, Observer<Result<List<Image>>> {
             it?.parseResponse(
-                //progress
-                { isLoading ->
-                    if (isLoading) {
-                        showProgress()
-                    } else {
+                    //progress
+                    { isLoading ->
+                        if (isLoading) {
+                            showProgress()
+                        } else {
+                            hideProgress()
+                        }
+                    },
+
+                    //success
+                    { images ->
+                        imagesAdapter.updateImages(images)
+                        selectImageDialog?.group_blankslate_images?.let { view ->
+                            visibleOrGone(view, images.isEmpty())
+                        }
                         hideProgress()
-                    }
-                },
+                        contextUtility.closeKeyboard(selectImageDialog!!.rv_images)
+                    },
 
-                //success
-                { images ->
-                    imagesAdapter.updateImages(images)
-                    selectImageDialog?.group_blankslate_images?.let { view ->
-                        visibleOrGone(view, images.isEmpty())
-                    }
-                    hideProgress()
-                },
-
-                //error
-                { errorThrowable ->
-                    hideProgress()
-                })
+                    //error
+                    { errorThrowable ->
+                        hideProgress()
+                    })
         })
     }
 
@@ -202,7 +204,7 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
 
     //for images grid list
     class ImagesDecoration(private val rightMargin: Int, private val bottomMargin: Int) :
-        RecyclerView.ItemDecoration() {
+            RecyclerView.ItemDecoration() {
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
             val position = parent.getChildLayoutPosition(view)
             if (position == 0 || position % 2 == 0) {
@@ -218,9 +220,9 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
     private fun showNoteSavedDialog() {
         val view = layoutInflater.inflate(R.layout.dialog_note_saved, null)
         val alertDialog = AlertDialog.Builder(this)
-            .setView(view)
-            .setCancelable(false)
-            .create()
+                .setView(view)
+                .setCancelable(false)
+                .create()
         view.lottie_note_saved.playAnimation()
         alertDialog.show()
     }

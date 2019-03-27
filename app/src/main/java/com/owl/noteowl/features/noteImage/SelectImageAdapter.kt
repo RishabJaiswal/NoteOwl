@@ -11,7 +11,8 @@ import com.owl.noteowl.databinding.ItemSelectImageBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.visible
 
-class SelectImageAdapter(val context: Context) : RecyclerView.Adapter<SelectImageAdapter.ImageHolder>() {
+class SelectImageAdapter(val context: Context,
+                         val onImageSelected: (image: Image?) -> Unit) : RecyclerView.Adapter<SelectImageAdapter.ImageHolder>() {
 
     private val images = arrayListOf<Image>()
     private var selectedItemPosition = -1
@@ -96,6 +97,7 @@ class SelectImageAdapter(val context: Context) : RecyclerView.Adapter<SelectImag
 
         override fun onClick(view: View?) {
             updateSelection(adapterPosition)
+            onImageSelected(getSelectedImage())
         }
     }
 }
