@@ -1,7 +1,9 @@
 package com.owl.noteowl.features.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.TelephonyManager
 import android.view.View
 import android.view.ViewAnimationUtils
 import androidx.appcompat.app.AlertDialog
@@ -113,7 +115,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
 
             //gift dev
             R.id.option_gift_dev -> {
-                openUrl(getString(R.string.link_dev_paypal))
+                openUrl(getDevPayUrl())
             }
 
             //more apps
@@ -126,6 +128,15 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
                 optionsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
+    }
+
+    private fun getDevPayUrl(): String {
+        val tm = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val countryCode = tm.getSimCountryIso()
+        if (countryCode.toLowerCase() == "in") {
+            return getString(R.string.link_dev_paytm)
+        }
+        return getString(R.string.link_dev_paypal)
     }
 
     private fun clearFilters() {

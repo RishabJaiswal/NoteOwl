@@ -58,5 +58,6 @@
 
     <!--links-->
     <string name="link_dev_paypal">https://www.paypal.me/RishabJaiswal</string>
+    <string name="link_dev_paytm">http://m.p-y.tm/requestPayment?recipient=9389853860&amp;amount=108&amp;comment=BuyNoteOwlDeveloperacoffee</string>
     <string name="link_dev_play_store">https://play.google.com/store/apps/dev?id=7466184057107443731</string>
 </resources>

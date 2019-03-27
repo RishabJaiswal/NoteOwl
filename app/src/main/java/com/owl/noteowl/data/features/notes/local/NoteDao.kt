@@ -53,9 +53,9 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     fun getSavedNotes(): RealmResults<Note> {
         return realm.where(Note::class.java)
-            .contains(NoteFields.STATUS, Constants.NoteStatus().SAVED)
-            .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
-            .findAll()
+                .contains(NoteFields.STATUS, Constants.NoteStatus().SAVED)
+                .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
+                .findAll()
     }
 
     fun getSavedNotesLive(): LiveData<RealmResults<Note>> {
@@ -65,8 +65,8 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     //get note labels live
     fun getNoteLabelsLive(noteId: Int?): LiveData<RealmList<Label>>? {
         return defaultQuery(noteId)
-            .findFirst()?.labels
-            ?.asLiveData()
+                .findFirst()?.labels
+                ?.asLiveData()
     }
 
     //saving status
@@ -88,9 +88,9 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
     //getting labels by label ids
     fun getNotesByLabelAsync(labelIds: Array<String>): RealmResults<Note> {
         return defaultQuery()
-            .`in`(NoteFields.LABELS.ID, labelIds)
-            .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
-            .findAllAsync()
+                .`in`(NoteFields.LABELS.ID, labelIds)
+                .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
+                .findAllAsync()
     }
 
     fun getNotesByLabelAsyncLive(labelIds: Array<String>): LiveData<RealmResults<Note>>? {
@@ -99,12 +99,13 @@ class NoteDao(val realm: Realm = Realm.getDefaultInstance()) {
 
     fun searchNotes(query: String): RealmResults<Note> {
         return defaultQuery()
-            .beginGroup()
-            .contains(NoteFields.TITLE, query, Case.INSENSITIVE)
-            .or()
-            .contains(NoteFields.TEXT, query, Case.INSENSITIVE)
-            .endGroup()
-            .findAll()
+                .beginGroup()
+                .contains(NoteFields.TITLE, query, Case.INSENSITIVE)
+                .or()
+                .contains(NoteFields.TEXT, query, Case.INSENSITIVE)
+                .endGroup()
+                .sort(NoteFields.CREATED_AT, Sort.DESCENDING)
+                .findAll()
     }
 
     fun close() {
