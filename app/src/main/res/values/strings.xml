@@ -21,6 +21,7 @@
     <string name="error_saving_label">Label already created</string>
     <string name="add_label_name">Add label name</string>
     <string name="add_label_description">Add label description</string>
+    <string name="create_select_label">Create or select label</string>
 
     <!--exit confirmation dialog-->
     <string name="exit">Exit?</string>
