@@ -1,9 +1,10 @@
+<!DOCTYPE resources [<!ENTITY appname "Note Owl">]>
 <resources>
-    <string name="app_name">Note Owl</string>
+    <string name="app_name">&appname;</string>
     <string name="title_activity_notes">NotesActivity</string>
     <string name="cta_next">Next</string>
     <string name="add_title">Add title</string>
-    <string name="add_note">Add Note</string>
+    <string name="add_note">Note</string>
     <string name="paras_number">(%d)</string>
 
     <!--creating label-->
@@ -52,7 +53,7 @@
     <string name="search_hint">Search all notes</string>
 
     <!--home options-->
-    <string name="edit_name">Edit name</string>
+    <string name="rate_app">Rate &appname;</string>
     <string name="gift_developer">Buy developer a coffee</string>
     <string name="more_dev_apps">More developer\'s apps</string>
 

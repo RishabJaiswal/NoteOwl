@@ -47,7 +47,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
                     if (newState == BottomSheetBehavior.STATE_SETTLING) {
                         scrim_home.gone()
                     } else if (newState == BottomSheetBehavior.STATE_EXPANDED ||
-                            newState == BottomSheetBehavior.STATE_HALF_EXPANDED) {
+                        newState == BottomSheetBehavior.STATE_HALF_EXPANDED
+                    ) {
                         scrim_home.visible()
                     }
                 }
@@ -72,7 +73,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         //options
         home_options.clipToOutline = true
         btn_options.setOnClickListener(this)
-        option_edit_name.setOnClickListener(this)
+        option_rate_app.setOnClickListener(this)
         option_gift_dev.setOnClickListener(this)
         option_dev_apps.setOnClickListener(this)
     }
@@ -82,6 +83,14 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         hideFilters()
         if (optionsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
             optionsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+    }
+
+    override fun onBackPressed() {
+        if (optionsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
+            optionsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            super.onBackPressed()
         }
     }
 
@@ -111,6 +120,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
             //options
             R.id.btn_options -> {
                 optionsBottomSheet.toggleState()
+            }
+
+            //rate app
+            R.id.option_rate_app -> {
+                //todo:: redirect to app on play store
             }
 
             //gift dev
@@ -253,12 +267,12 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
 
     private fun showDeleteNoteDialog(note: Note) {
         val deleteNoteDialog: AlertDialog = AlertDialog.Builder(this, R.style.baseDialog)
-                .setTitle(R.string.delete_note)
-                .setPositiveButton(R.string.del_note_positive, null)
-                .setNegativeButton(R.string.yes) { _, _ ->
-                    viewModel.deleteNote(note.id)
-                }
-                .create()
+            .setTitle(R.string.delete_note)
+            .setPositiveButton(R.string.del_note_positive, null)
+            .setNegativeButton(R.string.yes) { _, _ ->
+                viewModel.deleteNote(note.id)
+            }
+            .create()
         deleteNoteDialog.setMessage(getString(R.string.delete_note_msg, note.title))
         deleteNoteDialog.show()
     }
