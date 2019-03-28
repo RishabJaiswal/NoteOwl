@@ -160,6 +160,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
 
     private fun showFilters() {
         if (!card_labels.isVisible) {
+            btn_filter_labels.invisible()
             val anim = ViewAnimationUtils.createCircularReveal(card_labels, x, y, 0f, endRadius)
             anim.duration = 400L
             card_labels.visible()
@@ -173,6 +174,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
             anim.duration = 400L
             card_labels.invisible()
             anim.start()
+            btn_filter_labels.visible()
         }
     }
 
