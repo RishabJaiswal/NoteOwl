@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "246530725946",
+    "firebase_url": "https://note-owl.firebaseio.com",
+    "project_id": "note-owl",
+    "storage_bucket": "note-owl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246530725946:android:180bae2a880c57d7",
+        "android_client_info": {
+          "package_name": "com.owl.noteowl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246530725946-2quj5rth8m6icoa7scl7485c7hs2c0v4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBew3v58wMCCBbdfam1odmGGqXNSwTiAJ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246530725946:android:c96f884eba5f61a4",
+        "android_client_info": {
+          "package_name": "com.owl.noteowl.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246530725946-2quj5rth8m6icoa7scl7485c7hs2c0v4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBew3v58wMCCBbdfam1odmGGqXNSwTiAJ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
