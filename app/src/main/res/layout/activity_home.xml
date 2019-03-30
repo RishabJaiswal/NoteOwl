@@ -4,28 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.home.HomeActivity">
-
-    <!--semi-circle-->
-    <View
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:background="@drawable/circle"
-        android:translationX="-90dp"
-        android:translationY="-90dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".features.home.HomeActivity"
+    android:background="@android:color/white"
+    android:animateLayoutChanges="true">
 
     <!--list view icon-->
     <ImageView
-        android:id="@+id/imv_circle"
+        android:id="@+id/btn_options"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
+        android:layout_height="0dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="16dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/sv_notes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sv_notes"
         app:srcCompat="@drawable/ic_list_view" />
+
+    <!--search notes-->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_notes"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/rect_radial_white"
+        android:elevation="3dp"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        app:queryBackground="@android:color/transparent"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_options"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_hint" />
 
 
     <!--notes-->
@@ -33,35 +45,116 @@
         android:id="@+id/rv_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_filter_labels"
+        app:layout_constraintTop_toBottomOf="@+id/sv_notes"
         tools:listitem="@layout/item_note" />
 
-    <!--labels to filter or add note-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_label_filter"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    <!--button to filter by labels-->
+    <Button
+        android:id="@+id/btn_filter_labels"
+        style="@style/primaryButton"
+        android:elevation="3dp"
+        android:text="@string/labels"
+        android:drawableStart="@drawable/ic_filter"
+        android:drawablePadding="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/item_label_home_filters" />
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <!--add note at home-->
+    <Button
+        android:id="@+id/btn_add_note_home"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:elevation="3dp"
+        android:layout_marginEnd="16dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="18dp"
+        android:textSize="@dimen/txt_body"
+        android:text="@string/add_note"
+        android:textColor="@android:color/white"
+        android:fontFamily="@font/semi_bold"
+        android:textAllCaps="false"
+        android:drawableStart="@drawable/ic_add"
+        android:drawablePadding="8dp"
+        android:background="@drawable/bg_button_main"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_filter_labels"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--card of labels-->
+    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+        android:id="@+id/card_labels"
+        android:layout_width="232dp"
+        android:layout_height="wrap_content"
+        android:maxHeight="320dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_filter_labels"
+        app:layout_constraintStart_toStartOf="@+id/btn_filter_labels">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--select label title-->
+            <TextView
+                android:id="@+id/tv_select_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#08000000"
+                android:padding="24dp"
+                android:text="@string/swipe_select_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--close labels-->
+            <ImageButton
+                android:id="@+id/btn_close_labels"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_cross"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_select_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_select_label" />
+
+            <!--labels to filter or add note-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_label_filter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_select_label"
+                tools:listitem="@layout/item_label_filter_notes" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
     <!--blank slate-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/blank_slate_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
+        android:elevation="3.1dp"
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <!--blank slate animation-->
         <com.airbnb.lottie.LottieAnimationView
@@ -71,28 +164,100 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="72dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_fileName="home_blankslate.json" />
+            app:lottie_fileName="home_blankslate.json"
+            app:lottie_loop="true" />
 
         <!--add note-->
         <Button
             android:id="@+id/btn_add_note"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="230dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_button_main"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:text="@string/add_note"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/lottieAnimationView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/lottieAnimationView" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--filter blank slate-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blank_slate_filters"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--filter blank slate animation-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anim_filter_blank_slate"
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="no_filters.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:id="@+id/tv_blank_slate_filters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/medium"
+            android:gravity="center"
+            android:text="@string/msg_blank_slate_filters"
+            app:layout_constraintBottom_toTopOf="@+id/btn_clear_filters"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- clear filter button-->
+        <Button
+            android:id="@+id/btn_clear_filters"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_button_secondary"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/clear_filter"
+            android:textColor="@color/textPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/anim_filter_blank_slate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--scrim-->
+    <View
+        android:id="@+id/scrim_home"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        android:background="#33000000"
+        android:elevation="3dp"
+        android:clickable="true"
+        android:focusable="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

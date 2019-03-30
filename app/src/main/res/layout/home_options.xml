@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rect_top_radial_white"
+    android:elevation="6dp"
+    tools:elevation="0dp"
+    app:behavior_hideable="true"
+    app:behavior_skipCollapsed="false"
+    app:behavior_peekHeight="0dp"
+    android:paddingTop="16dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    android:id="@+id/home_options">
+
+    <View
+        android:layout_width="24dp"
+        android:layout_height="2dp"
+        android:background="@color/textDisabled"
+        android:layout_gravity="center"
+        android:layout_marginBottom="4dp" />
+
+    <!--edit name-->
+    <TextView
+        android:id="@+id/option_rate_app"
+        style="@style/homeOptions"
+        android:text="@string/rate_app"
+        android:drawableStart="@drawable/ic_star" />
+
+
+    <!--gift dev-->
+    <TextView
+        android:id="@+id/option_gift_dev"
+        style="@style/homeOptions"
+        android:text="@string/gift_developer"
+        android:drawableStart="@drawable/ic_coffee" />
+
+    <!--dev apps-->
+    <TextView
+        android:id="@+id/option_dev_apps"
+        style="@style/homeOptions"
+        android:text="@string/more_dev_apps"
+        android:drawableStart="@drawable/ic_apps" />
+
+</LinearLayout>

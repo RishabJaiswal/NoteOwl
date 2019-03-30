@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -15,51 +16,53 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:layout_marginStart="18dp">
+        android:paddingBottom="8dp"
+        android:background="?android:attr/selectableItemBackground">
 
         <!--note image-->
         <ImageView
             android:id="@+id/imv_note_banner"
             android:layout_width="210dp"
-            android:layout_height="160dp"
+            android:layout_height="0dp"
+            android:background="@drawable/radial_rect_8dp"
+            android:elevation="2dp"
             android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="h,21:16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            bind:loadImage="@{note.imageUrl}" />
 
         <!--liked icon-->
         <ImageView
             android:id="@+id/imv_liked"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:padding="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_date"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_liked"
-            android:visibility="@{note.liked ? View.VISIBLE : View.GONE}"
+            bind:visibleOrGone="@{note.liked}"
             tools:visibility="visible" />
 
         <!--labels-->
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_labels_note"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:visibility="@{note.labels.size() > 0 ? View.VISIBLE : View.GONE}"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@+id/imv_liked"
+            app:layout_constraintEnd_toEndOf="@+id/imv_note_banner"
             app:layout_constraintStart_toEndOf="@+id/imv_liked"
-            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner">
-
-            <LinearLayout
-                android:id="@+id/ll_labels"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <include layout="@layout/item_label_note_home" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
+            app:layout_constraintTop_toTopOf="@+id/imv_liked"
+            tools:listitem="@layout/item_label_note_home" />
 
         <!--note title-->
         <TextView
@@ -67,14 +70,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:maxLines="1"
+            android:ellipsize="end"
             android:fontFamily="@font/regular"
+            android:maxLines="2"
+            android:text="@{note.title}"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_24"
-            android:text="@{note.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imv_liked"
+            app:layout_constraintTop_toBottomOf="@+id/imv_note_banner"
             tools:text="Cook for heart" />
 
         <!--note details-->
@@ -83,13 +87,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:maxLines="4"
             android:ellipsize="end"
+            android:fontFamily="@font/medium"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="4"
+            android:text="@{note.text}"
             android:textColor="@color/textSecondary"
             android:textSize="@dimen/txt_body"
-            android:text="@{note.text}"
-            android:lineSpacingExtra="2dp"
-            android:fontFamily="@font/medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_note_title"
@@ -101,12 +105,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/regular"
             android:textColor="@color/textPrimary"
             android:textSize="@dimen/txt_caption"
-            android:fontFamily="@font/regular"
+            app:layout_constraintBottom_toTopOf="@+id/imv_liked"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_note_details"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="12 May" />
+
+        <!--more button-->
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="2dp"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_note_date"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

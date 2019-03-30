@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:minHeight="420dp"
+    android:paddingTop="24dp"
+    android:paddingStart="21dp"
+    android:paddingEnd="21dp">
+
+    <!--image search-->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:iconifiedByDefault="false"
+        app:queryHint="@string/search_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rect_stroked_grey" />
+
+    <!--images grid list-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_images"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="21dp"
+        android:background="@android:color/white"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_image"
+        app:spanCount="2" />
+
+    <!--progress bar-->
+    <ProgressBar
+        android:id="@+id/pb_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_images"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_images" />
+
+    <!--more images progress-->
+    <ProgressBar
+        android:id="@+id/pb_images_more"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_images" />
+
+    <!--blankslate artwork-->
+    <ImageView
+        android:id="@+id/imv_blankslate_no_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/art_blank_canvas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_image" />
+
+    <!--blankslate text-->
+    <TextView
+        android:id="@+id/tv_no_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/no_results_images"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/txt_body"
+        android:fontFamily="@font/semi_bold"
+        app:layout_constraintEnd_toEndOf="@+id/imv_blankslate_no_results"
+        app:layout_constraintStart_toStartOf="@+id/imv_blankslate_no_results"
+        app:layout_constraintTop_toBottomOf="@+id/imv_blankslate_no_results" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_blankslate_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="imv_blankslate_no_results, tv_no_images" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

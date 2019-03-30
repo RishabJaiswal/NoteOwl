@@ -1,8 +1,64 @@
+<!DOCTYPE resources [<!ENTITY appname "Note Owl">]>
 <resources>
-    <string name="app_name">NoteOwl</string>
+    <string name="app_name">&appname;</string>
     <string name="title_activity_notes">NotesActivity</string>
     <string name="cta_next">Next</string>
     <string name="add_title">Add title</string>
-    <string name="add_note">Add Note</string>
+    <string name="add_note">Note</string>
+    <string name="paras_number">(%d)</string>
+
+    <!--creating label-->
     <string name="add_label">Add label</string>
+    <string name="choose_label_color"><![CDATA[Choose label & color]]></string>
+    <string name="enter_label">Enter label</string>
+    <string name="cta_cancel">Cancel</string>
+    <string name="cta_save">Save</string>
+    <string name="lbl_select_one">OR select one</string>
+    <string name="error_empty_label">Label name can\'t be empty</string>
+    <string name="add_image">Add image</string>
+    <string name="search_image">Search image</string>
+    <string name="cta_select">Select</string>
+    <string name="note_saved">Note saved!</string>
+    <string name="error_saving_label">Label already created</string>
+    <string name="add_label_name">Add label name</string>
+    <string name="add_label_description">Add label description</string>
+    <string name="create_select_label">Create or select label</string>
+
+    <!--exit confirmation dialog-->
+    <string name="exit">Exit?</string>
+    <string name="exit_confirmation">Your changes will be gone. Are you sure?</string>
+    <string name="confirm_exit_msg">No, keep writing</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="tap_to_fill">So Empty! Tap to fill!</string>
+    <string name="add_note_label_filters">+ Add</string>
+
+    <!--delete note dialog-->
+    <string name="delete_note">Delete note?</string>
+    <string name="delete_note_msg">Are you sure you want to delete the note: \'%s\'</string>
+    <string name="del_note_positive">No, keep it</string>
+    <string name="no_results_images">Sorry, no results!</string>
+    <string name="clear_filter">Clear filters</string>
+    <string name="msg_blank_slate_filters">Oops! No note from the selected labels</string>
+    <string name="labels">Labels</string>
+    <string name="swipe_select_label">Swipe to filter notes\nTap to edit label</string>
+    <string name="filter_label">Filter notes</string>
+
+    <!--edit label-->
+    <string name="edit_label">Edit label</string>
+    <string name="select_label_color">Select label color</string>
+    <string name="delete_label">Delete</string>
+    <string name="delete_label_title">Delete label?</string>
+    <string name="confirm_label_delete">Do you want to delete the label \'%s\'?</string>
+    <string name="search_hint">Search all notes</string>
+
+    <!--home options-->
+    <string name="rate_app">Rate &appname;</string>
+    <string name="gift_developer">Buy developer a coffee</string>
+    <string name="more_dev_apps">More developer\'s apps</string>
+
+    <!--links-->
+    <string name="link_dev_paypal">https://www.paypal.me/RishabJaiswal</string>
+    <string name="link_dev_paytm">http://m.p-y.tm/requestPayment?recipient=9389853860&amp;amount=108&amp;comment=BuyNoteOwlDeveloperacoffee</string>
+    <string name="link_dev_play_store">https://play.google.com/store/apps/dev?id=7466184057107443731</string>
 </resources>

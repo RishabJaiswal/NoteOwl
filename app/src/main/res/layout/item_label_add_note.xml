@@ -7,8 +7,16 @@
     <data>
 
         <variable
+            name="viewType"
+            type="Integer" />
+
+        <variable
             name="label"
             type="com.owl.noteowl.data.features.notes.models.Label" />
+
+        <variable
+            name="utility"
+            type="com.owl.noteowl.utils.ContextUtility" />
     </data>
 
     <LinearLayout
@@ -18,9 +26,14 @@
         android:paddingStart="12dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="@{utility.getMargin(viewType, 24, 8, 8)}"
+        android:layout_marginEnd="@{utility.getMargin(viewType, 8, 8, 24)}"
         android:gravity="center_vertical"
         android:background="@drawable/bg_label"
-        bind:bgTint="@{label.colorHex}">
+        bind:bgTint="@{label.colorHex}"
+        android:elevation="2dp">
 
         <!--label name-->
         <TextView
@@ -31,7 +44,7 @@
             android:text="@{label.title}"
             android:gravity="center"
             android:textSize="@dimen/txt_caption"
-            android:textColor="@color/textSecondary"
+            android:textColor="@{utility.getTextColor(label.colorHex)}"
             android:fontFamily="@font/semi_bold" />
 
         <!--close label-->
@@ -40,6 +53,7 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             app:srcCompat="@drawable/ic_cross"
+            android:tint="@{utility.getTextColor(label.colorHex)}"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="12dp" />
 
