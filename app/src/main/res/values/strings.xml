@@ -56,12 +56,12 @@
     <string name="rate_app">Rate &appname;</string>
     <string name="gift_developer">Buy developer a coffee</string>
     <string name="more_dev_apps">More developer\'s apps</string>
-    <string name="image_credits">by <u>%s</u></string>
+    <string name="image_credits">by &lt;u&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/u&gt;</string>
 
     <!--links-->
     <string name="link_dev_paypal">https://www.paypal.me/RishabJaiswal</string>
     <string name="link_dev_paytm">http://m.p-y.tm/requestPayment?recipient=9389853860&amp;amount=108&amp;comment=BuyNoteOwlDeveloperacoffee</string>
     <string name="link_dev_play_store">https://play.google.com/store/apps/dev?id=7466184057107443731</string>
     <string name="link_images_provider">https://www.unsplash.com</string>
-    <string name="credits_images_provider">Photos by photographers on <u>Unsplash</u></string>
+    <string name="credits_images_provider">*Photos by photographers on &lt;u&gt;&lt;b&gt;Unsplash&lt;/b&gt;&lt;/u&gt;</string>
 </resources>
