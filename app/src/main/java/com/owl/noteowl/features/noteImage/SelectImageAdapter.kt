@@ -4,11 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.owl.noteowl.R
 import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.databinding.ItemSelectImageBinding
 import com.owl.noteowl.extensions.gone
+import com.owl.noteowl.extensions.openUrl
 import com.owl.noteowl.extensions.visible
 
 class SelectImageAdapter(val context: Context,
@@ -80,24 +83,39 @@ class SelectImageAdapter(val context: Context,
         View.OnClickListener {
 
         init {
-            binding.root.setOnClickListener(this)
+            binding.imvNoteImage.setOnClickListener(this)
             binding.imvNoteImage.clipToOutline = true
+            binding.tvCredits.setOnClickListener(this)
         }
 
         fun bind(image: Image) {
-            binding.imageUrl = image.getDisplayImageUrl()
+            binding.image = image
             //showing selector
             if (selectedItemPosition == adapterPosition) {
                 binding.selector.visible()
             } else {
                 binding.selector.gone()
             }
+            //photographer name
+            binding.tvCredits.text = HtmlCompat.fromHtml(
+                context.getString(R.string.image_credits, image.photographer?.name ?: ""),
+                HtmlCompat.FROM_HTML_MODE_COMPACT
+            )
             binding.executePendingBindings()
         }
 
         override fun onClick(view: View?) {
-            updateSelection(adapterPosition)
-            onImageSelected(getSelectedImage())
+            when (view?.id) {
+                R.id.imv_note_image -> {
+                    updateSelection(adapterPosition)
+                    onImageSelected(getSelectedImage())
+                }
+                R.id.tv_credits -> {
+                    binding.image?.photographer?.links?.profilePagUrl?.let { profileUrl ->
+                        context.openUrl(profileUrl)
+                    }
+                }
+            }
         }
     }
 }
