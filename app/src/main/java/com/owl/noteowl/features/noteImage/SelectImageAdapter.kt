@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
@@ -12,6 +11,7 @@ import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.databinding.ItemSelectImageBinding
 import com.owl.noteowl.extensions.gone
 import com.owl.noteowl.extensions.openUrl
+import com.owl.noteowl.extensions.parseHtml
 import com.owl.noteowl.extensions.visible
 
 class SelectImageAdapter(val context: Context,
@@ -97,10 +97,10 @@ class SelectImageAdapter(val context: Context,
                 binding.selector.gone()
             }
             //photographer name
-            binding.tvCredits.text = HtmlCompat.fromHtml(
-                context.getString(R.string.image_credits, image.photographer?.name ?: ""),
-                HtmlCompat.FROM_HTML_MODE_COMPACT
-            )
+            binding.tvCredits.text = context.getString(
+                R.string.image_credits,
+                image.photographer?.name ?: ""
+            ).parseHtml()
             binding.executePendingBindings()
         }
 
