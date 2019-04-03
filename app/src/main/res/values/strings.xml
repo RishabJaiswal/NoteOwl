@@ -61,6 +61,7 @@
     <!--links-->
     <string name="link_dev_paypal">https://www.paypal.me/RishabJaiswal</string>
     <string name="link_dev_paytm">http://m.p-y.tm/requestPayment?recipient=9389853860&amp;amount=108&amp;comment=BuyNoteOwlDeveloperacoffee</string>
+    <string name="link_app_play_store">https://play.google.com/store/apps/details?id=com.owl.noteowl</string>
     <string name="link_dev_play_store">https://play.google.com/store/apps/dev?id=7466184057107443731</string>
     <string name="link_images_provider">https://www.unsplash.com</string>
     <string name="credits_images_provider">*Photos by photographers on &lt;u&gt;&lt;b&gt;Unsplash&lt;/b&gt;&lt;/u&gt;</string>

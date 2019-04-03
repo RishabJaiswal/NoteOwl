@@ -128,7 +128,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
 
             //rate app
             R.id.option_rate_app -> {
-                //todo:: redirect to app on play store
+                openUrl(getString(R.string.link_app_play_store))
             }
 
             //gift dev
