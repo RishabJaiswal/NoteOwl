@@ -21,6 +21,7 @@ import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.features.addNote.AddNoteActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.home_options.*
+import java.util.*
 
 
 class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTextListener {
@@ -34,6 +35,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
     private val y by lazy { (card_labels.bottom - card_labels.top) / 2 }
     private val endRadius by lazy {
         Math.hypot(card_labels.measuredWidth.toDouble(), card_labels.measuredWidth.toDouble()).toFloat()
+    }
+    private val blankSlateMsgs by lazy {
+        resources.getStringArray(R.array.msgs_blank_slate_home)
     }
 
     private val optionsBottomSheet by lazy {
@@ -62,7 +66,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
 
         observeNotes()
         observeLabels()
-        btn_add_note.setOnClickListener(this)
+        btn_quote.setOnClickListener(this)
         btn_filter_labels.setOnClickListener(this)
         btn_clear_filters.setOnClickListener(this)
         btn_add_note_home.setOnClickListener(this)
@@ -98,7 +102,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         when (view?.id) {
             //add note
             R.id.btn_add_note_home,
-            R.id.btn_add_note -> {
+            R.id.btn_quote -> {
                 startActivity(Intent(this, AddNoteActivity::class.java))
             }
 
@@ -202,6 +206,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
 
     private fun showBlankSlate() {
         if (viewModel.isLabelsFilterEmpty()) {
+            btn_quote.text = blankSlateMsgs[Random().nextInt(blankSlateMsgs.size)]
             blank_slate_home.visible()
         }
     }

@@ -64,4 +64,13 @@
     <string name="link_dev_play_store">https://play.google.com/store/apps/dev?id=7466184057107443731</string>
     <string name="link_images_provider">https://www.unsplash.com</string>
     <string name="credits_images_provider">*Photos by photographers on &lt;u&gt;&lt;b&gt;Unsplash&lt;/b&gt;&lt;/u&gt;</string>
+    <string name="msg_blank_slate_home">I believe myself that a good writer doesn’t really need to be told anything except to keep at it.</string>
+
+    <string-array name="msgs_blank_slate_home">
+        <item>I am blank. Therefore, I can create whatever I want.</item>
+        <item>I know you write amazing things.</item>
+        <item>Start writing, no matter what. The water does not flow until the faucet is turned on.</item>
+        <item>I can shake off everything as I write; my sorrows disappear, my courage is reborn.</item>
+        <item>I believe myself that a good writer doesn’t really need to be told anything except to keep at it.</item>
+    </string-array>
 </resources>
