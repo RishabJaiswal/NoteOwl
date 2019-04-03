@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="imageUrl"
-            type="String" />
+            name="image"
+            type="com.owl.noteowl.data.features.images.models.Image" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,12 +21,11 @@
             android:layout_height="0dp"
             android:background="@drawable/radial_rect_8dp"
             android:scaleType="centerCrop"
-            bind:layout_constraintBottom_toBottomOf="parent"
             bind:layout_constraintDimensionRatio="h,34:21"
             bind:layout_constraintEnd_toEndOf="parent"
             bind:layout_constraintStart_toStartOf="parent"
             bind:layout_constraintTop_toTopOf="parent"
-            bind:loadImage="@{imageUrl}" />
+            bind:loadImage="@{image.displayImageUrl}" />
 
         <!--selector-->
         <View
@@ -34,10 +34,28 @@
             android:layout_height="0dp"
             android:visibility="gone"
             android:background="@drawable/image_selector"
-            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintBottom_toBottomOf="@+id/imv_note_image"
             bind:layout_constraintEnd_toEndOf="parent"
             bind:layout_constraintStart_toStartOf="parent"
             bind:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--photo credits-->
+        <TextView
+            android:id="@+id/tv_credits"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/txt_caption"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@+id/imv_note_image"
+            tools:text="Photo by Rishab Jaiswal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

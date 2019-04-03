@@ -6,6 +6,9 @@ class Image {
     @SerializedName("urls")
     var urls: ImageUrls? = null
 
+    @SerializedName("user")
+    var photographer: Photographer? = null
+
     fun getDisplayImageUrl(): String? {
         return urls?.regular
     }

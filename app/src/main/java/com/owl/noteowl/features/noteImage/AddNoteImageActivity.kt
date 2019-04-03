@@ -18,9 +18,7 @@ import com.owl.noteowl.R
 import com.owl.noteowl.data.Result
 import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.databinding.ActivityAddNoteImageBinding
-import com.owl.noteowl.extensions.gone
-import com.owl.noteowl.extensions.text
-import com.owl.noteowl.extensions.visible
+import com.owl.noteowl.extensions.*
 import com.owl.noteowl.features.BaseActivity
 import com.owl.noteowl.utils.Constants.Note
 import com.owl.noteowl.utils.ContextUtility
@@ -77,6 +75,11 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
                     finish()
                 }, 1500)
             }
+
+            //image provider
+            R.id.tv_credits_image_provider -> {
+                openUrl(getString(R.string.link_images_provider))
+            }
         }
     }
 
@@ -125,6 +128,8 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
                 rv_images.adapter = imagesAdapter
                 rv_images.addItemDecoration(ImagesDecoration(margin, margin))
                 rv_images.addOnScrollListener(imagesScrollListener)
+                tv_credits_image_provider.setOnClickListener(this@AddNoteImageActivity)
+                tv_credits_image_provider.text = getString(R.string.credits_images_provider).parseHtml()
             }
             viewModel.getRandomImages()
             observeImages()

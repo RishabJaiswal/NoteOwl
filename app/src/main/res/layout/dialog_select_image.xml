@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -26,10 +27,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="8dp"
         android:background="@android:color/white"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_credits_image_provider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sv_image"
@@ -51,19 +52,19 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_images"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_images" />
+        tools:visibility="visible" />
 
     <!--blankslate artwork-->
     <ImageView
         android:id="@+id/imv_blankslate_no_results"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:src="@drawable/art_blank_canvas"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_credits_image_provider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sv_image" />
@@ -82,11 +83,31 @@
         app:layout_constraintStart_toStartOf="@+id/imv_blankslate_no_results"
         app:layout_constraintTop_toBottomOf="@+id/imv_blankslate_no_results" />
 
+    <!--credits- images provider-->
+    <TextView
+        android:id="@+id/tv_credits_image_provider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="start"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        tools:text="@string/credits_images_provider"
+        android:textSize="@dimen/txt_caption"
+        android:textColor="@color/textSecondary"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rv_images" />
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_blankslate_images"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        tools:visibility="visible"
         app:constraint_referenced_ids="imv_blankslate_no_results, tv_no_images" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
