@@ -45,7 +45,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             //changes the generated .apk name
-            if (variant.name.contains("Release")) {
+            if (variant.name.contains("release")) {
                 def formattedDate = new Date().format('dd.MM.yy_HHmm')
                 outputFileName = "noteOwl_${variant.name}_${variant.versionCode}_${formattedDate}_${getGitHash()}.apk"
             }
