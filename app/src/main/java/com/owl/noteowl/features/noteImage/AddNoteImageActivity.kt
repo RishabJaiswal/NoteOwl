@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.owl.noteowl.R
+import com.owl.noteowl.analytics.*
 import com.owl.noteowl.data.Result
 import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.databinding.ActivityAddNoteImageBinding
@@ -45,7 +46,7 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
 
         //creating view model
         viewModel = ViewModelProviders.of(
-                this, AddNoteImageViewModel.Factory(noteId)
+            this, AddNoteImageViewModel.Factory(noteId)
         )[AddNoteImageViewModel::class.java]
         observeNote()
 
@@ -71,6 +72,9 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
             R.id.btn_save -> {
                 viewModel.saveNote()
                 showNoteSavedDialog()
+                viewModel.getNote()?.let { note ->
+                    Analytics.track(SAVE_NOTE, buildNoteParams(note))
+                }
                 Handler().postDelayed({
                     finish()
                 }, 1500)
@@ -85,6 +89,7 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
 
     fun onImageSelected(image: Image?) {
         image?.getDisplayImageUrl()?.let { imageUrl ->
+            Analytics.track(if (!viewModel.isNoteImagePresent()) ADD_NOTE_IMAGE else CHANGE_NOTE_IMAGE)
             viewModel.saveImage(imageUrl)
             selectImageDialog?.dismiss()
         }
@@ -95,8 +100,8 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
         if (selectImageDialog == null) {
             val view = LayoutInflater.from(this).inflate(R.layout.dialog_select_image, null)
             selectImageDialog = AlertDialog.Builder(this)
-                    .setView(view)
-                    .create()
+                .setView(view)
+                .create()
 
             //images recycler listing
             val margin = ContextUtility(this).convertDpToPx(10f).toInt()
@@ -151,29 +156,29 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
     private fun observeImages() {
         viewModel.imagesLiveData.observe(this, Observer<Result<List<Image>>> {
             it?.parseResponse(
-                    //progress
-                    { isLoading ->
-                        if (isLoading) {
-                            showProgress()
-                        } else {
-                            hideProgress()
-                        }
-                    },
-
-                    //success
-                    { images ->
-                        imagesAdapter.updateImages(images)
-                        selectImageDialog?.group_blankslate_images?.let { view ->
-                            visibleOrGone(view, images.isEmpty())
-                        }
+                //progress
+                { isLoading ->
+                    if (isLoading) {
+                        showProgress()
+                    } else {
                         hideProgress()
-                        contextUtility.closeKeyboard(selectImageDialog!!.rv_images)
-                    },
+                    }
+                },
 
-                    //error
-                    { errorThrowable ->
-                        hideProgress()
-                    })
+                //success
+                { images ->
+                    imagesAdapter.updateImages(images)
+                    selectImageDialog?.group_blankslate_images?.let { view ->
+                        visibleOrGone(view, images.isEmpty())
+                    }
+                    hideProgress()
+                    contextUtility.closeKeyboard(selectImageDialog!!.rv_images)
+                },
+
+                //error
+                { errorThrowable ->
+                    hideProgress()
+                })
         })
     }
 
@@ -209,7 +214,7 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
 
     //for images grid list
     class ImagesDecoration(private val rightMargin: Int, private val bottomMargin: Int) :
-            RecyclerView.ItemDecoration() {
+        RecyclerView.ItemDecoration() {
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
             val position = parent.getChildLayoutPosition(view)
             if (position == 0 || position % 2 == 0) {
@@ -225,9 +230,9 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
     private fun showNoteSavedDialog() {
         val view = layoutInflater.inflate(R.layout.dialog_note_saved, null)
         val alertDialog = AlertDialog.Builder(this)
-                .setView(view)
-                .setCancelable(false)
-                .create()
+            .setView(view)
+            .setCancelable(false)
+            .create()
         view.lottie_note_saved.playAnimation()
         alertDialog.show()
     }
