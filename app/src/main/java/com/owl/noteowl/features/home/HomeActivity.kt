@@ -189,10 +189,12 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
                 if (notes.isEmpty()) {
                     if (viewModel.isLabelsFilterEmpty()) {
                         //no label filter is selected
+                        blank_slate_filters.gone()
                         if (viewModel.isSearchEmpty()) {
                             showBlankSlate()
                         }
                     } else {
+                        hideBlankSlate()
                         blank_slate_filters.visible()
                     }
                 } else {
@@ -209,6 +211,10 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
             btn_quote.text = blankSlateMsgs[Random().nextInt(blankSlateMsgs.size)]
             blank_slate_home.visible()
         }
+    }
+
+    private fun hideBlankSlate() {
+        blank_slate_home.gone()
     }
 
     //observing labels list
