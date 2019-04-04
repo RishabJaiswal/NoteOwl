@@ -163,10 +163,11 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
             //select label
             R.id.btn_save_label -> {
                 selectLabelBinding.label?.let { label ->
-                    if (label.title.isEmpty()) {
+                    val labelTitle = label.title.trim()
+                    if (labelTitle.isEmpty()) {
                         showToast(R.string.error_empty_label)
                     } else {
-                        if (viewModel.isLabelPresentInLabelsList(label.title) ||
+                        if (viewModel.isLabelPresentInLabelsList(labelTitle) ||
                             viewModel.saveLabel(null, label) == false
                         ) {
                             showToast(R.string.error_saving_label)
@@ -232,8 +233,6 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
     fun showSelectLabelDialog() {
         if (selectLabelDialog == null) {
             selectLabelBinding = DialogCreateLabelBinding.inflate(layoutInflater)
-            selectLabelBinding.label = Label()
-
             selectLabelBinding.apply {
                 colorPicker.setOnColorChangeListener { colorBarPosition, alphaBarPosition, color ->
                     label?.colorHex = color
@@ -251,6 +250,8 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
         }
 
         //selecting random color and emptying label title
+        selectLabelBinding.label = Label()
+        selectLabelBinding.edtLabelDescription.setText("")
         selectLabelBinding.edtLabelName.setText("")
         selectLabelDialog?.show()
     }
