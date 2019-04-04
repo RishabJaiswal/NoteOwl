@@ -73,7 +73,7 @@ class AddNoteImageActivity : BaseActivity(), View.OnClickListener, SearchView.On
                 viewModel.saveNote()
                 showNoteSavedDialog()
                 viewModel.getNote()?.let { note ->
-                    Analytics.track(SAVE_NOTE, trackNote(note))
+                    Analytics.track(SAVE_NOTE, buildNoteParams(note))
                 }
                 Handler().postDelayed({
                     finish()

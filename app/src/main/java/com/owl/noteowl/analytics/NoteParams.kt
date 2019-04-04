@@ -18,7 +18,7 @@ const val PARAM_LABELS_COUNT = "labels_count"
 const val PARAM_HAS_IMAGE = "contains_image"
 const val PARAM_LIKED = "is_liked"
 
-fun trackNote(note: Note): Map<String, Serializable> {
+fun buildNoteParams(note: Note): Map<String, Serializable> {
     return HashMap<String, Serializable>().apply {
         put(PARAM_TITLE_SIZE, note.title.length)
         put(PARAM_TEXT_SIZE, note.text.length)
