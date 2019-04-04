@@ -14,6 +14,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.owl.noteowl.R
+import com.owl.noteowl.analytics.Analytics
+import com.owl.noteowl.analytics.LIKE_NOTE
+import com.owl.noteowl.analytics.UNLIKE_NOTE
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.databinding.ActivityAddNoteBinding
 import com.owl.noteowl.databinding.DialogCreateLabelBinding
@@ -195,6 +198,7 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
             //fav note
             R.id.cb_fav_note -> {
                 animateFavCheckbox()
+                trackFav()
             }
         }
     }
@@ -210,6 +214,10 @@ class AddNoteActivity : BaseActivity(), View.OnFocusChangeListener, View.OnClick
             confetti_fav.speed = 1.3f
             confetti_fav.playAnimation()
         }
+    }
+
+    private fun trackFav() {
+        Analytics.track(if (cb_fav_note.isChecked) LIKE_NOTE else UNLIKE_NOTE)
     }
 
     //observing saved changes in database

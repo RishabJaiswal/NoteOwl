@@ -14,6 +14,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.owl.noteowl.R
+import com.owl.noteowl.analytics.ADD_NOTE
+import com.owl.noteowl.analytics.Analytics
+import com.owl.noteowl.analytics.DELETE_NOTE
+import com.owl.noteowl.analytics.VIEW_NOTE
 import com.owl.noteowl.data.features.notes.models.Label
 import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.*
@@ -104,6 +108,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
             R.id.btn_add_note_home,
             R.id.btn_quote -> {
                 startActivity(Intent(this, AddNoteActivity::class.java))
+                Analytics.track(ADD_NOTE)
             }
 
             //clear filters
@@ -249,6 +254,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
     //on clicking note
     private fun onNoteClicked(note: Note) {
         startActivity(AddNoteActivity.getIntent(this, note.id))
+        Analytics.track(VIEW_NOTE)
     }
 
     //on note actions clicked
@@ -284,6 +290,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
             .setPositiveButton(R.string.del_note_positive, null)
             .setNegativeButton(R.string.yes) { _, _ ->
                 viewModel.deleteNote(note.id)
+                Analytics.track(DELETE_NOTE)
             }
             .create()
         deleteNoteDialog.setMessage(getString(R.string.delete_note_msg, note.title))

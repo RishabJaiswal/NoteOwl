@@ -8,6 +8,7 @@ import com.owl.noteowl.data.features.images.models.Image
 import com.owl.noteowl.data.features.images.models.ImageSearchResult
 import com.owl.noteowl.data.features.images.network.ImageApiManager
 import com.owl.noteowl.data.features.notes.local.NoteDao
+import com.owl.noteowl.data.features.notes.models.Note
 import com.owl.noteowl.extensions.asLiveData
 import com.owl.noteowl.utils.Constants
 import retrofit2.Call
@@ -84,6 +85,14 @@ class AddNoteImageViewModel(private val noteId: Int) : ViewModel() {
 
     fun saveNote() {
         noteDao.saveStatus(noteId, Constants.NoteStatus().SAVED)
+    }
+
+    fun getNote(): Note? {
+        return noteLiveData?.value
+    }
+
+    fun isNoteImagePresent(): Boolean {
+        return !getNote()?.imageUrl.isNullOrEmpty()
     }
 
     fun canLoadMoreImages(): Boolean {
