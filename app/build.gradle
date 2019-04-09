@@ -20,8 +20,8 @@ android {
         applicationId "com.owl.noteowl"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 3
-        versionName "v0.3.0-${getGitHash()}"
+        versionCode 4
+        versionName "v0.4.0-${getGitHash()}"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
