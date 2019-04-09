@@ -84,6 +84,10 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         option_rate_app.setOnClickListener(this)
         option_gift_dev.setOnClickListener(this)
         option_dev_apps.setOnClickListener(this)
+
+        if (getCountryCode().toLowerCase() == "in") {
+            option_gift_dev.visible()
+        }
     }
 
     override fun onPause() {
@@ -138,7 +142,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
 
             //gift dev
             R.id.option_gift_dev -> {
-                openUrl(getDevPayUrl())
+                openUrl(getString(R.string.link_dev_paytm))
             }
 
             //more apps
@@ -153,13 +157,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener, SearchView.OnQueryTex
         }
     }
 
-    private fun getDevPayUrl(): String {
+    private fun getCountryCode(): String {
         val tm = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        val countryCode = tm.getSimCountryIso()
-        if (countryCode.toLowerCase() == "in") {
-            return getString(R.string.link_dev_paytm)
-        }
-        return getString(R.string.link_dev_paypal)
+        return tm.getSimCountryIso()
     }
 
     private fun clearFilters() {

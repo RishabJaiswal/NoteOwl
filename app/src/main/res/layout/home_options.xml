@@ -35,6 +35,8 @@
         android:id="@+id/option_gift_dev"
         style="@style/homeOptions"
         android:text="@string/gift_developer"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:drawableStart="@drawable/ic_coffee" />
 
     <!--dev apps-->
